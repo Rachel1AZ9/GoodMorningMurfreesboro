@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About & Bios | Good Morning Murfreesboro</title>
+  <meta name="description" content="Meet the team behind Good Morning Murfreesboro — Rachel Albertson, Lance Chandler, Neal DiPentino, Jonathan Chase, and Katrina Chase." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/about" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://goodmorningmurfreesboro.com/about" />
+  <meta property="og:title" content="About & Bios | Good Morning Murfreesboro" />
+  <meta property="og:description" content="Meet the team behind Good Morning Murfreesboro." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Good Morning Murfreesboro",
+    "url": "https://goodmorningmurfreesboro.com/about",
+    "description": "Meet the team behind Good Morning Murfreesboro, Murfreesboro Tennessee's community news hub.",
+    "mainEntity": {
+      "@type": "NewsMediaOrganization",
+      "name": "Good Morning Murfreesboro",
+      "url": "https://goodmorningmurfreesboro.com",
+      "member": [
+        {"@type": "Person", "name": "Rachel Albertson", "jobTitle": "Co-Host"},
+        {"@type": "Person", "name": "Lance Chandler", "jobTitle": "Co-Host"},
+        {"@type": "Person", "name": "Neal DiPentino", "jobTitle": "Producer"},
+        {"@type": "Person", "name": "Jonathan Chase", "jobTitle": "Editor"},
+        {"@type": "Person", "name": "Katrina Chase", "jobTitle": "Assistant Editor"}
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A; --gold-d:#A07830;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:1200px; --ease:cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* ── NAV ── */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-links a[aria-current="page"]{border-bottom:2px solid var(--gold)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* ── PAGE HERO ── */
+    .page-hero{
+      margin-top:var(--nav);
+      background:var(--dark);
+      position:relative;
+      overflow:hidden;
+      padding:7rem 2rem 6rem;
+      text-align:center;
+    }
+    .page-hero-bg{
+      position:absolute;inset:0;
+      background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.15) 0%,transparent 70%),
+      linear-gradient(170deg,#080808 0%,#1a1a1a 60%,#080808 100%);
+    }
+    /* Gold line decoration */
+    .page-hero-line{
+      position:absolute;
+      left:0;bottom:0;right:0;
+      height:3px;
+      background:linear-gradient(to right,transparent,var(--gold),transparent);
+    }
+    .page-hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+    .page-eyebrow{
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:1.5rem;
+    }
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+    .page-title{
+      font-family:var(--fh);
+      font-size:clamp(3.5rem,8vw,7rem);
+      line-height:.92;letter-spacing:.03em;
+      color:var(--white);
+      margin-bottom:1.5rem;
+    }
+    .page-title span{color:var(--gold)}
+    .page-sub{
+      font-family:var(--fs);
+      font-style:italic;
+      font-size:clamp(1rem,1.8vw,1.2rem);
+      color:rgba(255,255,255,.6);
+      line-height:1.7;
+      max-width:520px;
+      margin:0 auto;
+    }
+
+    /* ── MISSION ── */
+    .mission{
+      background:var(--gold);
+      padding:5rem 2rem;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .mission::before{
+      content:'GMM';
+      position:absolute;
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      font-family:var(--fh);
+      font-size:22vw;
+      color:rgba(0,0,0,.06);
+      white-space:nowrap;
+      pointer-events:none;
+      line-height:1;
+    }
+    .mission-inner{position:relative;z-index:1;max-width:800px;margin:0 auto}
+    .mission-label{
+      font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(28,28,28,.6);margin-bottom:1.25rem;
+    }
+    .mission-statement{
+      font-family:var(--fh);
+      font-size:clamp(1.8rem,4vw,3.2rem);
+      line-height:1.1;
+      letter-spacing:.03em;
+      color:var(--charcoal);
+      margin-bottom:1.5rem;
+    }
+    .mission-sub{
+      font-family:var(--fs);
+      font-size:1.05rem;
+      line-height:1.8;
+      color:rgba(28,28,28,.75);
+      max-width:620px;
+      margin:0 auto;
+    }
+
+    /* ── WHY WE DO THIS ── */
+    .why{
+      background:var(--white);
+      padding:7rem 2rem;
+    }
+    .why-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6rem;
+      align-items:center;
+    }
+    .sec-label{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .why-h2{
+      font-family:var(--fh);
+      font-size:clamp(2.5rem,4.5vw,4rem);
+      line-height:1;letter-spacing:.03em;
+      margin-bottom:1.5rem;
+    }
+    .why-h2 em{font-style:normal;color:var(--gold)}
+    .why-p{
+      font-family:var(--fs);
+      font-size:1rem;line-height:1.85;
+      color:#555;margin-bottom:1.1rem;
+    }
+    .why-values{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+      margin-top:2rem;
+    }
+    .value{
+      padding:1.5rem;
+      background:var(--off);
+      border-left:3px solid var(--gold);
+      border-radius:0 3px 3px 0;
+    }
+    .value-name{
+      font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:.4rem;
+    }
+    .value-desc{font-size:.83rem;color:#666;line-height:1.6}
+
+    /* ── OVERVIEW STATS ── */
+    .overview{
+      background:var(--charcoal);
+      padding:5rem 2rem;
+    }
+    .overview-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .ov-stat{
+      padding:2.5rem 1.5rem;
+      text-align:center;
+      background:rgba(0,0,0,.2);
+    }
+    .ov-n{
+      font-family:var(--fh);
+      font-size:3rem;color:var(--white);line-height:1;
+    }
+    .ov-n b{color:var(--gold);font-family:inherit;font-weight:400}
+    .ov-l{
+      font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);margin-top:.5rem;
+    }
+
+    /* ── TEAM ── */
+    .team{
+      background:var(--off);
+      padding:7rem 2rem;
+    }
+    .team-header{
+      max-width:var(--max);
+      margin:0 auto 4rem;
+      text-align:center;
+    }
+    .team-header h2{
+      font-family:var(--fh);
+      font-size:clamp(2.5rem,5vw,4rem);
+      letter-spacing:.03em;line-height:1;
+      margin-top:.75rem;
+    }
+    .team-header p{
+      font-family:var(--fs);
+      font-size:1rem;color:#666;
+      line-height:1.7;max-width:500px;
+      margin:.75rem auto 0;
+    }
+
+    /* Bio cards grid */
+    .bios-grid{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+    }
+    /* First 2 cards span wider on top row */
+    .bio-card:nth-child(1){ grid-column:1/2; }
+    .bio-card:nth-child(2){ grid-column:2/3; }
+
+    .bio-card{
+      background:var(--white);
+      border-radius:4px;
+      overflow:hidden;
+      transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+      position:relative;
+    }
+    .bio-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 48px rgba(0,0,0,.12);
+    }
+
+    /* Photo placeholder */
+    .bio-photo{
+      position:relative;
+      height:280px;
+      overflow:hidden;
+      background:var(--charcoal);
+    }
+    .bio-photo-placeholder{
+      position:absolute;inset:0;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--fh);
+      font-size:5rem;
+      color:rgba(255,255,255,.12);
+      letter-spacing:.05em;
+    }
+    .bio-photo img{
+      width:100%;height:100%;
+      object-fit:cover;object-position:top;
+      transition:transform .5s var(--ease);
+    }
+    .bio-card:hover .bio-photo img{transform:scale(1.04)}
+
+    /* Color accent per card */
+    .bio-card:nth-child(1) .bio-photo{background:linear-gradient(160deg,#1a3050,#2d5a8a)}
+    .bio-card:nth-child(2) .bio-photo{background:linear-gradient(160deg,#2a1500,#8b3a00)}
+    .bio-card:nth-child(3) .bio-photo{background:linear-gradient(160deg,#0a2010,#1a6030)}
+    .bio-card:nth-child(4) .bio-photo{background:linear-gradient(160deg,#1a1020,#5a2080)}
+    .bio-card:nth-child(5) .bio-photo{background:linear-gradient(160deg,#1a1000,#7a5000)}
+
+    .bio-role-badge{
+      position:absolute;
+      top:1rem;left:1rem;
+      background:var(--gold);
+      color:var(--charcoal);
+      font-size:.6rem;font-weight:700;
+      letter-spacing:.18em;text-transform:uppercase;
+      padding:.3rem .7rem;border-radius:2px;
+    }
+
+    .bio-body{padding:1.75rem 1.75rem 1.5rem}
+
+    .bio-name{
+      font-family:var(--fh);
+      font-size:1.8rem;letter-spacing:.03em;
+      line-height:1;color:var(--charcoal);
+      margin-bottom:.25rem;
+    }
+    .bio-title{
+      font-size:.68rem;font-weight:700;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--gold);
+      margin-bottom:1rem;
+    }
+    .bio-text{
+      font-family:var(--fs);
+      font-size:.88rem;line-height:1.75;
+      color:#555;margin-bottom:1.25rem;
+    }
+
+    /* Fun fact */
+    .bio-fact{
+      background:var(--off);
+      border-left:3px solid var(--gold);
+      padding:.75rem 1rem;
+      border-radius:0 3px 3px 0;
+      margin-bottom:1.25rem;
+    }
+    .bio-fact-label{
+      font-size:.58rem;font-weight:700;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--gold);margin-bottom:.25rem;
+    }
+    .bio-fact-text{
+      font-family:var(--fs);font-style:italic;
+      font-size:.85rem;color:#555;line-height:1.5;
+    }
+
+    /* Social links */
+    .bio-socials{
+      display:flex;gap:.5rem;
+    }
+    .bio-soc{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--muted);
+      padding:.35rem .7rem;
+      border:1px solid var(--gray);
+      border-radius:2px;
+      transition:color .2s,border-color .2s,background .2s;
+    }
+    .bio-soc:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.05)}
+    .bio-soc svg{width:13px;height:13px;flex-shrink:0}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--charcoal)}
+    .footer-nl{background:linear-gradient(120deg,var(--gold) 0%,var(--gold-l) 100%);padding:5rem 2rem;text-align:center}
+    .fl{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.6);margin-bottom:.75rem}
+    .footer-nl h2{font-family:var(--fh);font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.04em;color:var(--charcoal);margin-bottom:.6rem;line-height:1}
+    .footer-nl p{font-size:.93rem;color:rgba(28,28,28,.68);max-width:420px;margin:0 auto 2rem;line-height:1.65}
+    .nl-form{display:flex;max-width:460px;margin:0 auto 1rem;border-radius:2px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+    .nl-form input[type="email"]{flex:1;padding:1rem 1.25rem;font-family:var(--fb);font-size:.9rem;background:var(--white);border:none;outline:none;color:var(--charcoal)}
+    .nl-form input::placeholder{color:#aaa}
+    .nl-form button{padding:1rem 1.5rem;background:var(--charcoal);color:var(--white);font-family:var(--fb);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .nl-form button:hover{background:#000}
+    .nl-priv{font-size:.72rem;color:rgba(28,28,28,.5)}
+    .nl-priv a{color:rgba(28,28,28,.65);text-decoration:underline}
+    .footer-body{max-width:var(--max);margin:0 auto;padding:4rem 2rem 2rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+    .footer-brand img{height:38px;filter:brightness(0) invert(1);margin-bottom:1.2rem}
+    .footer-brand p{font-size:.83rem;color:rgba(255,255,255,.42);line-height:1.7;max-width:260px}
+    .f-soc{display:flex;gap:.6rem;margin-top:1.5rem}
+    .soc{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.65rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+    .f-col h4{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .f-col li{margin-bottom:.55rem}
+    .f-col li a{font-size:.82rem;color:rgba(255,255,255,.42);transition:color .2s}
+    .f-col li a:hover{color:var(--white)}
+    .footer-bot{border-top:1px solid rgba(255,255,255,.07);max-width:var(--max);margin:0 auto;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.28);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+    .d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      .nav-links{display:none} .burger{display:flex} .nav{padding:0 1.5rem}
+      .why-inner{grid-template-columns:1fr;gap:3rem}
+      .overview-inner{grid-template-columns:1fr 1fr}
+      .bios-grid{grid-template-columns:1fr 1fr}
+      .bio-card:nth-child(1),.bio-card:nth-child(2){grid-column:auto}
+      .footer-body{grid-template-columns:1fr 1fr;gap:2rem}
+    }
+    @media(max-width:600px){
+      .bios-grid{grid-template-columns:1fr}
+      .why-values{grid-template-columns:1fr}
+      .overview-inner{grid-template-columns:1fr 1fr}
+      .footer-body{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .footer-bot{flex-direction:column;align-items:flex-start}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    @media(prefers-contrast:high){:root{--gold:#FFD700}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <!-- NAV -->
+  <header role="banner">
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about" aria-current="page">About</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="About Good Morning Murfreesboro">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="page-hero-inner">
+        <p class="page-eyebrow">Good Morning Murfreesboro</p>
+        <h1 class="page-title">ABOUT &amp;<br/><span>THE TEAM</span></h1>
+        <p class="page-sub">Built by locals, for locals — meet the people who wake up every morning to tell Murfreesboro's story.</p>
+      </div>
+    </section>
+
+    <!-- MISSION STATEMENT -->
+    <section class="mission" aria-labelledby="mission-h">
+      <div class="mission-inner">
+        <p class="mission-label">Our Mission</p>
+        <h2 class="mission-statement" id="mission-h">TO INFORM, CELEBRATE, AND CONNECT THE MURFREESBORO COMMUNITY — ONE MORNING AT A TIME.</h2>
+        <p class="mission-sub">We believe every community deserves a platform that puts people first. Good Morning Murfreesboro exists to shine a light on the events, organizations, and individuals that make the Boro one of Tennessee's greatest places to live, work, and grow.</p>
+      </div>
+    </section>
+
+    <!-- WHY WE DO THIS -->
+    <section class="why" aria-labelledby="why-h">
+      <div class="why-inner">
+        <div class="reveal">
+          <p class="sec-label">Our Story</p>
+          <h2 class="why-h2" id="why-h">WHY WE<br/>DO <em>THIS.</em></h2>
+          <p class="why-p">Good Morning Murfreesboro started with a simple idea: what if there was one place where Murfreesboro residents could start their day fully informed, genuinely inspired, and deeply connected to their community?</p>
+          <p class="why-p">We saw non-profits doing incredible work that nobody knew about. We saw local businesses opening their doors without a single mention. We saw events come and go without enough people showing up. That had to change.</p>
+          <p class="why-p">So we built Good Morning Murfreesboro — a daily community hub that puts local voices front and center, every single morning.</p>
+        </div>
+        <div class="reveal d2">
+          <div class="why-values" role="list">
+            <div class="value" role="listitem">
+              <div class="value-name">Community First</div>
+              <div class="value-desc">Every story we tell serves the people of Murfreesboro — not clicks, not algorithms.</div>
+            </div>
+            <div class="value" role="listitem">
+              <div class="value-name">Authenticity</div>
+              <div class="value-desc">Real people, real stories, real impact. No fluff, no filler.</div>
+            </div>
+            <div class="value" role="listitem">
+              <div class="value-name">Inclusion</div>
+              <div class="value-desc">Every neighborhood, every background, every voice deserves to be heard.</div>
+            </div>
+            <div class="value" role="listitem">
+              <div class="value-name">Local Love</div>
+              <div class="value-desc">Shop local, give local, live local. The Boro is better when we support each other.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW STATS -->
+    <section class="overview" aria-label="Good Morning Murfreesboro by the numbers">
+      <div class="overview-inner">
+        <div class="ov-stat reveal">
+          <div class="ov-n">500<b>+</b></div>
+          <div class="ov-l">Events Covered / Year</div>
+        </div>
+        <div class="ov-stat reveal d1">
+          <div class="ov-n">100<b>+</b></div>
+          <div class="ov-l">Local Businesses Featured</div>
+        </div>
+        <div class="ov-stat reveal d2">
+          <div class="ov-n">50<b>+</b></div>
+          <div class="ov-l">Non-Profits Spotlighted</div>
+        </div>
+        <div class="ov-stat reveal d3">
+          <div class="ov-n">5</div>
+          <div class="ov-l">People on Our Team</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM BIOS -->
+    <section class="team" aria-labelledby="team-h">
+      <div class="team-header reveal">
+        <p class="sec-label">The Team</p>
+        <h2 id="team-h">MEET THE FACES<br/>BEHIND THE BORO</h2>
+        <p>Five Murfreesboro locals who love this city and wake up every morning to prove it.</p>
+      </div>
+
+      <div class="bios-grid">
+
+        <!-- Rachel Albertson -->
+        <article class="bio-card reveal d1" aria-label="Rachel Albertson, Co-Host">
+          <div class="bio-photo" aria-hidden="true">
+            <div class="bio-photo-placeholder">RA</div>
+            <!-- Replace with: <img src="photos/rachel-albertson.jpg" alt="Rachel Albertson" /> -->
+          </div>
+          <span class="bio-role-badge">Co-Host</span>
+          <div class="bio-body">
+            <h2 class="bio-name">RACHEL ALBERTSON</h2>
+            <p class="bio-title">Co-Host</p>
+            <p class="bio-text">
+              <!-- Replace with Rachel's real bio -->
+              Rachel is the heart and energy behind Good Morning Murfreesboro. A Murfreesboro native with a passion for storytelling and community, she brings warmth, wit, and an encyclopedic knowledge of the Boro to every episode. When she's not on air, you'll find her exploring local coffee shops or cheering on the community she loves.
+            </p>
+            <div class="bio-fact">
+              <p class="bio-fact-label">✦ Fun Fact</p>
+              <p class="bio-fact-text"><!-- Replace with Rachel's real fun fact --> Rachel has visited every single restaurant on the Murfreesboro Main Street — twice.</p>
+            </div>
+            <nav class="bio-socials" aria-label="Rachel Albertson's social media">
+              <a href="#" class="bio-soc" aria-label="Rachel on Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+              <a href="#" class="bio-soc" aria-label="Rachel on Instagram" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </nav>
+          </div>
+        </article>
+
+        <!-- Lance Chandler -->
+        <article class="bio-card reveal d2" aria-label="Lance Chandler, Co-Host">
+          <div class="bio-photo" aria-hidden="true">
+            <div class="bio-photo-placeholder">LC</div>
+          </div>
+          <span class="bio-role-badge">Co-Host</span>
+          <div class="bio-body">
+            <h2 class="bio-name">LANCE CHANDLER</h2>
+            <p class="bio-title">Co-Host</p>
+            <p class="bio-text">
+              <!-- Replace with Lance's real bio -->
+              Lance brings a sharp eye for community stories and an easy, genuine on-air presence that Murfreesboro has come to love. With deep roots in Rutherford County, Lance has an unmatched knack for finding the stories that matter most to real people. Off mic, he's a dedicated family man and local sports fanatic.
+            </p>
+            <div class="bio-fact">
+              <p class="bio-fact-label">✦ Fun Fact</p>
+              <p class="bio-fact-text"><!-- Replace with Lance's real fun fact --> Lance once interviewed five business owners in a single morning — all before 9am.</p>
+            </div>
+            <nav class="bio-socials" aria-label="Lance Chandler's social media">
+              <a href="#" class="bio-soc" aria-label="Lance on Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+              <a href="#" class="bio-soc" aria-label="Lance on Instagram" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </nav>
+          </div>
+        </article>
+
+        <!-- Neal DiPentino -->
+        <article class="bio-card reveal d3" aria-label="Neal DiPentino, Producer">
+          <div class="bio-photo" aria-hidden="true">
+            <div class="bio-photo-placeholder">ND</div>
+          </div>
+          <span class="bio-role-badge">Producer</span>
+          <div class="bio-body">
+            <h2 class="bio-name">NEAL DIPENTINO</h2>
+            <p class="bio-title">Producer</p>
+            <p class="bio-text">
+              <!-- Replace with Neal's real bio -->
+              Neal is the engine that keeps Good Morning Murfreesboro running smoothly. As Producer, he orchestrates every segment, guest, and story beat — making sure the show is polished, timely, and always on point. His behind-the-scenes hustle is what makes the magic happen every single morning.
+            </p>
+            <div class="bio-fact">
+              <p class="bio-fact-label">✦ Fun Fact</p>
+              <p class="bio-fact-text"><!-- Replace with Neal's real fun fact --> Neal has produced over 500 episodes and counting — and claims he's never missed a deadline.</p>
+            </div>
+            <nav class="bio-socials" aria-label="Neal DiPentino's social media">
+              <a href="#" class="bio-soc" aria-label="Neal on Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+              <a href="#" class="bio-soc" aria-label="Neal on LinkedIn" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                LinkedIn
+              </a>
+            </nav>
+          </div>
+        </article>
+
+        <!-- Jonathan Chase -->
+        <article class="bio-card reveal d4" aria-label="Jonathan Chase, Editor">
+          <div class="bio-photo" aria-hidden="true">
+            <div class="bio-photo-placeholder">JC</div>
+          </div>
+          <span class="bio-role-badge">Editor</span>
+          <div class="bio-body">
+            <h2 class="bio-name">JONATHAN CHASE</h2>
+            <p class="bio-title">Editor</p>
+            <p class="bio-text">
+              <!-- Replace with Jonathan's real bio -->
+              Jonathan shapes every story that comes through Good Morning Murfreesboro with a meticulous eye and a deep respect for accuracy. As Editor, he ensures every piece reflects the quality and integrity the Boro deserves. His background in community journalism brings a professional depth to everything GMM publishes.
+            </p>
+            <div class="bio-fact">
+              <p class="bio-fact-label">✦ Fun Fact</p>
+              <p class="bio-fact-text"><!-- Replace with Jonathan's real fun fact --> Jonathan reads three local newspapers every morning before the show — just to stay sharp.</p>
+            </div>
+            <nav class="bio-socials" aria-label="Jonathan Chase's social media">
+              <a href="#" class="bio-soc" aria-label="Jonathan on Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+              <a href="#" class="bio-soc" aria-label="Jonathan on Twitter" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4l16 16M4 20L20 4"/></svg>
+                𝕏
+              </a>
+            </nav>
+          </div>
+        </article>
+
+        <!-- Katrina Chase -->
+        <article class="bio-card reveal d5" aria-label="Katrina Chase, Assistant Editor">
+          <div class="bio-photo" aria-hidden="true">
+            <div class="bio-photo-placeholder">KC</div>
+          </div>
+          <span class="bio-role-badge">Assist. Editor</span>
+          <div class="bio-body">
+            <h2 class="bio-name">KATRINA CHASE</h2>
+            <p class="bio-title">Assistant Editor</p>
+            <p class="bio-text">
+              <!-- Replace with Katrina's real bio -->
+              Katrina is the detail-oriented force behind GMM's editorial consistency. Working alongside Jonathan, she brings a fresh perspective and tireless dedication to every story. Her passion for local community issues and commitment to authentic storytelling helps keep Good Morning Murfreesboro's content sharp, relevant, and real.
+            </p>
+            <div class="bio-fact">
+              <p class="bio-fact-label">✦ Fun Fact</p>
+              <p class="bio-fact-text"><!-- Replace with Katrina's real fun fact --> Katrina can spot a typo from across the room — it's both a gift and a curse.</p>
+            </div>
+            <nav class="bio-socials" aria-label="Katrina Chase's social media">
+              <a href="#" class="bio-soc" aria-label="Katrina on Facebook" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </a>
+              <a href="#" class="bio-soc" aria-label="Katrina on Instagram" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </nav>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-nl">
+      <p class="fl">Stay Connected</p>
+      <h2>START YOUR MORNING<br/>WITH THE BORO.</h2>
+      <p>Local news, events, and community stories — delivered free to your inbox every morning.</p>
+      <form class="nl-form" name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" aria-label="Newsletter signup form">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="hidden" name="bot-field" aria-hidden="true" />
+        <label for="nl-email" class="sr">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" aria-required="true" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="nl-priv">We respect your privacy. <a href="/privacy-policy">Privacy Policy</a>. Unsubscribe anytime.</p>
+    </div>
+    <div class="footer-body">
+      <div class="footer-brand">
+        <img src="GMM_Logo.png" alt="Good Morning Murfreesboro" width="128" height="38" />
+        <p>Your daily source for Murfreesboro news, events, and community — built by locals, for locals.</p>
+        <nav class="f-soc" aria-label="Social media links">
+          <a href="https://facebook.com/goodmorningmurfreesboro" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://instagram.com/goodmorningmurfreesboro" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+          <a href="https://twitter.com/goodmorningboro" class="soc" aria-label="X / Twitter" target="_blank" rel="noopener noreferrer">𝕏</a>
+        </nav>
+      </div>
+      <div class="f-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About &amp; Bios</a></li>
+          <li><a href="/events">Event Calendar</a></li>
+          <li><a href="/nonprofits">Non-Profits</a></li>
+          <li><a href="/businesses">Local Businesses</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Get Featured</h4>
+        <ul>
+          <li><a href="/contact#nonprofit">Feature a Non-Profit</a></li>
+          <li><a href="/contact#business">Feature a Business</a></li>
+          <li><a href="/contact#guest">Be a Guest</a></li>
+          <li><a href="/contact#shoutout">Send a Shoutout</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-use">Terms of Use</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal" aria-label="Legal links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+        <a href="/accessibility">Accessibility</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const dlinks = drawer.querySelectorAll('a');
+    burger.addEventListener('click', () => {
+      const o = drawer.classList.toggle('open');
+      burger.classList.toggle('open', o);
+      burger.setAttribute('aria-expanded', o);
+      drawer.setAttribute('aria-hidden', !o);
+      document.body.style.overflow = o ? 'hidden' : '';
+      dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+      if (o) dlinks[0].focus();
+    });
+    dlinks.forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+    }));
+    document.addEventListener('keydown', e => {
+      if(e.key==='Escape' && drawer.classList.contains('open')){ burger.click(); burger.focus(); }
+    });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    }), {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Newsletter
+    document.querySelector('.nl-form')?.addEventListener('submit', e => {
+      const b = e.currentTarget.querySelector('button');
+      b.textContent = 'Subscribed ✓'; b.style.background = '#1a5c2a'; b.disabled = true;
+    });
+  </script>
+</body>
+</html>

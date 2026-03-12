@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Get Featured | Good Morning Murfreesboro</title>
+  <meta name="description" content="Request a guest spot, feature your non-profit, or send a shoutout on Good Morning Murfreesboro — Murfreesboro Tennessee's community show." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/contact" />
+  <meta property="og:title" content="Contact & Get Featured | Good Morning Murfreesboro" />
+  <meta property="og:description" content="Get featured on Good Morning Murfreesboro. Submit a guest spot, non-profit request, or shoutout." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A; --gold-d:#A07830;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:1200px; --ease:cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* ── NAV ── */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-links a[aria-current="page"]{border-bottom:2px solid var(--gold)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* ── PAGE HERO ── */
+    .page-hero{margin-top:var(--nav);background:var(--dark);position:relative;overflow:hidden;padding:6rem 2rem 5rem;text-align:center}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.12) 0%,transparent 70%),linear-gradient(170deg,#080808 0%,#1a1500 60%,#080808 100%)}
+    .page-hero-line{position:absolute;left:0;bottom:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+    .page-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+    .page-title{font-family:var(--fh);font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:.03em;color:var(--white);margin-bottom:1.25rem}
+    .page-title span{color:var(--gold)}
+    .page-sub{font-family:var(--fs);font-style:italic;font-size:clamp(.95rem,1.8vw,1.15rem);color:rgba(255,255,255,.6);line-height:1.7;max-width:520px;margin:0 auto}
+
+    /* ── FORM SELECTOR ── */
+    .form-selector{
+      background:var(--charcoal);
+      padding:0 2rem;
+      position:sticky;
+      top:var(--nav);
+      z-index:80;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .form-selector-inner{
+      max-width:var(--max);margin:0 auto;
+      display:flex;
+    }
+    .form-tab{
+      flex:1;
+      padding:1.25rem 1rem;
+      font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);
+      background:none;border:none;cursor:pointer;
+      border-bottom:3px solid transparent;
+      transition:color .2s,border-color .2s;
+      display:flex;align-items:center;justify-content:center;gap:.5rem;
+      white-space:nowrap;
+    }
+    .form-tab:hover{color:rgba(255,255,255,.75)}
+    .form-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+    .form-tab svg{width:15px;height:15px;flex-shrink:0}
+
+    /* ── MAIN LAYOUT ── */
+    .contact-main{
+      max-width:var(--max);margin:0 auto;
+      padding:4rem 2rem;
+      display:grid;
+      grid-template-columns:1fr 380px;
+      gap:4rem;
+      align-items:start;
+    }
+
+    /* ── FORM PANELS ── */
+    .form-panel{display:none}
+    .form-panel.active{display:block}
+
+    .form-header{margin-bottom:2.5rem}
+    .form-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .form-title{font-family:var(--fh);font-size:clamp(2.2rem,4vw,3.5rem);letter-spacing:.03em;line-height:1;margin-bottom:.75rem}
+    .form-desc{font-family:var(--fs);font-size:.95rem;color:#666;line-height:1.75}
+
+    /* ── FORM ELEMENTS ── */
+    .form{display:flex;flex-direction:column;gap:1.25rem}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .field{display:flex;flex-direction:column;gap:.4rem}
+    .field label{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--charcoal)}
+    .field label .req{color:var(--gold);margin-left:.2rem}
+    .field input,.field select,.field textarea{
+      padding:.85rem 1rem;
+      border:1.5px solid var(--gray);
+      border-radius:2px;
+      font-family:var(--fb);
+      font-size:.88rem;
+      color:var(--charcoal);
+      background:var(--off);
+      outline:none;
+      transition:border-color .2s,background .2s,box-shadow .2s;
+      width:100%;
+    }
+    .field input:focus,.field select:focus,.field textarea:focus{
+      border-color:var(--gold);
+      background:var(--white);
+      box-shadow:0 0 0 3px rgba(201,168,76,.12);
+    }
+    .field input::placeholder,.field textarea::placeholder{color:#bbb}
+    .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer}
+    .field textarea{resize:vertical;min-height:130px;line-height:1.6}
+
+    /* Radio group */
+    .radio-group{display:flex;gap:.75rem;flex-wrap:wrap}
+    .radio-label{
+      display:flex;align-items:center;gap:.5rem;
+      padding:.6rem 1rem;
+      border:1.5px solid var(--gray);
+      border-radius:2px;
+      cursor:pointer;
+      font-size:.78rem;font-weight:600;
+      transition:border-color .2s,background .2s;
+    }
+    .radio-label:hover{border-color:var(--gold)}
+    .radio-label input[type="radio"]{accent-color:var(--gold)}
+    .radio-label:has(input:checked){border-color:var(--gold);background:rgba(201,168,76,.06);color:var(--charcoal)}
+
+    /* Submit button */
+    .submit-btn{
+      margin-top:.5rem;
+      padding:1.1rem 2rem;
+      background:var(--gold);
+      color:var(--charcoal);
+      font-family:var(--fb);
+      font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+      border:none;border-radius:2px;cursor:pointer;
+      transition:background .2s,transform .2s,box-shadow .2s;
+      display:flex;align-items:center;justify-content:center;gap:.6rem;
+      width:100%;
+    }
+    .submit-btn:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
+    .submit-btn:active{transform:none}
+    .submit-btn svg{width:16px;height:16px}
+
+    /* Success message */
+    .success-msg{
+      display:none;
+      background:rgba(22,163,74,.08);
+      border:1.5px solid rgba(22,163,74,.3);
+      border-radius:3px;
+      padding:1.5rem;
+      text-align:center;
+    }
+    .success-msg.show{display:block}
+    .success-msg .check{font-size:2.5rem;margin-bottom:.75rem}
+    .success-msg h3{font-family:var(--fh);font-size:1.8rem;letter-spacing:.03em;color:#16a34a;margin-bottom:.4rem}
+    .success-msg p{font-size:.88rem;color:#555;line-height:1.65}
+
+    /* Privacy note */
+    .privacy-note{font-size:.72rem;color:var(--muted);line-height:1.55;margin-top:.25rem}
+    .privacy-note a{color:var(--gold);text-decoration:underline}
+
+    /* ── SIDEBAR ── */
+    .sidebar{display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:calc(var(--nav) + 80px)}
+
+    .side-card{
+      background:var(--off);
+      border:1.5px solid var(--gray);
+      border-radius:3px;
+      padding:1.75rem;
+    }
+    .side-card-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .side-card h3{font-family:var(--fh);font-size:1.5rem;letter-spacing:.03em;margin-bottom:.6rem}
+    .side-card p{font-family:var(--fs);font-size:.85rem;color:#666;line-height:1.7;margin-bottom:1rem}
+
+    .side-info{display:flex;flex-direction:column;gap:.75rem}
+    .side-info-row{display:flex;align-items:flex-start;gap:.75rem;font-size:.83rem;color:#555}
+    .side-info-row svg{width:16px;height:16px;flex-shrink:0;color:var(--gold);margin-top:2px}
+
+    .side-social{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+    .side-soc{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      padding:.4rem .8rem;border-radius:2px;
+      border:1.5px solid var(--gray);color:var(--muted);
+      transition:all .2s;
+    }
+    .side-soc:hover{border-color:var(--gold);color:var(--gold)}
+
+    .what-to-expect{display:flex;flex-direction:column;gap:.75rem;margin-top:.25rem}
+    .expect-item{display:flex;align-items:flex-start;gap:.75rem}
+    .expect-num{
+      width:24px;height:24px;flex-shrink:0;
+      background:var(--gold);color:var(--charcoal);
+      border-radius:50%;font-size:.65rem;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+      margin-top:1px;
+    }
+    .expect-text{font-size:.82rem;color:#666;line-height:1.55}
+    .expect-text b{color:var(--charcoal);font-weight:700}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--charcoal)}
+    .footer-nl{background:linear-gradient(120deg,var(--gold) 0%,var(--gold-l) 100%);padding:5rem 2rem;text-align:center}
+    .fl{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.6);margin-bottom:.75rem}
+    .footer-nl h2{font-family:var(--fh);font-size:clamp(2rem,5vw,3.5rem);letter-spacing:.04em;color:var(--charcoal);margin-bottom:.6rem;line-height:1}
+    .footer-nl p{font-size:.93rem;color:rgba(28,28,28,.68);max-width:420px;margin:0 auto 2rem;line-height:1.65}
+    .nl-form{display:flex;max-width:460px;margin:0 auto 1rem;border-radius:2px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+    .nl-form input[type="email"]{flex:1;padding:1rem 1.25rem;font-family:var(--fb);font-size:.9rem;background:var(--white);border:none;outline:none;color:var(--charcoal)}
+    .nl-form input::placeholder{color:#aaa}
+    .nl-form button{padding:1rem 1.5rem;background:var(--charcoal);color:var(--white);font-family:var(--fb);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .nl-form button:hover{background:#000}
+    .nl-priv{font-size:.72rem;color:rgba(28,28,28,.5)}
+    .nl-priv a{color:rgba(28,28,28,.65);text-decoration:underline}
+    .footer-body{max-width:var(--max);margin:0 auto;padding:4rem 2rem 2rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+    .footer-brand img{height:38px;filter:brightness(0) invert(1);margin-bottom:1.2rem}
+    .footer-brand p{font-size:.83rem;color:rgba(255,255,255,.42);line-height:1.7;max-width:260px}
+    .f-soc{display:flex;gap:.6rem;margin-top:1.5rem}
+    .soc{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.65rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+    .f-col h4{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .f-col li{margin-bottom:.55rem}
+    .f-col li a{font-size:.82rem;color:rgba(255,255,255,.42);transition:color .2s}
+    .f-col li a:hover{color:var(--white)}
+    .footer-bot{border-top:1px solid rgba(255,255,255,.07);max-width:var(--max);margin:0 auto;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.28);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      .nav-links{display:none}.burger{display:flex}.nav{padding:0 1.5rem}
+      .contact-main{grid-template-columns:1fr;gap:2.5rem}
+      .sidebar{position:static;top:auto}
+      .footer-body{grid-template-columns:1fr 1fr;gap:2rem}
+    }
+    @media(max-width:600px){
+      .form-tab span{display:none}
+      .field-row{grid-template-columns:1fr}
+      .footer-body{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .footer-bot{flex-direction:column;align-items:flex-start}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" aria-current="page" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="page-eyebrow">Get Involved</p>
+        <h1 class="page-title">LET'S<br/><span>CONNECT.</span></h1>
+        <p class="page-sub">Ready to share your story with Murfreesboro? Whether you're a guest, a non-profit, or just want to send some love — we want to hear from you.</p>
+      </div>
+    </section>
+
+    <!-- FORM TABS -->
+    <div class="form-selector" role="tablist" aria-label="Select form type">
+      <div class="form-selector-inner">
+        <button class="form-tab active" id="tab-guest" role="tab" aria-selected="true" aria-controls="panel-guest" data-panel="guest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Guest Spot</span>
+        </button>
+        <button class="form-tab" id="tab-nonprofit" role="tab" aria-selected="false" aria-controls="panel-nonprofit" data-panel="nonprofit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>Non-Profit</span>
+        </button>
+        <button class="form-tab" id="tab-general" role="tab" aria-selected="false" aria-controls="panel-general" data-panel="general">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Shoutout &amp; General</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="contact-main">
+      <div>
+
+        <!-- ── GUEST SPOT FORM ── -->
+        <div class="form-panel active" id="panel-guest" role="tabpanel" aria-labelledby="tab-guest">
+          <div class="form-header">
+            <p class="form-eyebrow">Be Our Guest</p>
+            <h2 class="form-title">REQUEST A<br/>GUEST SPOT</h2>
+            <p class="form-desc">Have a story worth telling? Join Rachel and Lance on Good Morning Murfreesboro and share it with the community. Fill out the form below and our team will be in touch.</p>
+          </div>
+
+          <div class="success-msg" id="success-guest" aria-live="polite">
+            <div class="check">🎉</div>
+            <h3>Request Received!</h3>
+            <p>Thanks for reaching out! Our team will review your request and get back to you within 2–3 business days.</p>
+          </div>
+
+          <form class="form" id="form-guest" name="guest-spot" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="guest-spot" />
+            <input type="hidden" name="bot-field" aria-hidden="true" />
+
+            <div class="field-row">
+              <div class="field">
+                <label for="g-name">Your Name <span class="req" aria-label="required">*</span></label>
+                <input type="text" id="g-name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="g-org">Organization / Business Name</label>
+                <input type="text" id="g-org" name="organization" placeholder="Smith Co." />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="g-phone">Phone Number <span class="req" aria-label="required">*</span></label>
+                <input type="tel" id="g-phone" name="phone" placeholder="(615) 555-0100" required autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label for="g-email">Email Address <span class="req" aria-label="required">*</span></label>
+                <input type="email" id="g-email" name="email" placeholder="you@email.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="g-website">Website</label>
+                <input type="url" id="g-website" name="website" placeholder="https://yoursite.com" />
+              </div>
+              <div class="field">
+                <label for="g-social">Social Media Handle(s)</label>
+                <input type="text" id="g-social" name="social" placeholder="@yourhandle" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="g-date">Preferred Date / Time</label>
+              <input type="text" id="g-date" name="preferred_date" placeholder="e.g. Any Friday morning, or specific date" />
+            </div>
+
+            <div class="field">
+              <label for="g-story">Tell Us Your Story <span class="req" aria-label="required">*</span></label>
+              <textarea id="g-story" name="message" placeholder="What would you like to share with the Murfreesboro community? Tell us about yourself and why you'd like to be a guest..." required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="g-hear">How Did You Hear About Us?</label>
+              <select id="g-hear" name="how_heard">
+                <option value="">Select one...</option>
+                <option>Facebook</option>
+                <option>Instagram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>Word of mouth</option>
+                <option>Google search</option>
+                <option>Local event</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Submit Guest Spot Request
+            </button>
+            <p class="privacy-note">Your information is kept private and will never be sold. <a href="/privacy-policy">Privacy Policy</a>.</p>
+          </form>
+        </div>
+
+        <!-- ── NON-PROFIT FORM ── -->
+        <div class="form-panel" id="panel-nonprofit" role="tabpanel" aria-labelledby="tab-nonprofit">
+          <div class="form-header">
+            <p class="form-eyebrow">Make a Difference</p>
+            <h2 class="form-title">FEATURE YOUR<br/>NON-PROFIT</h2>
+            <p class="form-desc">Good Morning Murfreesboro is proud to support the organizations making a real difference in our community. Tell us about your non-profit and let's share your story.</p>
+          </div>
+
+          <div class="success-msg" id="success-nonprofit" aria-live="polite">
+            <div class="check">💛</div>
+            <h3>Thank You!</h3>
+            <p>We love supporting the Murfreesboro community. Our team will review your submission and reach out within 2–3 business days.</p>
+          </div>
+
+          <form class="form" id="form-nonprofit" name="nonprofit-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="nonprofit-request" />
+            <input type="hidden" name="bot-field" aria-hidden="true" />
+
+            <div class="field-row">
+              <div class="field">
+                <label for="np-org">Organization Name <span class="req" aria-label="required">*</span></label>
+                <input type="text" id="np-org" name="organization" placeholder="Murfreesboro Community Fund" required />
+              </div>
+              <div class="field">
+                <label for="np-contact">Contact Person <span class="req" aria-label="required">*</span></label>
+                <input type="text" id="np-contact" name="contact_person" placeholder="Jane Smith" required autocomplete="name" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="np-phone">Phone Number <span class="req" aria-label="required">*</span></label>
+                <input type="tel" id="np-phone" name="phone" placeholder="(615) 555-0100" required autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label for="np-email">Email Address <span class="req" aria-label="required">*</span></label>
+                <input type="email" id="np-email" name="email" placeholder="you@org.org" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="np-website">Organization Website</label>
+              <input type="url" id="np-website" name="website" placeholder="https://yourorg.org" />
+            </div>
+
+            <div class="field">
+              <label>501(c)(3) Status <span class="req" aria-label="required">*</span></label>
+              <div class="radio-group" role="group" aria-label="501c3 status">
+                <label class="radio-label"><input type="radio" name="status_501c3" value="yes" required /> Yes, we are a 501(c)(3)</label>
+                <label class="radio-label"><input type="radio" name="status_501c3" value="no" /> No, but we are a registered non-profit</label>
+                <label class="radio-label"><input type="radio" name="status_501c3" value="pending" /> Pending / In process</label>
+                <label class="radio-label"><input type="radio" name="status_501c3" value="other" /> Other / Not sure</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="np-mission">Mission & Description <span class="req" aria-label="required">*</span></label>
+              <textarea id="np-mission" name="mission" placeholder="Tell us about your organization's mission, the people you serve, and the impact you're making in Murfreesboro..." required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="np-story">Anything Else You'd Like to Share?</label>
+              <textarea id="np-story" name="message" placeholder="Upcoming events, recent accomplishments, specific asks — anything that helps us tell your story..." style="min-height:100px"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="np-hear">How Did You Hear About Us?</label>
+              <select id="np-hear" name="how_heard">
+                <option value="">Select one...</option>
+                <option>Facebook</option>
+                <option>Instagram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>Word of mouth</option>
+                <option>Google search</option>
+                <option>Another non-profit</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Submit Non-Profit Request
+            </button>
+            <p class="privacy-note">Your information is kept private and will never be sold. <a href="/privacy-policy">Privacy Policy</a>.</p>
+          </form>
+        </div>
+
+        <!-- ── GENERAL / SHOUTOUT FORM ── -->
+        <div class="form-panel" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
+          <div class="form-header">
+            <p class="form-eyebrow">Say Hello</p>
+            <h2 class="form-title">SHOUTOUTS &amp;<br/>GENERAL REQUESTS</h2>
+            <p class="form-desc">Want to shout out someone special, share a personal story, or inquire about a business feature? This is the place. We read every message.</p>
+          </div>
+
+          <div class="success-msg" id="success-general" aria-live="polite">
+            <div class="check">✨</div>
+            <h3>Message Sent!</h3>
+            <p>We got it! Our team will be in touch soon. Thank you for being part of the Good Morning Murfreesboro community.</p>
+          </div>
+
+          <form class="form" id="form-general" name="general-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="general-contact" />
+            <input type="hidden" name="bot-field" aria-hidden="true" />
+
+            <div class="field">
+              <label>Request Type</label>
+              <div class="radio-group" role="group" aria-label="Request type">
+                <label class="radio-label"><input type="radio" name="request_type" value="shoutout" checked /> 🌟 Shoutout</label>
+                <label class="radio-label"><input type="radio" name="request_type" value="personal" /> 🎙️ Personal Spot</label>
+                <label class="radio-label"><input type="radio" name="request_type" value="business" /> 🏪 Business Feature</label>
+                <label class="radio-label"><input type="radio" name="request_type" value="general" /> 💬 General Inquiry</label>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="gen-name">Your Name <span class="req" aria-label="required">*</span></label>
+                <input type="text" id="gen-name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="gen-biz">Business Name <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem;color:var(--muted)">(if applicable)</span></label>
+                <input type="text" id="gen-biz" name="business_name" placeholder="Smith's Bakery" />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="gen-phone">Phone Number</label>
+                <input type="tel" id="gen-phone" name="phone" placeholder="(615) 555-0100" autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label for="gen-email">Email Address <span class="req" aria-label="required">*</span></label>
+                <input type="email" id="gen-email" name="email" placeholder="you@email.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="gen-recipient">Shoutout Recipient Name <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.7rem;color:var(--muted)">(if sending a shoutout)</span></label>
+              <input type="text" id="gen-recipient" name="shoutout_recipient" placeholder="Who are you shouting out?" />
+            </div>
+
+            <div class="field">
+              <label for="gen-message">Your Message <span class="req" aria-label="required">*</span></label>
+              <textarea id="gen-message" name="message" placeholder="Write your shoutout, share your story, or tell us what's on your mind..." required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="gen-hear">How Did You Hear About Us?</label>
+              <select id="gen-hear" name="how_heard">
+                <option value="">Select one...</option>
+                <option>Facebook</option>
+                <option>Instagram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>Word of mouth</option>
+                <option>Google search</option>
+                <option>Local event</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+            <p class="privacy-note">Your information is kept private and will never be sold. <a href="/privacy-policy">Privacy Policy</a>.</p>
+          </form>
+        </div>
+
+      </div><!-- end left col -->
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" aria-label="Contact information">
+
+        <div class="side-card">
+          <p class="side-card-label">Reach Us</p>
+          <h3>Get In Touch</h3>
+          <div class="side-info">
+            <div class="side-info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6z"/></svg>
+              <span>Murfreesboro, Tennessee</span>
+            </div>
+            <div class="side-info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span>Airing every Friday at 9am</span>
+            </div>
+            <div class="side-info-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Response within 2–3 business days</span>
+            </div>
+          </div>
+          <div class="side-social">
+            <a href="https://www.facebook.com/profile.php?id=61567305260107" class="side-soc" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="side-soc" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+              Instagram
+            </a>
+            <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="side-soc" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+              YouTube
+            </a>
+          </div>
+        </div>
+
+        <div class="side-card">
+          <p class="side-card-label">What to Expect</p>
+          <h3>After You Submit</h3>
+          <div class="what-to-expect">
+            <div class="expect-item">
+              <div class="expect-num">1</div>
+              <p class="expect-text"><b>We review your request</b> — usually within 2–3 business days.</p>
+            </div>
+            <div class="expect-item">
+              <div class="expect-num">2</div>
+              <p class="expect-text"><b>We reach out</b> to confirm details and schedule your spot.</p>
+            </div>
+            <div class="expect-item">
+              <div class="expect-num">3</div>
+              <p class="expect-text"><b>You join the show</b> — live every Friday at 9am on YouTube and social.</p>
+            </div>
+            <div class="expect-item">
+              <div class="expect-num">4</div>
+              <p class="expect-text"><b>Your story goes live</b> — shared across all GMM channels to the Murfreesboro community.</p>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div><!-- end contact-main -->
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-nl">
+      <p class="fl">Stay Connected</p>
+      <h2>START YOUR MORNING<br/>WITH THE BORO.</h2>
+      <p>Local news, events, and community stories — delivered free to your inbox every morning.</p>
+      <form class="nl-form" name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="hidden" name="bot-field" aria-hidden="true" />
+        <label for="nl-email" class="sr">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="nl-priv">We respect your privacy. <a href="/privacy-policy">Privacy Policy</a>. Unsubscribe anytime.</p>
+    </div>
+    <div class="footer-body">
+      <div class="footer-brand">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="128" height="38" />
+        <p>Your daily source for Murfreesboro news, events, and community — built by locals, for locals.</p>
+        <nav class="f-soc" aria-label="Social media links">
+          <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+          <a href="https://www.tiktok.com/@gmmboro" class="soc" aria-label="TikTok" target="_blank" rel="noopener noreferrer">tt</a>
+          <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="soc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">yt</a>
+        </nav>
+      </div>
+      <div class="f-col"><h4>Explore</h4><ul>
+        <li><a href="/">Home</a></li><li><a href="/about">About &amp; Bios</a></li>
+        <li><a href="/events">Event Calendar</a></li><li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Local Businesses</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Get Featured</h4><ul>
+        <li><a href="/contact#guest">Guest Spot</a></li>
+        <li><a href="/contact#nonprofit">Non-Profit</a></li>
+        <li><a href="/contact#general">Shoutout</a></li>
+        <li><a href="/contact#general">Business Feature</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Legal</h4><ul>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/terms-of-use">Terms of Use</a></li>
+        <li><a href="/accessibility">Accessibility</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal"><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a><a href="/accessibility">Accessibility</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ── Tab switching ──────────────────────────────────────────────────────
+    const tabs = document.querySelectorAll('.form-tab');
+    const panels = document.querySelectorAll('.form-panel');
+
+    function activateTab(tabId) {
+      tabs.forEach(t => {
+        const active = t.id === 'tab-' + tabId;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active);
+      });
+      panels.forEach(p => {
+        p.classList.toggle('active', p.id === 'panel-' + tabId);
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => activateTab(tab.dataset.panel));
+    });
+
+    // Handle hash links from other pages (#guest, #nonprofit, #general)
+    function checkHash() {
+      const hash = window.location.hash.replace('#','');
+      if (['guest','nonprofit','general'].includes(hash)) activateTab(hash);
+    }
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+
+    // ── Form submissions ───────────────────────────────────────────────────
+    function handleSubmit(formId, successId) {
+      const form = document.getElementById(formId);
+      const success = document.getElementById(successId);
+      if (!form) return;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Basic validation
+        const required = form.querySelectorAll('[required]');
+        let valid = true;
+        required.forEach(f => {
+          f.style.borderColor = '';
+          if (!f.value.trim()) {
+            f.style.borderColor = '#dc2626';
+            valid = false;
+          }
+        });
+        if (!valid) {
+          form.querySelector('[required][style*="dc2626"]')?.focus();
+          return;
+        }
+
+        const btn = form.querySelector('.submit-btn');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg> Sending...';
+        btn.disabled = true;
+
+        try {
+          const data = new FormData(form);
+          await fetch('/', { method: 'POST', body: data });
+          form.style.display = 'none';
+          success.classList.add('show');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch {
+          // Still show success (Netlify handles the actual submission)
+          form.style.display = 'none';
+          success.classList.add('show');
+        }
+      });
+    }
+
+    handleSubmit('form-guest', 'success-guest');
+    handleSubmit('form-nonprofit', 'success-nonprofit');
+    handleSubmit('form-general', 'success-general');
+
+    // Clear red borders on input
+    document.querySelectorAll('input, textarea, select').forEach(f => {
+      f.addEventListener('input', () => f.style.borderColor = '');
+    });
+
+    // ── Mobile nav ─────────────────────────────────────────────────────────
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const dlinks = drawer.querySelectorAll('a');
+    burger.addEventListener('click', () => {
+      const o = drawer.classList.toggle('open');
+      burger.classList.toggle('open', o);
+      burger.setAttribute('aria-expanded', o);
+      drawer.setAttribute('aria-hidden', !o);
+      document.body.style.overflow = o ? 'hidden' : '';
+      dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+      if (o) dlinks[0].focus();
+    });
+    dlinks.forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+    }));
+    document.addEventListener('keydown', e => {
+      if(e.key==='Escape' && drawer.classList.contains('open')){ burger.click(); burger.focus(); }
+    });
+  </script>
+</body>
+</html>

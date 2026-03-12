@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
 Good Morning Murfreesboro — Event Scraper
-Pulls events from BaseLocal, Eventbrite, and City of Murfreesboro
+Pulls events from Eventbrite and City of Murfreesboro
 Outputs: events/events.json (relative to project root)
 
 Usage:
   python gmm_scraper.py              # scrape all sources
-  python gmm_scraper.py --source baselocal
   python gmm_scraper.py --source eventbrite
   python gmm_scraper.py --source murfreesboro
 
@@ -39,10 +38,10 @@ CATEGORY_MAP = {
     "food": ["food", "drink", "wine", "beer", "restaurant", "taste", "dining", "brunch", "market"],
     "family": ["family", "kid", "child", "children", "parent", "youth", "teen"],
     "arts": ["art", "gallery", "theater", "theatre", "film", "movie", "craft", "exhibit"],
-    "sports": ["sport", "run", "race", "walk", "5k", "tournament", "game", "fitness"],
-    "community": ["community", "volunteer", "nonprofit", "charity", "fundrais", "church", "civic"],
-    "education": ["class", "workshop", "seminar", "learn", "training", "education", "lecture"],
-    "festival": ["festival", "fair", "parade", "celebration", "holiday"],
+    "sports": ["sport", "run", "race", "walk", "5k", "tournament", "game", "fitness", "yoga", "wrestling"],
+    "community": ["community", "volunteer", "nonprofit", "charity", "fundrais", "church", "civic", "celebration"],
+    "education": ["class", "workshop", "seminar", "learn", "training", "education", "lecture", "tedx"],
+    "festival": ["festival", "fair", "parade", "holiday"],
 }
 
 def guess_category(text: str) -> str:
@@ -59,23 +58,128 @@ def make_id(source: str, title: str, date: str) -> str:
 def clean_text(s) -> str:
     if not s:
         return ""
+    # If it's a BeautifulSoup Tag, get its text content
+    if hasattr(s, 'get_text'):
+        s = s.get_text(separator=' ')
     return re.sub(r'\s+', ' ', str(s)).strip()
 
-# ── BaseLocal ──────────────────────────────────────────────────────────────
-def scrape_baselocal() -> list:
-    print("📡 Scraping BaseLocal...")
-    events = []
-    urls = [
-        "https://baselocal.com/tn/murfreesboro/events/",
-        "https://baselocal.com/tn/murfreesboro/events/?page=2",
-    ]
-    for url in urls:
-        try:
-            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
-            r.raise_for_status()
-            soup = BeautifulSoup(r.text, "html.parser")
+def extract_organizer(item: dict) -> str:
+    """Extract organizer/venue name from JSON-LD data."""
+    # Try organizer field first
+    org = item.get("organizer", {})
+    if isinstance(org, dict):
+        name = org.get("name", "")
+        if name:
+            return clean_text(name)
+    elif isinstance(org, str):
+        return clean_text(org)
 
-            # Try JSON-LD first
+    # Fall back to location/venue name
+    loc = item.get("location", {})
+    if isinstance(loc, dict):
+        name = loc.get("name", "")
+        if name:
+            return clean_text(name)
+
+    return ""
+
+
+# ── Eventbrite ─────────────────────────────────────────────────────────────
+def scrape_eventbrite() -> list:
+    print("📡 Scraping Eventbrite...")
+    events = []
+    url = "https://www.eventbrite.com/d/tn--murfreesboro/all-events/"
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+        r.raise_for_status()
+        html = r.text
+
+        # Extract __SERVER_DATA__ JSON blob using raw_decode
+        server_data = None
+        sd_idx = html.find('__SERVER_DATA__')
+        if sd_idx != -1:
+            eq_idx = html.index('=', sd_idx)
+            raw = html[eq_idx + 1:].strip()
+            try:
+                server_data, _ = json.JSONDecoder().raw_decode(raw)
+            except (json.JSONDecodeError, ValueError):
+                pass
+
+        if server_data:
+            results = []
+            # Navigate to search results
+            try:
+                results = server_data.get("search_data", {}).get("events", {}).get("results", [])
+            except (AttributeError, TypeError):
+                pass
+
+            for item in results:
+                title = clean_text(item.get("name", ""))
+                if not title:
+                    continue
+
+                # Build ISO date from start_date + start_time
+                start_date = item.get("start_date", "")
+                start_time = item.get("start_time", "")
+                end_date = item.get("end_date", "")
+                end_time = item.get("end_time", "")
+                date_raw = f"{start_date}T{start_time}" if start_date and start_time else start_date
+                end_raw = f"{end_date}T{end_time}" if end_date and end_time else end_date
+
+                if not date_raw:
+                    continue
+
+                # Venue / location
+                venue = item.get("primary_venue", {}) or {}
+                venue_name = clean_text(venue.get("name", ""))
+                addr = venue.get("address", {}) or {}
+                addr_parts = [addr.get("address_1", ""), addr.get("city", ""), addr.get("region", "")]
+                location = venue_name or ", ".join(p for p in addr_parts if p) or "Murfreesboro, TN"
+
+                # Description
+                desc = clean_text(item.get("summary", ""))
+
+                # Link
+                link = item.get("url", url)
+
+                # Image
+                image = ""
+                img_data = item.get("image", {})
+                if isinstance(img_data, dict):
+                    image = img_data.get("url", "") or img_data.get("original", {}).get("url", "")
+                elif isinstance(img_data, str):
+                    image = img_data
+
+                # Price
+                is_free = item.get("is_free", False)
+                price = "Free" if is_free else ""
+                ticket_info = item.get("ticket_availability", {}) or {}
+                if not is_free and ticket_info.get("minimum_ticket_price"):
+                    p = ticket_info["minimum_ticket_price"].get("major_value", "")
+                    if p:
+                        price = f"${p}"
+
+                # Source = venue name (the business/organizer, not "Eventbrite")
+                source = venue_name or "Murfreesboro Event"
+
+                events.append({
+                    "id": make_id("eventbrite", title, date_raw),
+                    "title": title,
+                    "date": date_raw,
+                    "endDate": end_raw,
+                    "location": location,
+                    "description": desc,
+                    "category": guess_category(title + " " + desc),
+                    "isFree": is_free,
+                    "price": price,
+                    "image": image,
+                    "link": link,
+                    "source": source,
+                })
+
+        # Fallback: JSON-LD
+        if not events:
+            soup = BeautifulSoup(html, "html.parser")
             for tag in soup.find_all("script", type="application/ld+json"):
                 try:
                     data = json.loads(tag.string)
@@ -85,85 +189,40 @@ def scrape_baselocal() -> list:
                             continue
                         title = clean_text(item.get("name", ""))
                         date_raw = item.get("startDate", "")
-                        end_raw = item.get("endDate", "")
-                        loc = item.get("location", {})
-                        location = clean_text(
-                            loc.get("name", "") if isinstance(loc, dict) else loc
-                        )
-                        desc = clean_text(item.get("description", ""))
-                        link = item.get("url", url)
-                        image = item.get("image", "")
-                        if isinstance(image, list):
-                            image = image[0] if image else ""
-                        if isinstance(image, dict):
-                            image = image.get("url", "")
-                        price = item.get("offers", {})
-                        is_free = False
-                        price_str = ""
-                        if isinstance(price, dict):
-                            p = str(price.get("price", ""))
-                            is_free = p in ("0", "0.0", "Free", "")
-                            price_str = "Free" if is_free else f"${p}"
                         if not title or not date_raw:
                             continue
+                        source = extract_organizer(item) or "Murfreesboro Event"
+                        loc = item.get("location", {})
+                        location = clean_text(loc.get("name", "")) if isinstance(loc, dict) else "Murfreesboro, TN"
                         events.append({
-                            "id": make_id("baselocal", title, date_raw),
+                            "id": make_id("eventbrite", title, date_raw),
                             "title": title,
                             "date": date_raw,
-                            "endDate": end_raw,
-                            "location": location,
-                            "description": desc,
-                            "category": guess_category(title + " " + desc),
-                            "isFree": is_free,
-                            "price": price_str,
-                            "image": image,
-                            "link": link,
-                            "source": "BaseLocal",
+                            "endDate": item.get("endDate", ""),
+                            "location": location or "Murfreesboro, TN",
+                            "description": clean_text(item.get("description", "")),
+                            "category": guess_category(title),
+                            "isFree": False,
+                            "price": "",
+                            "image": "",
+                            "link": item.get("url", url),
+                            "source": source,
                         })
                 except Exception:
                     pass
 
-            # CSS selector fallback
-            if not events:
-                for card in soup.select(".event-card, .event-item, article.event, [class*='event']"):
-                    title_el = card.select_one("h2, h3, h4, .event-title, .title")
-                    date_el = card.select_one("time, .date, .event-date, [class*='date']")
-                    loc_el = card.select_one(".location, .venue, [class*='location'], [class*='venue']")
-                    link_el = card.select_one("a[href]")
-                    title = clean_text(title_el) if title_el else ""
-                    date_raw = (date_el.get("datetime") or clean_text(date_el)) if date_el else ""
-                    location = clean_text(loc_el) if loc_el else "Murfreesboro, TN"
-                    link = link_el["href"] if link_el else url
-                    if not link.startswith("http"):
-                        link = "https://baselocal.com" + link
-                    if not title:
-                        continue
-                    events.append({
-                        "id": make_id("baselocal", title, date_raw),
-                        "title": title,
-                        "date": date_raw,
-                        "endDate": "",
-                        "location": location,
-                        "description": "",
-                        "category": guess_category(title),
-                        "isFree": False,
-                        "price": "",
-                        "image": "",
-                        "link": link,
-                        "source": "BaseLocal",
-                    })
-        except Exception as e:
-            print(f"  ⚠️  BaseLocal error ({url}): {e}")
+    except Exception as e:
+        print(f"  ⚠️  Eventbrite error: {e}")
 
-    print(f"  ✅ BaseLocal: {len(events)} events")
+    print(f"  ✅ Eventbrite: {len(events)} events")
     return events
 
 
-# ── Eventbrite ─────────────────────────────────────────────────────────────
-def scrape_eventbrite() -> list:
-    print("📡 Scraping Eventbrite...")
+# ── City of Murfreesboro ───────────────────────────────────────────────────
+def scrape_murfreesboro_city() -> list:
+    print("📡 Scraping City of Murfreesboro...")
     events = []
-    url = "https://www.eventbrite.com/d/tn--murfreesboro/all-events/"
+    url = "https://www.murfreesborotn.gov/calendar.aspx"
     try:
         r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
         r.raise_for_status()
@@ -179,155 +238,63 @@ def scrape_eventbrite() -> list:
                         continue
                     title = clean_text(item.get("name", ""))
                     date_raw = item.get("startDate", "")
-                    end_raw = item.get("endDate", "")
-                    loc = item.get("location", {})
-                    if isinstance(loc, dict):
-                        addr = loc.get("address", {})
-                        location = clean_text(loc.get("name", "")) or clean_text(
-                            addr.get("streetAddress", "") + " " + addr.get("addressLocality", "")
-                        )
-                    else:
-                        location = clean_text(loc)
-                    desc = clean_text(item.get("description", ""))
-                    link = item.get("url", url)
-                    image = item.get("image", "")
-                    if isinstance(image, list): image = image[0] if image else ""
-                    if isinstance(image, dict): image = image.get("url", "")
-                    offers = item.get("offers", {})
-                    price = ""
-                    is_free = False
-                    if isinstance(offers, dict):
-                        p = str(offers.get("price", ""))
-                        is_free = p in ("0", "0.0", "")
-                        price = "Free" if is_free else f"${p}"
                     if not title or not date_raw:
                         continue
-                    events.append({
-                        "id": make_id("eventbrite", title, date_raw),
-                        "title": title,
-                        "date": date_raw,
-                        "endDate": end_raw,
-                        "location": location or "Murfreesboro, TN",
-                        "description": desc,
-                        "category": guess_category(title + " " + desc),
-                        "isFree": is_free,
-                        "price": price,
-                        "image": image,
-                        "link": link,
-                        "source": "Eventbrite",
-                    })
-            except Exception:
-                pass
-
-        # Fallback: search cards
-        if not events:
-            for card in soup.select("[data-testid='event-card'], .search-event-card, article"):
-                title_el = card.select_one("h2, h3, [class*='title']")
-                date_el = card.select_one("time, [class*='date']")
-                loc_el = card.select_one("[class*='location'], [class*='venue']")
-                link_el = card.select_one("a[href*='eventbrite.com']")
-                img_el = card.select_one("img")
-                title = clean_text(title_el) if title_el else ""
-                date_raw = (date_el.get("datetime") or clean_text(date_el)) if date_el else ""
-                location = clean_text(loc_el) if loc_el else "Murfreesboro, TN"
-                link = link_el["href"] if link_el else url
-                image = img_el.get("src", "") if img_el else ""
-                if not title:
-                    continue
-                events.append({
-                    "id": make_id("eventbrite", title, date_raw),
-                    "title": title,
-                    "date": date_raw,
-                    "endDate": "",
-                    "location": location,
-                    "description": "",
-                    "category": guess_category(title),
-                    "isFree": False,
-                    "price": "",
-                    "image": image,
-                    "link": link,
-                    "source": "Eventbrite",
-                })
-    except Exception as e:
-        print(f"  ⚠️  Eventbrite error: {e}")
-
-    print(f"  ✅ Eventbrite: {len(events)} events")
-    return events
-
-
-# ── City of Murfreesboro ───────────────────────────────────────────────────
-def scrape_murfreesboro_city() -> list:
-    print("📡 Scraping City of Murfreesboro...")
-    events = []
-    urls = [
-        "https://www.murfreesborotn.gov/calendar.aspx",
-        "https://www.murfreesborotn.gov/events",
-    ]
-    for url in urls:
-        try:
-            r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
-            r.raise_for_status()
-            soup = BeautifulSoup(r.text, "html.parser")
-
-            # JSON-LD
-            for tag in soup.find_all("script", type="application/ld+json"):
-                try:
-                    data = json.loads(tag.string)
-                    items = data if isinstance(data, list) else [data]
-                    for item in items:
-                        if item.get("@type") not in ("Event", "SocialEvent"):
-                            continue
-                        title = clean_text(item.get("name", ""))
-                        date_raw = item.get("startDate", "")
-                        if not title or not date_raw:
-                            continue
-                        events.append({
-                            "id": make_id("murfreesboro", title, date_raw),
-                            "title": title,
-                            "date": date_raw,
-                            "endDate": item.get("endDate", ""),
-                            "location": clean_text(item.get("location", {}).get("name", "Murfreesboro, TN")) if isinstance(item.get("location"), dict) else "Murfreesboro, TN",
-                            "description": clean_text(item.get("description", "")),
-                            "category": guess_category(title),
-                            "isFree": True,
-                            "price": "Free",
-                            "image": "",
-                            "link": item.get("url", url),
-                            "source": "City of Murfreesboro",
-                        })
-                except Exception:
-                    pass
-
-            # CivicPlus calendar fallback
-            if not events:
-                for row in soup.select(".calendar-event, .event-row, tr.event, .fc-event, li.event"):
-                    title_el = row.select_one("a, .event-title, h3, h4")
-                    date_el = row.select_one("time, .date, td.date, [class*='date']")
-                    title = clean_text(title_el) if title_el else ""
-                    date_raw = (date_el.get("datetime") or clean_text(date_el)) if date_el else ""
-                    link = title_el.get("href", url) if title_el and title_el.name == "a" else url
-                    if not link.startswith("http"):
-                        link = "https://www.murfreesborotn.gov" + link
-                    if not title:
-                        continue
+                    loc = item.get("location", {})
+                    location = clean_text(loc.get("name", "Murfreesboro, TN")) if isinstance(loc, dict) else "Murfreesboro, TN"
+                    source = extract_organizer(item) or location or "City of Murfreesboro"
                     events.append({
                         "id": make_id("murfreesboro", title, date_raw),
                         "title": title,
                         "date": date_raw,
-                        "endDate": "",
-                        "location": "Murfreesboro, TN",
-                        "description": "",
+                        "endDate": item.get("endDate", ""),
+                        "location": location,
+                        "description": clean_text(item.get("description", "")),
                         "category": guess_category(title),
                         "isFree": True,
                         "price": "Free",
                         "image": "",
-                        "link": link,
-                        "source": "City of Murfreesboro",
+                        "link": item.get("url", url),
+                        "source": source,
                     })
-            if events:
-                break
-        except Exception as e:
-            print(f"  ⚠️  City of Murfreesboro error ({url}): {e}")
+            except Exception:
+                pass
+
+        # CivicPlus calendar fallback
+        if not events:
+            for row in soup.select(".calendar-event, .event-row, tr.event, .fc-event, li.event, .calendarEvent"):
+                title_el = row.select_one("a, .event-title, h3, h4")
+                date_el = row.select_one("time, .date, td.date, [class*='date']")
+                title = clean_text(title_el) if title_el else ""
+                date_raw = ""
+                if date_el:
+                    date_raw = date_el.get("datetime", "") or clean_text(date_el)
+                link = ""
+                if title_el and title_el.name == "a":
+                    link = title_el.get("href", url)
+                else:
+                    link = url
+                if link and not link.startswith("http"):
+                    link = "https://www.murfreesborotn.gov" + link
+
+                if not title or "<" in title:
+                    continue
+                events.append({
+                    "id": make_id("murfreesboro", title, date_raw),
+                    "title": title,
+                    "date": date_raw,
+                    "endDate": "",
+                    "location": "Murfreesboro, TN",
+                    "description": "",
+                    "category": guess_category(title),
+                    "isFree": True,
+                    "price": "Free",
+                    "image": "",
+                    "link": link,
+                    "source": "City of Murfreesboro",
+                })
+    except Exception as e:
+        print(f"  ⚠️  City of Murfreesboro error: {e}")
 
     print(f"  ✅ City of Murfreesboro: {len(events)} events")
     return events
@@ -337,7 +304,7 @@ def scrape_murfreesboro_city() -> list:
 def deduplicate(events: list) -> list:
     seen = {}
     for e in events:
-        key = (e["title"].lower()[:40], e["date"][:10])
+        key = (e["title"].lower()[:40], e["date"][:10] if e["date"] else "")
         if key not in seen:
             seen[key] = e
     return list(seen.values())
@@ -345,7 +312,6 @@ def deduplicate(events: list) -> list:
 
 # ── Sort & save ────────────────────────────────────────────────────────────
 def save(events: list):
-    # Sort: events with parseable dates first, then by date
     def sort_key(e):
         d = e.get("date", "")
         try:
@@ -368,19 +334,16 @@ def save(events: list):
 # ── Main ───────────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(description="GMM Event Scraper")
-    parser.add_argument("--source", choices=["baselocal", "eventbrite", "murfreesboro"], help="Scrape a single source")
+    parser.add_argument("--source", choices=["eventbrite", "murfreesboro"], help="Scrape a single source")
     args = parser.parse_args()
 
     all_events = []
 
-    if args.source == "baselocal":
-        all_events = scrape_baselocal()
-    elif args.source == "eventbrite":
+    if args.source == "eventbrite":
         all_events = scrape_eventbrite()
     elif args.source == "murfreesboro":
         all_events = scrape_murfreesboro_city()
     else:
-        all_events += scrape_baselocal()
         all_events += scrape_eventbrite()
         all_events += scrape_murfreesboro_city()
 

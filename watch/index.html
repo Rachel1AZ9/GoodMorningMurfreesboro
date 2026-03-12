@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch Episodes | Good Morning Murfreesboro</title>
+  <meta name="description" content="Watch past episodes of Good Morning Murfreesboro — your weekly community talk show airing live every Friday at 7am on YouTube." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/watch" />
+  <meta property="og:title" content="Watch Episodes | Good Morning Murfreesboro" />
+  <meta property="og:description" content="Catch up on past episodes of Good Morning Murfreesboro, live every Friday at 7am." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A; --gold-d:#A07830;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:1280px; --ease:cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* ── NAV ── */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-links a[aria-current="page"]{border-bottom:2px solid var(--gold)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* ── HERO ── */
+    .page-hero{margin-top:var(--nav);background:var(--dark);position:relative;overflow:hidden;padding:5.5rem 2rem 5rem;text-align:center}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.12) 0%,transparent 70%),linear-gradient(170deg,#080808 0%,#1a1500 60%,#080808 100%)}
+    .page-hero-line{position:absolute;left:0;bottom:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+    .page-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+    .page-title{font-family:var(--fh);font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:.03em;color:var(--white);margin-bottom:1.1rem}
+    .page-title span{color:var(--gold)}
+    .page-sub{font-family:var(--fs);font-style:italic;font-size:1rem;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:2rem}
+    .live-badge{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3);
+      color:#f87171;padding:.5rem 1rem;border-radius:2px;
+      font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    }
+    .live-dot{width:7px;height:7px;background:#ef4444;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+
+    /* ── FEATURED EPISODE ── */
+    .featured-section{background:var(--charcoal);padding:4rem 2rem}
+    .featured-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:center}
+    .featured-label{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .featured-title{font-family:var(--fh);font-size:clamp(1.8rem,3.5vw,3rem);letter-spacing:.03em;line-height:1;color:var(--white);margin-bottom:.75rem}
+    .featured-date{font-size:.75rem;color:rgba(255,255,255,.4);margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+    .featured-date svg{width:13px;height:13px;color:var(--gold)}
+    .featured-desc{font-family:var(--fs);font-size:.92rem;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:1.5rem}
+    .featured-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+    .btn-gold{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:var(--gold);color:var(--charcoal);
+      font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+      padding:.85rem 1.5rem;border-radius:2px;border:none;cursor:pointer;
+      transition:background .2s,transform .2s,box-shadow .2s;
+    }
+    .btn-gold:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.3)}
+    .btn-outline-white{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:transparent;color:rgba(255,255,255,.7);
+      font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      padding:.85rem 1.5rem;border-radius:2px;
+      border:1.5px solid rgba(255,255,255,.18);
+      transition:border-color .2s,color .2s;
+    }
+    .btn-outline-white:hover{border-color:var(--gold);color:var(--gold)}
+    .btn-gold svg,.btn-outline-white svg{width:15px;height:15px}
+
+    /* Video embed */
+    .video-wrap{
+      position:relative;
+      padding-bottom:56.25%;
+      background:#000;
+      border-radius:3px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+    }
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .video-thumb{
+      position:absolute;inset:0;
+      cursor:pointer;
+    }
+    .video-thumb img{width:100%;height:100%;object-fit:cover}
+    .play-btn{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:64px;height:64px;background:rgba(201,168,76,.9);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      transition:background .2s,transform .3s;
+    }
+    .video-thumb:hover .play-btn{background:var(--gold);transform:translate(-50%,-50%) scale(1.1)}
+    .play-btn svg{width:24px;height:24px;color:var(--charcoal);margin-left:3px}
+
+    /* ── PAST EPISODES GRID ── */
+    .episodes-section{padding:4rem 2rem}
+    .episodes-inner{max-width:var(--max);margin:0 auto}
+    .section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem}
+    .section-title{font-family:var(--fh);font-size:2.5rem;letter-spacing:.04em}
+    .yt-link{
+      display:inline-flex;align-items:center;gap:.4rem;
+      font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--gold);transition:gap .2s;
+    }
+    .yt-link:hover{gap:.7rem}
+    .yt-link svg{width:14px;height:14px}
+
+    /* Episodes grid: 1 big + 4 below */
+    .episodes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+
+    .ep-card{
+      background:var(--white);
+      border:1.5px solid var(--gray);
+      border-radius:3px;
+      overflow:hidden;
+      display:flex;flex-direction:column;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+      cursor:pointer;
+    }
+    .ep-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,.1);border-color:var(--gold)}
+
+    .ep-thumb{
+      position:relative;
+      padding-bottom:56.25%;
+      background:var(--charcoal);
+      overflow:hidden;
+    }
+    .ep-thumb img{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+      transition:transform .4s var(--ease);
+    }
+    .ep-card:hover .ep-thumb img{transform:scale(1.05)}
+    .ep-thumb-placeholder{
+      position:absolute;inset:0;
+      background:linear-gradient(135deg,#1a1a1a,#2a2000);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .ep-thumb-placeholder svg{width:40px;height:40px;color:var(--gold);opacity:.4}
+    .ep-duration{
+      position:absolute;bottom:.5rem;right:.5rem;
+      background:rgba(0,0,0,.8);color:var(--white);
+      font-size:.62rem;font-weight:700;padding:.2rem .45rem;border-radius:2px;
+    }
+    .ep-num{
+      position:absolute;top:.5rem;left:.5rem;
+      background:var(--gold);color:var(--charcoal);
+      font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+      padding:.2rem .5rem;border-radius:2px;
+    }
+
+    .ep-body{padding:1rem;flex:1;display:flex;flex-direction:column}
+    .ep-date{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+    .ep-title{font-family:var(--fh);font-size:1.1rem;letter-spacing:.02em;line-height:1.1;color:var(--charcoal);flex:1;margin-bottom:.5rem}
+    .ep-desc{font-size:.78rem;color:#888;line-height:1.55;
+      display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+      margin-bottom:.75rem;
+    }
+    .ep-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--gray);padding-top:.65rem;margin-top:auto}
+    .ep-views{font-size:.65rem;color:var(--muted);display:flex;align-items:center;gap:.3rem}
+    .ep-views svg{width:11px;height:11px}
+    .ep-watch{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.3rem;transition:gap .2s}
+    .ep-card:hover .ep-watch{gap:.5rem}
+
+    /* Loading / error states */
+    .loading-state{text-align:center;padding:4rem 2rem;color:var(--muted);grid-column:1/-1}
+    .loading-spinner{width:32px;height:32px;border:3px solid var(--gray);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* API key notice */
+    .api-notice{
+      background:rgba(201,168,76,.07);
+      border:1.5px solid rgba(201,168,76,.25);
+      border-radius:3px;
+      padding:1.25rem 1.5rem;
+      margin-bottom:2rem;
+      display:flex;align-items:flex-start;gap:.75rem;
+      font-size:.82rem;line-height:1.6;color:#555;
+    }
+    .api-notice svg{width:18px;height:18px;flex-shrink:0;color:var(--gold);margin-top:1px}
+    .api-notice a{color:var(--gold);text-decoration:underline}
+    .api-notice.hidden{display:none}
+
+    /* Subscribe strip */
+    .subscribe-strip{
+      background:var(--charcoal);
+      padding:3rem 2rem;
+      text-align:center;
+    }
+    .subscribe-strip p{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .subscribe-strip h2{font-family:var(--fh);font-size:clamp(2rem,4vw,3rem);letter-spacing:.04em;color:var(--white);margin-bottom:1.5rem;line-height:1}
+    .subscribe-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--charcoal)}
+    .footer-nl{background:linear-gradient(120deg,var(--gold) 0%,var(--gold-l) 100%);padding:4.5rem 2rem;text-align:center}
+    .fl{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.6);margin-bottom:.75rem}
+    .footer-nl h2{font-family:var(--fh);font-size:clamp(2rem,5vw,3rem);letter-spacing:.04em;color:var(--charcoal);margin-bottom:.6rem;line-height:1}
+    .footer-nl p{font-size:.9rem;color:rgba(28,28,28,.68);max-width:400px;margin:0 auto 1.75rem;line-height:1.65}
+    .nl-form{display:flex;max-width:440px;margin:0 auto 1rem;border-radius:2px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+    .nl-form input[type="email"]{flex:1;padding:1rem 1.25rem;font-family:var(--fb);font-size:.88rem;background:var(--white);border:none;outline:none;color:var(--charcoal)}
+    .nl-form button{padding:1rem 1.5rem;background:var(--charcoal);color:var(--white);font-family:var(--fb);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .nl-form button:hover{background:#000}
+    .nl-priv{font-size:.72rem;color:rgba(28,28,28,.5)}
+    .nl-priv a{color:rgba(28,28,28,.65);text-decoration:underline}
+    .footer-body{max-width:var(--max);margin:0 auto;padding:3rem 2rem 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+    .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:1rem}
+    .footer-brand p{font-size:.82rem;color:rgba(255,255,255,.42);line-height:1.7;max-width:240px}
+    .f-soc{display:flex;gap:.6rem;margin-top:1.25rem}
+    .soc{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.62rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+    .f-col h4{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .f-col li{margin-bottom:.5rem}
+    .f-col li a{font-size:.8rem;color:rgba(255,255,255,.42);transition:color .2s}
+    .f-col li a:hover{color:var(--white)}
+    .footer-bot{border-top:1px solid rgba(255,255,255,.07);max-width:var(--max);margin:0 auto;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.28);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .featured-inner{grid-template-columns:1fr}
+      .featured-inner .video-wrap{order:-1}
+      .episodes-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:960px){
+      .nav-links{display:none}.burger{display:flex}.nav{padding:0 1.5rem}
+      .footer-body{grid-template-columns:1fr 1fr;gap:2rem}
+    }
+    @media(max-width:600px){
+      .episodes-grid{grid-template-columns:1fr}
+      .footer-body{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .footer-bot{flex-direction:column;align-items:flex-start}
+      .subscribe-btns{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/watch" aria-current="page">Watch</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/watch" tabindex="-1">Watch</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="page-eyebrow">Every Friday</p>
+        <h1 class="page-title">WATCH<br/><span>THE SHOW</span></h1>
+        <p class="page-sub">Live every Friday at 7am — your weekly dose of community, connection, and Murfreesboro love.</p>
+        <span class="live-badge">
+          <span class="live-dot" aria-hidden="true"></span>
+          Live Fridays at 7am CT on YouTube
+        </span>
+      </div>
+    </section>
+
+    <!-- FEATURED (most recent) -->
+    <section class="featured-section" aria-labelledby="featured-heading">
+      <div class="featured-inner">
+        <div>
+          <p class="featured-label">Most Recent Episode</p>
+          <h2 class="featured-title" id="featured-heading" id="feat-title">Loading latest episode...</h2>
+          <p class="featured-date" id="feat-date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="feat-date-text"></span>
+          </p>
+          <p class="featured-desc" id="feat-desc"></p>
+          <div class="featured-actions">
+            <a id="feat-yt-btn" href="https://www.youtube.com/@goodmorningmurfreesboro" target="_blank" rel="noopener noreferrer" class="btn-gold">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+              Watch on YouTube
+            </a>
+            <a href="https://www.youtube.com/@goodmorningmurfreesboro?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-outline-white">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Subscribe for Alerts
+            </a>
+          </div>
+        </div>
+        <div class="video-wrap" id="feat-video">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#111">
+            <div style="width:32px;height:32px;border:3px solid #333;border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAST EPISODES -->
+    <section class="episodes-section" aria-labelledby="episodes-heading">
+      <div class="episodes-inner">
+
+        <div class="api-notice" id="api-notice" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>
+            <strong>To auto-load your latest episodes:</strong> add a free YouTube Data API key to this page.
+            <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener noreferrer">Get a free key →</a>
+            Then in Claude Code open <code>watch/index.html</code> and replace <code>YOUR_API_KEY_HERE</code> near the top of the script with your key. Episodes will update automatically every Friday.
+          </span>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title" id="episodes-heading">PAST EPISODES</h2>
+          <a href="https://www.youtube.com/@goodmorningmurfreesboro/videos" target="_blank" rel="noopener noreferrer" class="yt-link" aria-label="View all episodes on YouTube">
+            View all on YouTube
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <div class="episodes-grid" id="episodes-grid" aria-live="polite">
+          <div class="loading-state">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <p>Loading episodes...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE STRIP -->
+    <div class="subscribe-strip">
+      <p>Never Miss an Episode</p>
+      <h2>SUBSCRIBE ON<br/>YOUTUBE</h2>
+      <div class="subscribe-btns">
+        <a href="https://www.youtube.com/@goodmorningmurfreesboro?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn-gold">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+          Subscribe on YouTube
+        </a>
+        <a href="https://www.tiktok.com/@gmmboro" target="_blank" rel="noopener noreferrer" class="btn-outline-white">Watch on TikTok</a>
+        <a href="https://www.facebook.com/profile.php?id=61567305260107" target="_blank" rel="noopener noreferrer" class="btn-outline-white">Watch on Facebook</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-nl">
+      <p class="fl">Stay Connected</p>
+      <h2>START YOUR MORNING<br/>WITH THE BORO.</h2>
+      <p>Local news, events, and community stories — free to your inbox every morning.</p>
+      <form class="nl-form" name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="hidden" name="bot-field" aria-hidden="true" />
+        <label for="nl-email" class="sr">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="nl-priv">We respect your privacy. <a href="/privacy-policy">Privacy Policy</a>.</p>
+    </div>
+    <div class="footer-body">
+      <div class="footer-brand">
+        <img src="/GMM_Logo.png" alt="Good Morning Murfreesboro" width="120" height="36" />
+        <p>Your daily source for Murfreesboro news, events, and community.</p>
+        <nav class="f-soc" aria-label="Social media">
+          <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+          <a href="https://www.tiktok.com/@gmmboro" class="soc" aria-label="TikTok" target="_blank" rel="noopener noreferrer">tt</a>
+          <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="soc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">yt</a>
+        </nav>
+      </div>
+      <div class="f-col"><h4>Explore</h4><ul>
+        <li><a href="/">Home</a></li><li><a href="/about">About</a></li>
+        <li><a href="/watch">Watch</a></li><li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Get Featured</h4><ul>
+        <li><a href="/contact#guest">Guest Spot</a></li>
+        <li><a href="/contact#nonprofit">Non-Profit</a></li>
+        <li><a href="/contact#general">Shoutout</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Legal</h4><ul>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/terms-of-use">Terms of Use</a></li>
+        <li><a href="/accessibility">Accessibility</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal"><a href="/privacy-policy">Privacy</a><a href="/terms-of-use">Terms</a><a href="/accessibility">Accessibility</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // ─────────────────────────────────────────────────────────────────────
+    // CONFIG — paste your free YouTube Data API key here to go live
+    // Get one at: https://console.cloud.google.com/apis/library/youtube.googleapis.com
+    // ─────────────────────────────────────────────────────────────────────
+    const API_KEY = 'YOUR_API_KEY_HERE';
+    const CHANNEL_ID = 'UCz5AtMQFFYqgzAeg8ye2Uvw';
+    const MAX_RESULTS = 5; // 1 featured + 4 below
+
+    // ─────────────────────────────────────────────────────────────────────
+    // FALLBACK EPISODES — shown until API key is added
+    // Update these whenever you want until the API is live
+    // ─────────────────────────────────────────────────────────────────────
+    const FALLBACK_EPISODES = [
+      {
+        videoId: '',
+        title: 'Beth Bryant (Isaiah 117 House) & Sarah Callender (Main Street Murfreesboro)',
+        date: '2025-03-07',
+        description: 'This week we\'re shining a light on the heart of Murfreesboro. Beth Bryant from Isaiah 117 House shares how they support children entering foster care in Rutherford County, plus Sarah Callender brings a powerful America 250 Moment celebrating the stories that make this country great.',
+        thumbnail: '',
+      },
+      {
+        videoId: '',
+        title: 'Missy Lay & Dave Weill III — Laughing With Purpose + America 250',
+        date: '2025-02-28',
+        description: 'We\'re laughing it up with purpose with guest Missy Lay, plus Dave Weill III joins our brand-new segment An America 250 Moment with a powerful reminder of the values that make this country great.',
+        thumbnail: '',
+      },
+      {
+        videoId: '',
+        title: 'Alex Sanford (Greenhouse Ministries) & Ron Young — Staying Fit at 60',
+        date: '2025-02-21',
+        description: 'Alex Sanford from Greenhouse Ministries talks about their exciting new coffee shop & café coming this Spring, plus fitness enthusiast Ron Young shares his secrets to staying healthy and fit at 60.',
+        thumbnail: '',
+      },
+      {
+        videoId: '',
+        title: 'Ivy Albright (Rutherford County CVB) & Cooper Schanie, LMT',
+        date: '2025-02-14',
+        description: 'Ivy Albright from the Rutherford County CVB shares local historical sites you have to check out and how tourism is boosting our community, plus Cooper Schanie talks the real benefits of massage therapy.',
+        thumbnail: '',
+      },
+      {
+        videoId: '',
+        title: 'Thanksgiving Special — Robin Housch (Sweet Addictions) & Neal DiPentino',
+        date: '2024-11-29',
+        description: 'On this special Thanksgiving edition, guests share what Thanksgiving means to them, reflect on memories from the past, and celebrate what they\'re most thankful for this year.',
+        thumbnail: '',
+      },
+    ];
+
+    // ─────────────────────────────────────────────────────────────────────
+    // HELPERS
+    // ─────────────────────────────────────────────────────────────────────
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    function formatDate(str) {
+      const d = new Date(str);
+      if (isNaN(d)) return str;
+      return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+    }
+
+    function ytThumb(videoId, size = 'mqdefault') {
+      return `https://i.ytimg.com/vi/${videoId}/${size}.jpg`;
+    }
+
+    function ytLink(videoId) {
+      return videoId
+        ? `https://www.youtube.com/watch?v=${videoId}`
+        : 'https://www.youtube.com/@goodmorningmurfreesboro';
+    }
+
+    function truncate(str, n) {
+      return str && str.length > n ? str.slice(0, n).trimEnd() + '...' : str;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // RENDER FEATURED
+    // ─────────────────────────────────────────────────────────────────────
+    function renderFeatured(ep) {
+      document.getElementById('feat-title').textContent = ep.title;
+      document.getElementById('feat-date-text').textContent = formatDate(ep.date);
+      document.getElementById('feat-desc').textContent = truncate(ep.description, 280);
+
+      const btn = document.getElementById('feat-yt-btn');
+      btn.href = ytLink(ep.videoId);
+
+      const wrap = document.getElementById('feat-video');
+      if (ep.videoId) {
+        // Thumbnail with click-to-play
+        wrap.innerHTML = `
+          <div class="video-thumb" id="thumb-play" role="button" tabindex="0" aria-label="Play ${ep.title}">
+            <img src="${ytThumb(ep.videoId, 'hqdefault')}" alt="Thumbnail for ${ep.title}" />
+            <div class="play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>`;
+        const thumb = document.getElementById('thumb-play');
+        const embed = () => {
+          wrap.innerHTML = `<iframe
+            src="https://www.youtube.com/embed/${ep.videoId}?autoplay=1&rel=0"
+            title="${ep.title}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>`;
+        };
+        thumb.addEventListener('click', embed);
+        thumb.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') embed(); });
+      } else {
+        wrap.innerHTML = `
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#2a2000);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity=".5" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--gold)" opacity=".5"/></svg>
+            <p style="font-size:.75rem;color:rgba(255,255,255,.4);font-weight:600">Add your API key to embed the latest episode</p>
+          </div>`;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // RENDER EPISODE CARD
+    // ─────────────────────────────────────────────────────────────────────
+    function renderEpCard(ep, index) {
+      const link = ytLink(ep.videoId);
+      const hasThumb = !!ep.videoId;
+      return `
+        <article class="ep-card" onclick="window.open('${link}','_blank')" tabindex="0" role="link" aria-label="Watch episode: ${ep.title}">
+          <div class="ep-thumb">
+            ${hasThumb
+              ? `<img src="${ytThumb(ep.videoId)}" alt="Thumbnail for ${ep.title}" loading="lazy" />`
+              : `<div class="ep-thumb-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/></svg></div>`
+            }
+            <span class="ep-num">EP ${index + 2}</span>
+          </div>
+          <div class="ep-body">
+            <p class="ep-date">${formatDate(ep.date)}</p>
+            <h3 class="ep-title">${ep.title}</h3>
+            <p class="ep-desc">${ep.description || ''}</p>
+            <div class="ep-footer">
+              <span class="ep-views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Watch episode
+              </span>
+              <span class="ep-watch">
+                YouTube
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </span>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // FETCH FROM YOUTUBE API
+    // ─────────────────────────────────────────────────────────────────────
+    async function fetchFromYouTube() {
+      const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=${MAX_RESULTS}&type=video`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`YouTube API error: ${r.status}`);
+      const data = await r.json();
+      if (data.error) throw new Error(data.error.message);
+      return data.items.map(item => ({
+        videoId: item.id.videoId,
+        title: item.snippet.title,
+        date: item.snippet.publishedAt,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails?.high?.url || '',
+      }));
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────────────────────────────────
+    async function init() {
+      let episodes = [];
+      let usingApi = false;
+
+      if (API_KEY && API_KEY !== 'YOUR_API_KEY_HERE') {
+        try {
+          episodes = await fetchFromYouTube();
+          usingApi = true;
+          document.getElementById('api-notice').classList.add('hidden');
+        } catch (err) {
+          console.warn('YouTube API failed, using fallback:', err.message);
+          episodes = FALLBACK_EPISODES;
+        }
+      } else {
+        episodes = FALLBACK_EPISODES;
+      }
+
+      if (!episodes.length) {
+        document.getElementById('episodes-grid').innerHTML = `<div class="loading-state"><p>No episodes found.</p></div>`;
+        return;
+      }
+
+      // Featured = first (most recent)
+      renderFeatured(episodes[0]);
+
+      // Past = next 4
+      const past = episodes.slice(1, 5);
+      if (past.length) {
+        document.getElementById('episodes-grid').innerHTML = past.map((ep, i) => renderEpCard(ep, i)).join('');
+        // Keyboard nav for cards
+        document.querySelectorAll('.ep-card').forEach(card => {
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') card.click();
+          });
+        });
+      } else {
+        document.getElementById('episodes-grid').innerHTML = `<div class="loading-state"><p>More episodes coming soon!</p></div>`;
+      }
+    }
+
+    init();
+
+    // ─────────────────────────────────────────────────────────────────────
+    // MOBILE NAV
+    // ─────────────────────────────────────────────────────────────────────
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const dlinks = drawer.querySelectorAll('a');
+    burger.addEventListener('click', () => {
+      const o = drawer.classList.toggle('open');
+      burger.classList.toggle('open', o);
+      burger.setAttribute('aria-expanded', o);
+      drawer.setAttribute('aria-hidden', !o);
+      document.body.style.overflow = o ? 'hidden' : '';
+      dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+      if (o) dlinks[0].focus();
+    });
+    dlinks.forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+    }));
+    document.addEventListener('keydown', e => {
+      if(e.key==='Escape' && drawer.classList.contains('open')){ burger.click(); burger.focus(); }
+    });
+  </script>
+</body>
+</html>

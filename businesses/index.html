@@ -219,6 +219,32 @@
       color:var(--gold);transition:gap .2s;
     }
     .spotlight:hover .spotlight-link{gap:.75rem}
+    .spotlight.headline{
+      grid-column:1/-1;
+      transform:scale(1);
+      border:2px solid rgba(0,173,239,.25);
+      box-shadow:0 0 60px rgba(0,173,239,.15),0 0 120px rgba(0,173,239,.06);
+      position:relative;
+      overflow:visible;
+    }
+    .spotlight.headline::before{
+      content:'';
+      position:absolute;
+      inset:-15px;
+      border-radius:8px;
+      background:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(0,173,239,.12) 0%,rgba(0,140,210,.06) 40%,transparent 70%);
+      z-index:-1;
+      pointer-events:none;
+    }
+    .spotlight.headline .spotlight-logo{width:185px;min-height:154px}
+    .spotlight.headline .spotlight-logo img{max-width:90%;max-height:100px;filter:none}
+    .spotlight.headline .spotlight-name{font-size:1.75rem}
+    .spotlight.headline .spotlight-desc{font-size:.92rem}
+    .spotlight.headline .spotlight-cat{color:#00ADEF}
+    .spotlight.headline:hover{
+      border-color:rgba(0,173,239,.45);
+      box-shadow:0 20px 60px rgba(0,173,239,.2),0 0 120px rgba(0,173,239,.08);
+    }
 
     /* ── DIRECTORY GRID ── */
     .directory{
@@ -377,7 +403,7 @@
   <header role="banner">
     <nav class="nav" id="nav" aria-label="Main navigation">
       <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
-        <img src="GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
       </a>
       <ul class="nav-links" role="list">
         <li><a href="/">Home</a></li>
@@ -446,15 +472,15 @@
 
       <div class="spotlights">
 
-        <!-- MTE (Placeholder) -->
-        <article class="spotlight reveal d1" data-cat="home" aria-label="MTE">
-          <div class="spotlight-logo" aria-hidden="true">
-            <span style="font-family:var(--fh);font-size:2.5rem;color:rgba(255,255,255,.5);letter-spacing:.05em;position:relative;z-index:1">MTE</span>
+        <!-- MTE — Good Energy Partner -->
+        <article class="spotlight headline reveal d1" data-cat="home" aria-label="MTE — Good Energy Partner">
+          <div class="spotlight-logo" style="background:linear-gradient(135deg,#003a5c,#006699,#0088bb)">
+            <img src="/images/Logo_MTE_Tagline_Horizontal_Blues_16x9.avif" alt="MTE logo" style="position:relative;z-index:1">
           </div>
           <div class="spotlight-body">
-            <p class="spotlight-cat">Featured Sponsor</p>
+            <p class="spotlight-cat">⚡ Good Energy Partner</p>
             <h3 class="spotlight-name">MTE</h3>
-            <p class="spotlight-desc">A proud supporter of Good Morning Murfreesboro and the local community.</p>
+            <p class="spotlight-desc">Powering Murfreesboro and proudly supporting Good Morning Murfreesboro as our Good Energy Partner. Exclusive sponsor of the Murfreesboro Minute.</p>
             <a href="#" class="spotlight-link" aria-label="Learn more about MTE">
               Learn More →
             </a>
@@ -724,7 +750,7 @@
     </div>
     <div class="footer-body">
       <div class="footer-brand">
-        <img src="GMM_Logo.png" alt="Good Morning Murfreesboro" width="128" height="38" />
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="128" height="38" />
         <p>Your daily source for Murfreesboro news, events, and community — built by locals, for locals.</p>
         <nav class="f-soc" aria-label="Social media links">
           <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>

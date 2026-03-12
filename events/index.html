@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events Calendar | Good Morning Murfreesboro</title>
+  <meta name="description" content="Find local events happening in Murfreesboro, Tennessee. Music, food, family, festivals and more — all in one place." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/events" />
+  <meta property="og:title" content="Events Calendar | Good Morning Murfreesboro" />
+  <meta property="og:description" content="Find local events happening in Murfreesboro, TN." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A; --gold-d:#A07830;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:1280px; --ease:cubic-bezier(.4,0,.2,1);
+
+      /* Category colors */
+      --c-music:#7c3aed; --c-food:#ea580c; --c-family:#0891b2;
+      --c-arts:#db2777; --c-sports:#16a34a; --c-community:#ca8a04;
+      --c-education:#2563eb; --c-festival:#dc2626; --c-general:#6b7280;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* ── NAV ── */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-links a[aria-current="page"]{border-bottom:2px solid var(--gold)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* ── PAGE HERO ── */
+    .page-hero{margin-top:var(--nav);background:var(--dark);position:relative;overflow:hidden;padding:5rem 2rem 4.5rem;text-align:center}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.12) 0%,transparent 70%),linear-gradient(170deg,#080808 0%,#1a1500 60%,#080808 100%)}
+    .page-hero-line{position:absolute;left:0;bottom:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+    .page-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+    .page-title{font-family:var(--fh);font-size:clamp(3rem,7vw,6rem);line-height:.92;letter-spacing:.03em;color:var(--white);margin-bottom:1rem}
+    .page-title span{color:var(--gold)}
+    .hero-meta{font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.1em}
+    .hero-meta b{color:var(--gold)}
+
+    /* ── CONTROLS BAR ── */
+    .controls{
+      background:var(--white);
+      border-bottom:1px solid var(--gray);
+      position:sticky;top:var(--nav);z-index:80;
+      padding:1rem 2rem;
+    }
+    .controls-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+
+    /* Search */
+    .search-wrap{position:relative;flex:1;min-width:180px}
+    .search-wrap svg{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--muted);width:15px;pointer-events:none}
+    .search-inp{width:100%;padding:.65rem .85rem .65rem 2.5rem;border:1.5px solid var(--gray);border-radius:2px;font-family:var(--fb);font-size:.82rem;outline:none;background:var(--off);transition:border-color .2s}
+    .search-inp:focus{border-color:var(--gold);background:var(--white)}
+    .search-inp::placeholder{color:var(--muted)}
+
+    /* Date inputs */
+    .date-wrap{display:flex;align-items:center;gap:.4rem}
+    .date-wrap label{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .date-inp{padding:.6rem .75rem;border:1.5px solid var(--gray);border-radius:2px;font-family:var(--fb);font-size:.8rem;outline:none;background:var(--off);color:var(--charcoal);transition:border-color .2s}
+    .date-inp:focus{border-color:var(--gold)}
+
+    /* Toggles */
+    .toggle-group{display:flex;border:1.5px solid var(--gray);border-radius:2px;overflow:hidden}
+    .toggle-btn{padding:.6rem .85rem;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--off);color:var(--muted);border:none;cursor:pointer;transition:background .2s,color .2s;display:flex;align-items:center;gap:.4rem}
+    .toggle-btn.active{background:var(--charcoal);color:var(--white)}
+    .toggle-btn svg{width:14px;height:14px}
+
+    /* Free filter */
+    .free-btn{padding:.6rem 1rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--off);color:var(--muted);border:1.5px solid var(--gray);border-radius:2px;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .free-btn.active{background:var(--green,#16a34a);color:var(--white);border-color:var(--green,#16a34a)}
+
+    /* Category pills */
+    .cat-pills{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;width:100%;padding-top:.5rem;border-top:1px solid var(--gray);margin-top:.25rem}
+    .cat-pill{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .75rem;border-radius:20px;cursor:pointer;border:1.5px solid transparent;transition:all .2s;white-space:nowrap}
+    .cat-pill[data-cat="all"]{background:var(--charcoal);color:var(--white)}
+    .cat-pill[data-cat="music"]{background:rgba(124,58,237,.1);color:var(--c-music);border-color:rgba(124,58,237,.2)}
+    .cat-pill[data-cat="food"]{background:rgba(234,88,12,.1);color:var(--c-food);border-color:rgba(234,88,12,.2)}
+    .cat-pill[data-cat="family"]{background:rgba(8,145,178,.1);color:var(--c-family);border-color:rgba(8,145,178,.2)}
+    .cat-pill[data-cat="arts"]{background:rgba(219,39,119,.1);color:var(--c-arts);border-color:rgba(219,39,119,.2)}
+    .cat-pill[data-cat="sports"]{background:rgba(22,163,74,.1);color:var(--c-sports);border-color:rgba(22,163,74,.2)}
+    .cat-pill[data-cat="community"]{background:rgba(202,138,4,.1);color:var(--c-community);border-color:rgba(202,138,4,.2)}
+    .cat-pill[data-cat="education"]{background:rgba(37,99,235,.1);color:var(--c-education);border-color:rgba(37,99,235,.2)}
+    .cat-pill[data-cat="festival"]{background:rgba(220,38,38,.1);color:var(--c-festival);border-color:rgba(220,38,38,.2)}
+    .cat-pill.active,.cat-pill[data-cat="all"].active{opacity:1;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+    .cat-pill:not(.active){opacity:.65}
+    .cat-pill:not(.active):hover{opacity:1}
+
+    /* ── MAIN CONTENT ── */
+    .cal-main{max-width:var(--max);margin:0 auto;padding:2rem}
+
+    /* Results info */
+    .results-info{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem;
+    }
+    .results-count{font-size:.75rem;font-weight:600;color:var(--muted)}
+    .results-count b{color:var(--charcoal)}
+    .last-updated{font-size:.7rem;color:var(--muted);font-style:italic}
+
+    /* ── LOADING / EMPTY ── */
+    .loading{text-align:center;padding:5rem 2rem;color:var(--muted)}
+    .loading-spinner{width:36px;height:36px;border:3px solid var(--gray);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .empty-state{text-align:center;padding:5rem 2rem}
+    .empty-icon{font-size:3rem;margin-bottom:1rem}
+    .empty-state h3{font-family:var(--fh);font-size:2rem;letter-spacing:.03em;margin-bottom:.5rem}
+    .empty-state p{color:var(--muted);font-size:.9rem}
+
+    /* ── LIST VIEW ── */
+    .list-view{display:flex;flex-direction:column;gap:1rem}
+    .list-card{
+      display:flex;
+      background:var(--white);
+      border:1.5px solid var(--gray);
+      border-radius:3px;
+      overflow:hidden;
+      transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;
+    }
+    .list-card:hover{transform:translateX(4px);box-shadow:0 4px 20px rgba(0,0,0,.08);border-color:var(--gold)}
+    .list-card-date{
+      width:72px;flex-shrink:0;
+      background:var(--charcoal);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:.75rem .5rem;
+      text-align:center;
+    }
+    .lcd-month{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+    .lcd-day{font-family:var(--fh);font-size:2.2rem;color:var(--white);line-height:1}
+    .lcd-dow{font-size:.58rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:.1rem}
+    .list-card-img{
+      width:120px;flex-shrink:0;
+      background:var(--off);
+      overflow:hidden;
+    }
+    .list-card-img img{width:100%;height:100%;object-fit:cover}
+    .list-card-img-placeholder{
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:2rem;
+    }
+    .list-card-body{padding:1rem 1.25rem;flex:1;display:flex;flex-direction:column;justify-content:center}
+    .lc-source{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+    .lc-title{font-family:var(--fh);font-size:1.3rem;letter-spacing:.02em;line-height:1.1;color:var(--charcoal);margin-bottom:.4rem}
+    .lc-meta{display:flex;flex-wrap:wrap;gap:.5rem .75rem;font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+    .lc-meta span{display:flex;align-items:center;gap:.3rem}
+    .lc-meta svg{width:12px;height:12px;flex-shrink:0}
+    .lc-cat{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;border-radius:20px}
+    .lc-price{font-size:.72rem;font-weight:700;margin-left:auto;align-self:flex-start;padding:.3rem .6rem;border-radius:2px}
+    .price-free{background:rgba(22,163,74,.1);color:#16a34a}
+    .price-paid{background:rgba(201,168,76,.1);color:var(--gold-d)}
+    .list-card-arrow{
+      width:44px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--gray);
+      transition:color .2s,transform .2s;
+    }
+    .list-card:hover .list-card-arrow{color:var(--gold);transform:translateX(3px)}
+
+    /* ── CARD/GRID VIEW ── */
+    .grid-view{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:1.25rem;
+    }
+    .grid-card{
+      background:var(--white);
+      border:1.5px solid var(--gray);
+      border-radius:3px;
+      overflow:hidden;
+      display:flex;flex-direction:column;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+    }
+    .grid-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(0,0,0,.1);border-color:var(--gold)}
+    .gc-img{
+      height:160px;background:var(--charcoal);
+      position:relative;overflow:hidden;
+    }
+    .gc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+    .grid-card:hover .gc-img img{transform:scale(1.05)}
+    .gc-img-placeholder{
+      width:100%;height:100%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:3rem;
+      background:linear-gradient(135deg,#1a1a1a,#2a2a2a);
+    }
+    .gc-date-badge{
+      position:absolute;top:.75rem;left:.75rem;
+      background:var(--charcoal);
+      padding:.3rem .6rem;border-radius:2px;
+      text-align:center;min-width:44px;
+    }
+    .gc-date-badge .month{font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+    .gc-date-badge .day{font-family:var(--fh);font-size:1.5rem;color:var(--white);line-height:1}
+    .gc-cat-badge{
+      position:absolute;top:.75rem;right:.75rem;
+      font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      padding:.25rem .6rem;border-radius:20px;
+    }
+    .gc-body{padding:1.1rem;flex:1;display:flex;flex-direction:column}
+    .gc-source{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+    .gc-title{font-family:var(--fh);font-size:1.25rem;letter-spacing:.02em;line-height:1.1;color:var(--charcoal);margin-bottom:.5rem;flex:1}
+    .gc-meta{display:flex;flex-direction:column;gap:.3rem;font-size:.75rem;color:var(--muted);margin-bottom:.75rem}
+    .gc-meta span{display:flex;align-items:center;gap:.35rem}
+    .gc-meta svg{width:12px;height:12px;flex-shrink:0;color:var(--gold)}
+    .gc-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--gray);padding-top:.75rem;margin-top:auto}
+    .gc-price{font-size:.72rem;font-weight:700;padding:.3rem .6rem;border-radius:2px}
+    .gc-link{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.3rem;transition:gap .2s}
+    .grid-card:hover .gc-link{gap:.6rem}
+
+    /* ── MONTH CALENDAR VIEW ── */
+    .month-view{}
+    .month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem}
+    .month-title{font-family:var(--fh);font-size:2rem;letter-spacing:.04em}
+    .month-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--gray);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--charcoal);transition:all .2s}
+    .month-btn:hover{border-color:var(--gold);color:var(--gold)}
+    .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--gray)}
+    .month-dow{background:var(--charcoal);color:var(--gold);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:.6rem .25rem}
+    .month-day{
+      background:var(--white);
+      min-height:100px;
+      padding:.5rem;
+      position:relative;
+    }
+    .month-day.other-month{background:var(--off)}
+    .month-day.today{background:rgba(201,168,76,.05)}
+    .month-day.today .day-num{background:var(--gold);color:var(--charcoal);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+    .day-num{font-size:.8rem;font-weight:700;margin-bottom:.35rem;color:var(--charcoal)}
+    .other-month .day-num{color:var(--muted)}
+    .day-event{
+      font-size:.65rem;font-weight:600;
+      padding:.2rem .4rem;border-radius:2px;
+      margin-bottom:.2rem;
+      cursor:pointer;
+      overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+      transition:opacity .15s;
+    }
+    .day-event:hover{opacity:.8}
+    .day-more{font-size:.62rem;color:var(--muted);font-weight:600;cursor:pointer;padding:.1rem .3rem}
+    .day-more:hover{color:var(--gold)}
+
+    /* ── EVENT MODAL ── */
+    .modal-overlay{
+      position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;
+      display:flex;align-items:center;justify-content:center;padding:1.5rem;
+      opacity:0;pointer-events:none;transition:opacity .25s;
+    }
+    .modal-overlay.open{opacity:1;pointer-events:all}
+    .modal{
+      background:var(--white);border-radius:4px;max-width:560px;width:100%;
+      max-height:90vh;overflow-y:auto;
+      transform:translateY(20px);transition:transform .25s var(--ease);
+    }
+    .modal-overlay.open .modal{transform:none}
+    .modal-img{height:200px;background:var(--charcoal);position:relative;overflow:hidden}
+    .modal-img img{width:100%;height:100%;object-fit:cover}
+    .modal-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem}
+    .modal-close{position:absolute;top:.75rem;right:.75rem;width:32px;height:32px;background:rgba(0,0,0,.5);border:none;border-radius:50%;color:var(--white);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    .modal-close:hover{background:var(--gold);color:var(--charcoal)}
+    .modal-body{padding:1.5rem}
+    .modal-cat{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.5rem}
+    .modal-title{font-family:var(--fh);font-size:2rem;letter-spacing:.03em;line-height:1;margin-bottom:1rem}
+    .modal-meta{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+    .modal-meta-row{display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:#555}
+    .modal-meta-row svg{width:16px;height:16px;flex-shrink:0;color:var(--gold);margin-top:1px}
+    .modal-desc{font-family:var(--fs);font-size:.9rem;line-height:1.75;color:#555;margin-bottom:1.5rem}
+    .modal-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+    .modal-btn{padding:.75rem 1.5rem;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+    .modal-btn-gold{background:var(--gold);color:var(--charcoal)}
+    .modal-btn-gold:hover{background:var(--gold-l)}
+    .modal-btn-outline{background:transparent;color:var(--charcoal);border:1.5px solid var(--gray)}
+    .modal-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* ── FOOTER ── */
+    .footer{background:var(--charcoal);margin-top:4rem}
+    .footer-nl{background:linear-gradient(120deg,var(--gold) 0%,var(--gold-l) 100%);padding:4rem 2rem;text-align:center}
+    .fl{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(28,28,28,.6);margin-bottom:.75rem}
+    .footer-nl h2{font-family:var(--fh);font-size:clamp(2rem,5vw,3rem);letter-spacing:.04em;color:var(--charcoal);margin-bottom:.5rem;line-height:1}
+    .footer-nl p{font-size:.9rem;color:rgba(28,28,28,.68);max-width:400px;margin:0 auto 1.75rem;line-height:1.6}
+    .nl-form{display:flex;max-width:440px;margin:0 auto 1rem;border-radius:2px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.15)}
+    .nl-form input[type="email"]{flex:1;padding:1rem 1.25rem;font-family:var(--fb);font-size:.88rem;background:var(--white);border:none;outline:none;color:var(--charcoal)}
+    .nl-form button{padding:1rem 1.5rem;background:var(--charcoal);color:var(--white);font-family:var(--fb);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .nl-form button:hover{background:#000}
+    .nl-priv{font-size:.72rem;color:rgba(28,28,28,.5)}
+    .nl-priv a{color:rgba(28,28,28,.65);text-decoration:underline}
+    .footer-body{max-width:var(--max);margin:0 auto;padding:3rem 2rem 1.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem}
+    .footer-brand img{height:36px;filter:brightness(0) invert(1);margin-bottom:1rem}
+    .footer-brand p{font-size:.82rem;color:rgba(255,255,255,.42);line-height:1.7;max-width:240px}
+    .f-soc{display:flex;gap:.6rem;margin-top:1.25rem}
+    .soc{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.62rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+    .f-col h4{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .f-col li{margin-bottom:.5rem}
+    .f-col li a{font-size:.8rem;color:rgba(255,255,255,.42);transition:color .2s}
+    .f-col li a:hover{color:var(--white)}
+    .footer-bot{border-top:1px solid rgba(255,255,255,.07);max-width:var(--max);margin:0 auto;padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.28);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+
+    /* Category badge colors */
+    .cat-music{background:rgba(124,58,237,.15);color:var(--c-music)}
+    .cat-food{background:rgba(234,88,12,.15);color:var(--c-food)}
+    .cat-family{background:rgba(8,145,178,.15);color:var(--c-family)}
+    .cat-arts{background:rgba(219,39,119,.15);color:var(--c-arts)}
+    .cat-sports{background:rgba(22,163,74,.15);color:var(--c-sports)}
+    .cat-community{background:rgba(202,138,4,.15);color:var(--c-community)}
+    .cat-education{background:rgba(37,99,235,.15);color:var(--c-education)}
+    .cat-festival{background:rgba(220,38,38,.15);color:var(--c-festival)}
+    .cat-general{background:rgba(107,114,128,.15);color:var(--c-general)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px){
+      .nav-links{display:none}.burger{display:flex}.nav{padding:0 1.5rem}
+      .footer-body{grid-template-columns:1fr 1fr;gap:2rem}
+      .list-card-img{width:80px}
+    }
+    @media(max-width:680px){
+      .controls-inner{gap:.75rem}
+      .date-wrap{flex-wrap:wrap}
+      .list-card-img{display:none}
+      .grid-view{grid-template-columns:1fr}
+      .month-grid{font-size:.75rem}
+      .month-day{min-height:64px;padding:.3rem}
+      .footer-body{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .footer-bot{flex-direction:column;align-items:flex-start}
+      .modal-actions{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/events" aria-current="page">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="page-eyebrow">Murfreesboro, TN</p>
+        <h1 class="page-title">EVENTS<br/><span>CALENDAR</span></h1>
+        <p class="hero-meta">Updated daily from <b>BaseLocal</b>, <b>Eventbrite</b> &amp; <b>City of Murfreesboro</b></p>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <div class="controls" role="search" aria-label="Filter and search events">
+      <div class="controls-inner">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" class="search-inp" id="search" placeholder="Search events..." aria-label="Search events" />
+        </div>
+
+        <div class="date-wrap">
+          <label for="date-from">From</label>
+          <input type="date" class="date-inp" id="date-from" aria-label="Events from date" />
+          <label for="date-to">To</label>
+          <input type="date" class="date-inp" id="date-to" aria-label="Events to date" />
+        </div>
+
+        <button class="free-btn" id="free-btn" aria-pressed="false">Free Only</button>
+
+        <div class="toggle-group" role="group" aria-label="View toggle">
+          <button class="toggle-btn active" id="btn-list" aria-pressed="true" title="List view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            List
+          </button>
+          <button class="toggle-btn" id="btn-grid" aria-pressed="false" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Grid
+          </button>
+          <button class="toggle-btn" id="btn-month" aria-pressed="false" title="Month view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Month
+          </button>
+        </div>
+
+        <div class="cat-pills" role="group" aria-label="Filter by category">
+          <button class="cat-pill active" data-cat="all">All</button>
+          <button class="cat-pill" data-cat="music">🎵 Music</button>
+          <button class="cat-pill" data-cat="food">🍔 Food &amp; Drink</button>
+          <button class="cat-pill" data-cat="family">👨‍👩‍👧 Family</button>
+          <button class="cat-pill" data-cat="arts">🎨 Arts</button>
+          <button class="cat-pill" data-cat="sports">⚽ Sports</button>
+          <button class="cat-pill" data-cat="community">🤝 Community</button>
+          <button class="cat-pill" data-cat="education">📚 Education</button>
+          <button class="cat-pill" data-cat="festival">🎉 Festival</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-main">
+      <div class="results-info">
+        <p class="results-count"><b id="result-count">0</b> events found</p>
+        <p class="last-updated" id="last-updated"></p>
+      </div>
+      <div id="events-container">
+        <div class="loading" aria-live="polite">
+          <div class="loading-spinner" aria-hidden="true"></div>
+          <p>Loading events...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Event Modal -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal" id="modal-content">
+      <div class="modal-img" id="modal-img">
+        <div class="modal-img-placeholder" id="modal-img-placeholder"></div>
+        <button class="modal-close" id="modal-close" aria-label="Close event details">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-cat" id="modal-cat"></p>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="modal-meta" id="modal-meta"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-actions" id="modal-actions"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-nl">
+      <p class="fl">Stay Connected</p>
+      <h2>START YOUR MORNING<br/>WITH THE BORO.</h2>
+      <p>Local news, events, and community stories — free to your inbox every morning.</p>
+      <form class="nl-form" name="newsletter" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="newsletter" />
+        <input type="hidden" name="bot-field" aria-hidden="true" />
+        <label for="nl-email" class="sr">Email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="nl-priv">We respect your privacy. <a href="/privacy-policy">Privacy Policy</a>.</p>
+    </div>
+    <div class="footer-body">
+      <div class="footer-brand">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="120" height="36" />
+        <p>Your daily source for Murfreesboro news, events, and community.</p>
+        <nav class="f-soc" aria-label="Social media">
+          <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+          <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+          <a href="https://www.tiktok.com/@gmmboro" class="soc" aria-label="TikTok" target="_blank" rel="noopener noreferrer">tt</a>
+          <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="soc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">yt</a>
+        </nav>
+      </div>
+      <div class="f-col"><h4>Explore</h4><ul>
+        <li><a href="/">Home</a></li><li><a href="/about">About</a></li>
+        <li><a href="/events">Events</a></li><li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Get Featured</h4><ul>
+        <li><a href="/contact#nonprofit">Non-Profit</a></li>
+        <li><a href="/contact#business">Business</a></li>
+        <li><a href="/contact#guest">Be a Guest</a></li>
+        <li><a href="/contact#shoutout">Shoutout</a></li>
+      </ul></div>
+      <div class="f-col"><h4>Legal</h4><ul>
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/terms-of-use">Terms of Use</a></li>
+        <li><a href="/accessibility">Accessibility</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal"><a href="/privacy-policy">Privacy</a><a href="/terms-of-use">Terms</a><a href="/accessibility">Accessibility</a></nav>
+    </div>
+  </footer>
+
+  <script>
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  const $ = id => document.getElementById(id);
+  const CAT_EMOJI = {music:'🎵',food:'🍔',family:'👨‍👩‍👧',arts:'🎨',sports:'⚽',community:'🤝',education:'📚',festival:'🎉',general:'📅'};
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MONTHS_LONG = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function parseDate(str) {
+    if (!str) return null;
+    try { return new Date(str); } catch { return null; }
+  }
+
+  function formatDate(d) {
+    if (!d) return '';
+    return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  }
+
+  function formatTime(d) {
+    if (!d) return '';
+    const h = d.getHours(), m = d.getMinutes();
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hh = h % 12 || 12;
+    return m ? `${hh}:${String(m).padStart(2,'0')} ${ampm}` : `${hh} ${ampm}`;
+  }
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let ALL_EVENTS = [];
+  let currentView = 'list';
+  let currentCat = 'all';
+  let showFreeOnly = false;
+  let currentMonth = new Date();
+  currentMonth.setDate(1);
+
+  // ── Load events ───────────────────────────────────────────────────────────
+  async function loadEvents() {
+    try {
+      const r = await fetch('/events/events.json?t=' + Date.now());
+      if (!r.ok) throw new Error('No events file yet');
+      const data = await r.json();
+      ALL_EVENTS = data.events || [];
+      if (data.lastUpdated) {
+        const d = new Date(data.lastUpdated);
+        $('last-updated').textContent = `Updated ${formatDate(d)} at ${formatTime(d)}`;
+      }
+    } catch {
+      // Use sample data when events.json doesn't exist yet
+      ALL_EVENTS = getSampleEvents();
+      $('last-updated').textContent = 'Sample events — run scraper to load real data';
+    }
+    renderAll();
+  }
+
+  function getSampleEvents() {
+    const today = new Date();
+    const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate()+n); return x; };
+    return [
+      { id:'s1', title:'Murfreesboro Farmers Market', date: addDays(today,1).toISOString(), location:'Downtown Square, Murfreesboro', description:'Fresh local produce, artisan goods, live music, and community vibes every week at the Murfreesboro Farmers Market.', category:'food', isFree:true, price:'Free', image:'', link:'#', source:'Sample' },
+      { id:'s2', title:'Live Music at Main Street', date: addDays(today,2).toISOString(), location:'Main Street, Murfreesboro', description:'Enjoy live local music from Murfreesboro\'s best artists. All ages welcome.', category:'music', isFree:true, price:'Free', image:'', link:'#', source:'Sample' },
+      { id:'s3', title:'Family Fun Day at Barfield Park', date: addDays(today,3).toISOString(), location:'Barfield Crescent Park', description:'A day of outdoor fun for the whole family — games, food trucks, and activities for kids of all ages.', category:'family', isFree:true, price:'Free', image:'', link:'#', source:'Sample' },
+      { id:'s4', title:'Boro Art Walk', date: addDays(today,5).toISOString(), location:'Downtown Murfreesboro', description:'Explore local galleries and studios during the monthly Murfreesboro Art Walk.', category:'arts', isFree:false, price:'$5', image:'', link:'#', source:'Sample' },
+      { id:'s5', title:'5K Community Run', date: addDays(today,7).toISOString(), location:'Cannonsburgh Village', description:'Join hundreds of Murfreesboro runners for the monthly community 5K. All paces welcome!', category:'sports', isFree:false, price:'$20', image:'', link:'#', source:'Sample' },
+      { id:'s6', title:'Non-Profit Networking Breakfast', date: addDays(today,9).toISOString(), location:'Embassy Suites, Murfreesboro', description:'Monthly breakfast for Murfreesboro non-profit leaders to connect, share, and collaborate.', category:'community', isFree:false, price:'$15', image:'', link:'#', source:'Sample' },
+      { id:'s7', title:'Small Business Workshop', date: addDays(today,11).toISOString(), location:'Murfreesboro Chamber of Commerce', description:'Free workshop for small business owners covering digital marketing, social media, and local networking.', category:'education', isFree:true, price:'Free', image:'', link:'#', source:'Sample' },
+      { id:'s8', title:'Boro Fest', date: addDays(today,14).toISOString(), location:'Murfreesboro Greenway', description:'The biggest community festival of the season — food, music, vendors, carnival rides, and fireworks.', category:'festival', isFree:false, price:'$10', image:'', link:'#', source:'Sample' },
+    ];
+  }
+
+  // ── Filter ────────────────────────────────────────────────────────────────
+  function getFiltered() {
+    const q = $('search').value.toLowerCase();
+    const from = $('date-from').value ? new Date($('date-from').value) : null;
+    const to = $('date-to').value ? new Date($('date-to').value + 'T23:59:59') : null;
+
+    return ALL_EVENTS.filter(e => {
+      if (currentCat !== 'all' && e.category !== currentCat) return false;
+      if (showFreeOnly && !e.isFree) return false;
+      if (q && !(e.title+e.description+e.location).toLowerCase().includes(q)) return false;
+      const d = parseDate(e.date);
+      if (from && d && d < from) return false;
+      if (to && d && d > to) return false;
+      return true;
+    });
+  }
+
+  // ── Render ─────────────────────────────────────────────────────────────────
+  function renderAll() {
+    const filtered = getFiltered();
+    $('result-count').textContent = filtered.length;
+    const c = $('events-container');
+
+    if (currentView === 'month') {
+      c.innerHTML = '';
+      c.appendChild(renderMonthView(filtered));
+      return;
+    }
+
+    if (!filtered.length) {
+      c.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><h3>No Events Found</h3><p>Try adjusting your filters or check back soon!</p></div>`;
+      return;
+    }
+
+    if (currentView === 'list') {
+      c.innerHTML = `<div class="list-view">${filtered.map(renderListCard).join('')}</div>`;
+    } else {
+      c.innerHTML = `<div class="grid-view">${filtered.map(renderGridCard).join('')}</div>`;
+    }
+
+    c.querySelectorAll('[data-event-id]').forEach(el => {
+      el.addEventListener('click', () => openModal(el.dataset.eventId));
+      el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(el.dataset.eventId); });
+    });
+  }
+
+  function catClass(cat) { return `cat-${cat || 'general'}`; }
+
+  function renderListCard(e) {
+    const d = parseDate(e.date);
+    const mon = d ? MONTHS[d.getMonth()] : '—';
+    const day = d ? d.getDate() : '—';
+    const dow = d ? DAYS[d.getDay()] : '';
+    const time = d ? formatTime(d) : '';
+    const emoji = CAT_EMOJI[e.category] || '📅';
+    return `<div class="list-card" data-event-id="${e.id}" tabindex="0" role="button" aria-label="View details for ${e.title}">
+      <div class="list-card-date"><div class="lcd-month">${mon}</div><div class="lcd-day">${day}</div><div class="lcd-dow">${dow}</div></div>
+      <div class="list-card-img">${e.image ? `<img src="${e.image}" alt="" loading="lazy" />` : `<div class="list-card-img-placeholder">${emoji}</div>`}</div>
+      <div class="list-card-body">
+        <p class="lc-source">${e.source || ''}</p>
+        <h3 class="lc-title">${e.title}</h3>
+        <div class="lc-meta">
+          ${time ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${time}</span>` : ''}
+          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${e.location}</span>` : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span class="lc-cat ${catClass(e.category)}">${emoji} ${e.category || 'general'}</span>
+          ${e.price ? `<span class="lc-price ${e.isFree ? 'price-free' : 'price-paid'}">${e.price}</span>` : ''}
+        </div>
+      </div>
+      <div class="list-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>`;
+  }
+
+  function renderGridCard(e) {
+    const d = parseDate(e.date);
+    const mon = d ? MONTHS[d.getMonth()] : '';
+    const day = d ? d.getDate() : '';
+    const time = d ? formatTime(d) : '';
+    const emoji = CAT_EMOJI[e.category] || '📅';
+    return `<div class="grid-card" data-event-id="${e.id}" tabindex="0" role="button" aria-label="View details for ${e.title}">
+      <div class="gc-img">
+        ${e.image ? `<img src="${e.image}" alt="" loading="lazy" />` : `<div class="gc-img-placeholder">${emoji}</div>`}
+        ${mon ? `<div class="gc-date-badge"><div class="month">${mon}</div><div class="day">${day}</div></div>` : ''}
+        <span class="gc-cat-badge ${catClass(e.category)}">${e.category || 'general'}</span>
+      </div>
+      <div class="gc-body">
+        <p class="gc-source">${e.source || ''}</p>
+        <h3 class="gc-title">${e.title}</h3>
+        <div class="gc-meta">
+          ${time ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${time}</span>` : ''}
+          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${e.location}</span>` : ''}
+        </div>
+        <div class="gc-footer">
+          ${e.price ? `<span class="gc-price ${e.isFree ? 'price-free' : 'price-paid'}">${e.price}</span>` : '<span></span>'}
+          <span class="gc-link">Details <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ── Month View ─────────────────────────────────────────────────────────────
+  function renderMonthView(filtered) {
+    const wrap = document.createElement('div');
+    wrap.className = 'month-view';
+
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const today = new Date();
+
+    // Group events by date string
+    const byDay = {};
+    filtered.forEach(e => {
+      const d = parseDate(e.date);
+      if (!d) return;
+      const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      (byDay[key] = byDay[key] || []).push(e);
+    });
+
+    // Nav
+    const nav = document.createElement('div');
+    nav.className = 'month-nav';
+    nav.innerHTML = `
+      <button class="month-btn" id="prev-month" aria-label="Previous month">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <h2 class="month-title">${MONTHS_LONG[month]} ${year}</h2>
+      <button class="month-btn" id="next-month" aria-label="Next month">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>`;
+    wrap.appendChild(nav);
+
+    // Grid
+    const grid = document.createElement('div');
+    grid.className = 'month-grid';
+
+    // Day headers
+    DAYS.forEach(d => {
+      const h = document.createElement('div');
+      h.className = 'month-dow';
+      h.textContent = d;
+      grid.appendChild(h);
+    });
+
+    const first = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const daysInPrev = new Date(year, month, 0).getDate();
+
+    // Prev month padding
+    for (let i = first - 1; i >= 0; i--) {
+      const cell = document.createElement('div');
+      cell.className = 'month-day other-month';
+      cell.innerHTML = `<div class="day-num">${daysInPrev - i}</div>`;
+      grid.appendChild(cell);
+    }
+
+    // Current month days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'month-day';
+      const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+      if (isToday) cell.classList.add('today');
+      cell.innerHTML = `<div class="day-num">${d}</div>`;
+      const key = `${year}-${month}-${d}`;
+      const dayEvents = byDay[key] || [];
+      const show = dayEvents.slice(0, 3);
+      const more = dayEvents.length - show.length;
+      show.forEach(e => {
+        const ev = document.createElement('div');
+        ev.className = `day-event ${catClass(e.category)}`;
+        ev.textContent = e.title;
+        ev.setAttribute('tabindex', '0');
+        ev.setAttribute('role', 'button');
+        ev.setAttribute('aria-label', `View ${e.title}`);
+        ev.dataset.eventId = e.id;
+        ev.addEventListener('click', ex => { ex.stopPropagation(); openModal(e.id); });
+        ev.addEventListener('keydown', ex => { if(ex.key==='Enter') openModal(e.id); });
+        cell.appendChild(ev);
+      });
+      if (more > 0) {
+        const m = document.createElement('div');
+        m.className = 'day-more';
+        m.textContent = `+${more} more`;
+        cell.appendChild(m);
+      }
+      grid.appendChild(cell);
+    }
+
+    // Next month padding
+    const total = first + daysInMonth;
+    const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+    for (let d = 1; d <= remaining; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'month-day other-month';
+      cell.innerHTML = `<div class="day-num">${d}</div>`;
+      grid.appendChild(cell);
+    }
+
+    wrap.appendChild(grid);
+
+    setTimeout(() => {
+      wrap.querySelector('#prev-month')?.addEventListener('click', () => {
+        currentMonth.setMonth(currentMonth.getMonth() - 1);
+        renderAll();
+      });
+      wrap.querySelector('#next-month')?.addEventListener('click', () => {
+        currentMonth.setMonth(currentMonth.getMonth() + 1);
+        renderAll();
+      });
+    }, 0);
+
+    return wrap;
+  }
+
+  // ── Modal ──────────────────────────────────────────────────────────────────
+  function openModal(id) {
+    const e = ALL_EVENTS.find(x => x.id === id);
+    if (!e) return;
+    const d = parseDate(e.date);
+    const end = parseDate(e.endDate);
+    const emoji = CAT_EMOJI[e.category] || '📅';
+
+    // Image
+    const imgWrap = $('modal-img');
+    if (e.image) {
+      imgWrap.innerHTML = `<img src="${e.image}" alt="" /><button class="modal-close" id="modal-close" aria-label="Close">✕</button>`;
+    } else {
+      imgWrap.innerHTML = `<div class="modal-img-placeholder">${emoji}</div><button class="modal-close" id="modal-close" aria-label="Close">✕</button>`;
+    }
+    $('modal-close')?.addEventListener('click', closeModal);
+
+    $('modal-cat').textContent = emoji + ' ' + (e.category || 'general');
+    $('modal-cat').className = `modal-cat ${catClass(e.category)}`;
+    $('modal-title').textContent = e.title;
+
+    let metaHTML = '';
+    if (d) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${formatDate(d)}${formatTime(d) ? ' at ' + formatTime(d) : ''}${end ? ' – ' + formatTime(end) : ''}</span></div>`;
+    if (e.location) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${e.location}</span></div>`;
+    if (e.price) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="${e.isFree ? 'price-free' : 'price-paid'}" style="padding:.2rem .5rem;border-radius:3px;font-size:.8rem;font-weight:700">${e.price}</span></div>`;
+    if (e.source) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Source: ${e.source}</span></div>`;
+    $('modal-meta').innerHTML = metaHTML;
+
+    $('modal-desc').textContent = e.description || 'No description available.';
+    $('modal-actions').innerHTML = e.link && e.link !== '#'
+      ? `<a href="${e.link}" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-gold">View Full Event →</a><button class="modal-btn modal-btn-outline" onclick="closeModal()">Close</button>`
+      : `<button class="modal-btn modal-btn-gold" onclick="closeModal()">Close</button>`;
+
+    const overlay = $('modal');
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    $('modal-close')?.focus();
+  }
+
+  function closeModal() {
+    const overlay = $('modal');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // ── Event listeners ────────────────────────────────────────────────────────
+  $('search').addEventListener('input', renderAll);
+  $('date-from').addEventListener('change', renderAll);
+  $('date-to').addEventListener('change', renderAll);
+
+  $('free-btn').addEventListener('click', function() {
+    showFreeOnly = !showFreeOnly;
+    this.classList.toggle('active', showFreeOnly);
+    this.setAttribute('aria-pressed', showFreeOnly);
+    renderAll();
+  });
+
+  ['btn-list','btn-grid','btn-month'].forEach(id => {
+    $(id)?.addEventListener('click', function() {
+      currentView = id.replace('btn-','');
+      ['btn-list','btn-grid','btn-month'].forEach(b => {
+        $(b).classList.remove('active');
+        $(b).setAttribute('aria-pressed','false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-pressed','true');
+      renderAll();
+    });
+  });
+
+  document.querySelectorAll('.cat-pill').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      currentCat = this.dataset.cat;
+      renderAll();
+    });
+  });
+
+  $('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Mobile nav
+  const burger = $('burger'), drawer = $('drawer');
+  const dlinks = drawer.querySelectorAll('a');
+  burger.addEventListener('click', () => {
+    const o = drawer.classList.toggle('open');
+    burger.classList.toggle('open', o);
+    burger.setAttribute('aria-expanded', o);
+    drawer.setAttribute('aria-hidden', !o);
+    document.body.style.overflow = o ? 'hidden' : '';
+    dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+    if (o) dlinks[0].focus();
+  });
+  dlinks.forEach(a => a.addEventListener('click', () => {
+    drawer.classList.remove('open'); burger.classList.remove('open');
+    burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+    document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+  }));
+
+  $('yr').textContent = new Date().getFullYear();
+
+  // Set default date-from to today
+  const todayStr = new Date().toISOString().split('T')[0];
+  $('date-from').value = todayStr;
+
+  loadEvents();
+  </script>
+</body>
+</html>

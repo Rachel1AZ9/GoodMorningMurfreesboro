@@ -1,0 +1,48 @@
+{
+  "lastUpdated": "2026-03-12T18:25:40.492789+00:00",
+  "count": 3,
+  "events": [
+    {
+      "id": "558c7482cba2",
+      "title": "<h2 class=\"bl-event-title\">Upcoming local events</h2>",
+      "date": "<label class=\"bl-event-date-label\"> <span>Date</span> <input class=\"bl-event-date-filter\" type=\"date\"/> </label>",
+      "endDate": "",
+      "location": "<div class=\"bl-event-location-label\">Murfreesboro, TN</div>",
+      "description": "",
+      "category": "education",
+      "isFree": false,
+      "price": "",
+      "image": "",
+      "link": "https://business.baselocal.com/",
+      "source": "BaseLocal"
+    },
+    {
+      "id": "5403a5ef5eb2",
+      "title": "<h2 class=\"bl-event-title\">Upcoming local events</h2>",
+      "date": "",
+      "endDate": "",
+      "location": "<div class=\"bl-event-location-label\">Murfreesboro, TN</div>",
+      "description": "",
+      "category": "education",
+      "isFree": false,
+      "price": "",
+      "image": "",
+      "link": "https://business.baselocal.com/",
+      "source": "BaseLocal"
+    },
+    {
+      "id": "8d9fe25e578f",
+      "title": "<h3 class=\"eds-media-card-content__title eds-text-color--grey-800 eds-text-bl\"><span class=\"eds-text-bl eds-text-weight--regular eds-text-bm eds-text-color--ui-blue\">1<!-- -->. <!-- -->Speed dating</span></h3>",
+      "date": "",
+      "endDate": "",
+      "location": "Murfreesboro, TN",
+      "description": "",
+      "category": "education",
+      "isFree": false,
+      "price": "",
+      "image": "",
+      "link": "https://www.eventbrite.com/d/tn--murfreesboro/all-events/",
+      "source": "Eventbrite"
+    }
+  ]
+}

@@ -87,7 +87,10 @@
     .intro-h2{font-family:var(--fh);font-size:clamp(2.8rem,5vw,4.5rem);line-height:1;letter-spacing:.03em;margin-bottom:1.5rem}
     .intro-h2 em{font-style:normal;color:var(--gold)}
     .intro-p{font-family:var(--fs);font-size:1rem;line-height:1.85;color:#555;margin-bottom:1rem}
-    .stats-bar{display:flex;border:1px solid var(--gray);margin-top:2.5rem}
+    .intro-video{margin-bottom:2rem}
+    .video-wrap{position:relative;padding-bottom:56.25%;background:#000;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12)}
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .stats-bar{display:flex;border:1px solid var(--gray);margin-top:0}
     .stat{flex:1;padding:1.5rem 1rem;text-align:center;border-right:1px solid var(--gray)}
     .stat:last-child{border-right:none}
     .stat-n{font-family:var(--fh);font-size:2.4rem;color:var(--charcoal);line-height:1}
@@ -279,7 +282,7 @@
       <div class="hero-inner">
         <p class="hero-ey">Murfreesboro, Tennessee</p>
         <h1 class="hero-title">GOOD<br/><span>MORNING</span><br/>MURFREESBORO</h1>
-        <p class="hero-sub">Your daily source for local news, community events, non-profits, and the businesses that make the Boro great.</p>
+        <p class="hero-sub">Your daily source for local news, community events, non-profits, and the businesses that make Murfreesboro shine.</p>
         <div class="hero-btns">
           <a href="/events" class="btn btn-gold">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -306,6 +309,12 @@
           <a href="/about" class="btn btn-gold" style="margin-top:.75rem">Meet the Team</a>
         </div>
         <div class="reveal d2">
+          <div class="intro-video">
+            <p class="sec-label">This Week's Episode</p>
+            <div class="video-wrap">
+              <iframe src="https://www.youtube.com/embed/-2lrCI6_HU0?rel=0" title="Good Morning Murfreesboro — Latest Episode" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
           <div class="stats-bar" role="region" aria-label="Community statistics">
             <div class="stat">
               <div class="stat-n">500<b>+</b></div>

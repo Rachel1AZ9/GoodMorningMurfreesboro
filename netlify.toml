@@ -1,0 +1,22 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+
+# Force HTTPS
+[[redirects]]
+  from = "http://goodmorningmurfreesboro.com/*"
+  to = "https://goodmorningmurfreesboro.com/:splat"
+  status = 301
+  force = true
+
+# www redirect
+[[redirects]]
+  from = "https://www.goodmorningmurfreesboro.com/*"
+  to = "https://goodmorningmurfreesboro.com/:splat"
+  status = 301
+  force = true

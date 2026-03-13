@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use | Good Morning Murfreesboro</title>
+  <meta name="description" content="Terms of Use for Good Morning Murfreesboro — the rules and guidelines for using our website and content." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/terms-of-use" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:800px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* NAV */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* HERO */
+    .page-hero{margin-top:var(--nav);background:var(--dark);padding:4rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.1) 0%,transparent 70%)}
+    .page-hero-line{position:absolute;left:0;bottom:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .hero-inner{position:relative;z-index:2}
+    .page-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+    .page-title{font-family:var(--fh);font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:.03em;color:var(--white);line-height:1}
+    .page-date{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.75rem;letter-spacing:.08em}
+
+    /* CONTENT */
+    .doc-wrap{max-width:var(--max);margin:0 auto;padding:4rem 2rem 6rem}
+
+    .toc{background:var(--off);border:1.5px solid var(--gray);border-radius:3px;padding:1.5rem 1.75rem;margin-bottom:3rem}
+    .toc-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .toc ol{padding-left:1.25rem;list-style:decimal}
+    .toc li{margin-bottom:.35rem}
+    .toc a{font-size:.83rem;color:var(--charcoal);transition:color .2s}
+    .toc a:hover{color:var(--gold)}
+
+    .doc-section{margin-bottom:3rem}
+    .doc-section h2{font-family:var(--fh);font-size:1.8rem;letter-spacing:.04em;color:var(--charcoal);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--gray);display:flex;align-items:center;gap:.6rem}
+    .doc-section h2 .sec-num{font-size:.7rem;font-weight:800;background:var(--gold);color:var(--charcoal);width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+    .doc-section p{font-family:var(--fs);font-size:.95rem;line-height:1.85;color:#444;margin-bottom:1rem}
+    .doc-section p:last-child{margin-bottom:0}
+    .doc-section ul{padding-left:1.5rem;margin-bottom:1rem}
+    .doc-section ul li{font-family:var(--fs);font-size:.92rem;line-height:1.75;color:#444;margin-bottom:.4rem;list-style:disc}
+    .doc-section a{color:var(--gold);text-decoration:underline}
+    .doc-section strong{font-weight:700;color:var(--charcoal)}
+
+    .highlight-box{background:rgba(201,168,76,.07);border-left:3px solid var(--gold);padding:1.1rem 1.25rem;border-radius:0 3px 3px 0;margin-bottom:1rem}
+    .highlight-box p{margin-bottom:0!important;font-size:.88rem!important}
+
+    .contact-box{background:var(--charcoal);border-radius:3px;padding:1.75rem;margin-top:2rem;text-align:center}
+    .contact-box p{color:rgba(255,255,255,.6)!important;font-size:.88rem!important;margin-bottom:.75rem!important}
+    .contact-box a{color:var(--gold)!important;font-weight:700}
+
+    /* FOOTER */
+    .footer{background:var(--charcoal)}
+    .footer-bot{max-width:1280px;margin:0 auto;padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.07)}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.35);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+    .footer-brand-row{max-width:1280px;margin:0 auto;padding:2rem 2rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-brand-row img{height:32px;filter:brightness(0) invert(1);opacity:.6}
+    .f-soc{display:flex;gap:.5rem}
+    .soc{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.6rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+
+    @media(max-width:960px){.nav-links{display:none}.burger{display:flex}.nav{padding:0 1.5rem}}
+    @media(max-width:600px){.footer-bot{flex-direction:column;align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/watch">Watch</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/watch" tabindex="-1">Watch</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="page-hero">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="page-eyebrow">Legal</p>
+        <h1 class="page-title">TERMS OF USE</h1>
+        <p class="page-date">Effective Date: January 1, 2025 &nbsp;·&nbsp; Last Updated: March 2025</p>
+      </div>
+    </div>
+
+    <div class="doc-wrap">
+
+      <div class="highlight-box">
+        <p><strong>The short version:</strong> Use our site and content respectfully. Don't steal our content or misuse the site. If you appear on our show, you're giving us permission to share that content. We're not liable if something goes wrong. Questions? Just ask.</p>
+      </div>
+
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">Contents</p>
+        <ol>
+          <li><a href="#acceptance">Acceptance of Terms</a></li>
+          <li><a href="#use-of-site">Use of This Website</a></li>
+          <li><a href="#our-content">Our Content &amp; Intellectual Property</a></li>
+          <li><a href="#user-content">Your Content &amp; Submissions</a></li>
+          <li><a href="#show-participation">Show Participation</a></li>
+          <li><a href="#third-party-links">Third-Party Links</a></li>
+          <li><a href="#disclaimer">Disclaimers</a></li>
+          <li><a href="#limitation">Limitation of Liability</a></li>
+          <li><a href="#governing-law">Governing Law</a></li>
+          <li><a href="#changes">Changes to These Terms</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ol>
+      </nav>
+
+      <section class="doc-section" id="acceptance">
+        <h2><span class="sec-num" aria-hidden="true">1</span> Acceptance of Terms</h2>
+        <p>By accessing or using the Good Morning Murfreesboro website at goodmorningmurfreesboro.com (the "Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Site.</p>
+        <p>These Terms apply to all visitors, users, and anyone who submits content or requests through the Site.</p>
+      </section>
+
+      <section class="doc-section" id="use-of-site">
+        <h2><span class="sec-num" aria-hidden="true">2</span> Use of This Website</h2>
+        <p>You may use this Site for lawful, personal, and non-commercial purposes. You agree not to:</p>
+        <ul>
+          <li>Use the Site in any way that violates applicable local, state, or federal laws</li>
+          <li>Attempt to gain unauthorized access to any part of the Site or its related systems</li>
+          <li>Submit false, misleading, or fraudulent information through our forms</li>
+          <li>Use automated tools (bots, scrapers) to collect data from the Site without our written permission</li>
+          <li>Impersonate Good Morning Murfreesboro, our team members, or any other person or entity</li>
+          <li>Transmit spam, malware, or any harmful code through the Site</li>
+        </ul>
+        <p>We reserve the right to block access to users who violate these terms.</p>
+      </section>
+
+      <section class="doc-section" id="our-content">
+        <h2><span class="sec-num" aria-hidden="true">3</span> Our Content &amp; Intellectual Property</h2>
+        <p>All content on this Site — including but not limited to text, graphics, logos, video, audio, and the Good Morning Murfreesboro name and brand — is owned by or licensed to Good Morning Murfreesboro and is protected by applicable copyright and intellectual property laws.</p>
+        <p>You may:</p>
+        <ul>
+          <li>Share links to our content on social media or other websites</li>
+          <li>Quote brief excerpts for news, commentary, or educational purposes with clear attribution</li>
+        </ul>
+        <p>You may <strong>not</strong>:</p>
+        <ul>
+          <li>Reproduce, republish, or redistribute our video content without written permission</li>
+          <li>Use our logo, branding, or name to imply endorsement without our consent</li>
+          <li>Commercially exploit our content without a written license agreement</li>
+        </ul>
+        <p>To request permission to use our content, please <a href="/contact">contact us</a>.</p>
+      </section>
+
+      <section class="doc-section" id="user-content">
+        <h2><span class="sec-num" aria-hidden="true">4</span> Your Content &amp; Submissions</h2>
+        <p>When you submit content to us through our contact forms — including shoutouts, messages, stories, or requests — you grant Good Morning Murfreesboro a non-exclusive, royalty-free license to use, display, and share that content in connection with our show and promotional materials.</p>
+        <p>You represent that:</p>
+        <ul>
+          <li>You own or have the right to submit the content you provide</li>
+          <li>Your content does not infringe any third-party intellectual property rights</li>
+          <li>Your content is truthful and not defamatory, obscene, or unlawful</li>
+        </ul>
+        <p>We reserve the right to decline, remove, or edit any submitted content at our sole discretion.</p>
+      </section>
+
+      <section class="doc-section" id="show-participation">
+        <h2><span class="sec-num" aria-hidden="true">5</span> Show Participation</h2>
+        <p>If you appear as a guest on Good Morning Murfreesboro, you agree to the following:</p>
+        <ul>
+          <li><strong>Recording consent:</strong> You consent to being recorded via video and/or audio during your appearance</li>
+          <li><strong>Broadcast rights:</strong> You grant Good Morning Murfreesboro the right to broadcast, stream, share, and archive your appearance across all platforms including YouTube, Facebook, TikTok, Instagram, and any other channels we use</li>
+          <li><strong>Promotional use:</strong> We may use clips, quotes, or images from your appearance for promotional purposes</li>
+          <li><strong>No compensation:</strong> Guest appearances are provided without compensation unless otherwise agreed in writing</li>
+          <li><strong>Accuracy:</strong> You are responsible for the accuracy of information you share during your appearance</li>
+        </ul>
+        <p>We will make reasonable efforts to portray all guests fairly and respectfully.</p>
+      </section>
+
+      <section class="doc-section" id="third-party-links">
+        <h2><span class="sec-num" aria-hidden="true">6</span> Third-Party Links</h2>
+        <p>Our Site may contain links to third-party websites, social media platforms, and businesses featured in our content. These links are provided for your convenience only. Good Morning Murfreesboro does not endorse, control, or take responsibility for the content, privacy practices, or availability of any third-party sites.</p>
+        <p>Accessing third-party sites through our links is at your own risk.</p>
+      </section>
+
+      <section class="doc-section" id="disclaimer">
+        <h2><span class="sec-num" aria-hidden="true">7</span> Disclaimers</h2>
+        <p>This Site and its content are provided <strong>"as is"</strong> without warranties of any kind, either express or implied. Good Morning Murfreesboro does not warrant that:</p>
+        <ul>
+          <li>The Site will be error-free or uninterrupted</li>
+          <li>Information on the Site is complete, accurate, or current</li>
+          <li>The Site is free from viruses or other harmful components</li>
+        </ul>
+        <p>Content on the Site, including community event listings and business information, is provided for informational purposes only. We are not responsible for errors, changes, or inaccuracies in third-party information we feature.</p>
+      </section>
+
+      <section class="doc-section" id="limitation">
+        <h2><span class="sec-num" aria-hidden="true">8</span> Limitation of Liability</h2>
+        <p>To the fullest extent permitted by law, Good Morning Murfreesboro and its team members shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of — or inability to use — this Site or its content.</p>
+        <p>Our total liability to you for any claim arising out of these Terms or your use of the Site shall not exceed $100.</p>
+      </section>
+
+      <section class="doc-section" id="governing-law">
+        <h2><span class="sec-num" aria-hidden="true">9</span> Governing Law</h2>
+        <p>These Terms of Use shall be governed by and construed in accordance with the laws of the State of Tennessee, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Rutherford County, Tennessee.</p>
+      </section>
+
+      <section class="doc-section" id="changes">
+        <h2><span class="sec-num" aria-hidden="true">10</span> Changes to These Terms</h2>
+        <p>We reserve the right to update or modify these Terms of Use at any time. Changes will be posted on this page with an updated "Last Updated" date. Your continued use of the Site after any changes constitutes your acceptance of the new Terms.</p>
+        <p>We encourage you to review these Terms periodically.</p>
+      </section>
+
+      <section class="doc-section" id="contact">
+        <h2><span class="sec-num" aria-hidden="true">11</span> Contact Us</h2>
+        <p>If you have questions about these Terms of Use, please reach out:</p>
+        <div class="contact-box">
+          <p><strong style="color:var(--white)">Good Morning Murfreesboro</strong></p>
+          <p>Murfreesboro, Tennessee</p>
+          <p>Contact us via our <a href="/contact">website contact form</a> or reach out on <a href="https://www.facebook.com/profile.php?id=61567305260107" target="_blank" rel="noopener noreferrer">Facebook</a> or <a href="https://www.instagram.com/goodmorningmurfreesboro/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-brand-row">
+      <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="110" height="32" />
+      <nav class="f-soc" aria-label="Social media">
+        <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+        <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+        <a href="https://www.tiktok.com/@gmmboro" class="soc" aria-label="TikTok" target="_blank" rel="noopener noreferrer">tt</a>
+        <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="soc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">yt</a>
+      </nav>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+    const dlinks = drawer.querySelectorAll('a');
+    burger.addEventListener('click', () => {
+      const o = drawer.classList.toggle('open');
+      burger.classList.toggle('open', o);
+      burger.setAttribute('aria-expanded', o);
+      drawer.setAttribute('aria-hidden', !o);
+      document.body.style.overflow = o ? 'hidden' : '';
+      dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+      if (o) dlinks[0].focus();
+    });
+    dlinks.forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+    }));
+  </script>
+</body>
+</html>

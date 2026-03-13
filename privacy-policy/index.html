@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Good Morning Murfreesboro</title>
+  <meta name="description" content="Privacy Policy for Good Morning Murfreesboro — how we collect, use, and protect your information." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://goodmorningmurfreesboro.com/privacy-policy" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#C9A84C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-l:#E8C96A;
+      --charcoal:#1C1C1C; --dark:#0f0f0f;
+      --white:#FFFFFF; --off:#F7F5F0; --gray:#EDEAE3; --muted:#888;
+      --fh:'Bebas Neue',sans-serif; --fb:'Montserrat',sans-serif; --fs:'Lora',Georgia,serif;
+      --nav:68px; --max:800px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);color:var(--charcoal);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit} ul{list-style:none} img{display:block;max-width:100%}
+    .skip{position:absolute;top:-999px;left:1rem;background:var(--gold);color:var(--charcoal);padding:.6rem 1rem;font-weight:700;font-size:.8rem;border-radius:2px;z-index:9999}
+    .skip:focus{top:1rem}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    /* NAV */
+    .nav{position:fixed;inset:0 0 auto;height:var(--nav);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:var(--white);box-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .nav-logo img{height:42px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:.15rem}
+    .nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);padding:.5rem .85rem;border-radius:2px;transition:color .2s,background .2s}
+    .nav-links a:hover{color:var(--gold);background:rgba(201,168,76,.08)}
+    .nav-cta{background:var(--gold)!important;color:var(--charcoal)!important;padding:.5rem 1.2rem!important}
+    .nav-cta:hover{background:var(--gold-l)!important}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:.4rem}
+    .burger span{display:block;width:26px;height:2px;background:var(--charcoal);transition:transform .3s,opacity .3s;border-radius:2px}
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .drawer{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+    .drawer.open{display:flex}
+    .drawer a{font-family:var(--fh);font-size:3rem;letter-spacing:.06em;color:var(--white);transition:color .2s}
+    .drawer a:hover{color:var(--gold)}
+
+    /* HERO */
+    .page-hero{margin-top:var(--nav);background:var(--dark);padding:4rem 2rem 3.5rem;text-align:center;position:relative;overflow:hidden}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.1) 0%,transparent 70%)}
+    .page-hero-line{position:absolute;left:0;bottom:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .hero-inner{position:relative;z-index:2}
+    .page-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+    .page-eyebrow::before,.page-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+    .page-title{font-family:var(--fh);font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:.03em;color:var(--white);line-height:1}
+    .page-date{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.75rem;letter-spacing:.08em}
+
+    /* CONTENT */
+    .doc-wrap{max-width:var(--max);margin:0 auto;padding:4rem 2rem 6rem}
+
+    .toc{
+      background:var(--off);border:1.5px solid var(--gray);border-radius:3px;
+      padding:1.5rem 1.75rem;margin-bottom:3rem;
+    }
+    .toc-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .toc ol{padding-left:1.25rem;list-style:decimal}
+    .toc li{margin-bottom:.35rem}
+    .toc a{font-size:.83rem;color:var(--charcoal);transition:color .2s}
+    .toc a:hover{color:var(--gold)}
+
+    .doc-section{margin-bottom:3rem}
+    .doc-section h2{
+      font-family:var(--fh);font-size:1.8rem;letter-spacing:.04em;
+      color:var(--charcoal);margin-bottom:1rem;padding-bottom:.6rem;
+      border-bottom:2px solid var(--gray);
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .doc-section h2 .sec-num{
+      font-size:.7rem;font-weight:800;background:var(--gold);color:var(--charcoal);
+      width:24px;height:24px;border-radius:50%;
+      display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .doc-section p{font-family:var(--fs);font-size:.95rem;line-height:1.85;color:#444;margin-bottom:1rem}
+    .doc-section p:last-child{margin-bottom:0}
+    .doc-section ul{padding-left:1.5rem;margin-bottom:1rem}
+    .doc-section ul li{font-family:var(--fs);font-size:.92rem;line-height:1.75;color:#444;margin-bottom:.4rem;list-style:disc}
+    .doc-section a{color:var(--gold);text-decoration:underline}
+    .doc-section strong{font-weight:700;color:var(--charcoal)}
+
+    .highlight-box{
+      background:rgba(201,168,76,.07);border-left:3px solid var(--gold);
+      padding:1.1rem 1.25rem;border-radius:0 3px 3px 0;margin-bottom:1rem;
+    }
+    .highlight-box p{margin-bottom:0!important;font-size:.88rem!important}
+
+    .contact-box{
+      background:var(--charcoal);border-radius:3px;padding:1.75rem;margin-top:2rem;text-align:center;
+    }
+    .contact-box p{color:rgba(255,255,255,.6)!important;font-size:.88rem!important;margin-bottom:.75rem!important}
+    .contact-box a{color:var(--gold)!important;font-weight:700}
+
+    /* FOOTER */
+    .footer{background:var(--charcoal)}
+    .footer-bot{max-width:1280px;margin:0 auto;padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.07)}
+    .footer-bot p{font-size:.75rem;color:rgba(255,255,255,.25)}
+    .f-legal{display:flex;gap:1.5rem}
+    .f-legal a{font-size:.75rem;color:rgba(255,255,255,.35);transition:color .2s}
+    .f-legal a:hover{color:var(--gold)}
+    .footer-brand-row{max-width:1280px;margin:0 auto;padding:2rem 2rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-brand-row img{height:32px;filter:brightness(0) invert(1);opacity:.6}
+    .f-soc{display:flex;gap:.5rem}
+    .soc{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:.6rem;font-weight:700;transition:background .2s,color .2s}
+    .soc:hover{background:var(--gold);color:var(--charcoal)}
+
+    @media(max-width:960px){.nav-links{display:none}.burger{display:flex}.nav{padding:0 1.5rem}}
+    @media(max-width:600px){.footer-bot{flex-direction:column;align-items:flex-start}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Good Morning Murfreesboro home">
+        <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="148" height="42" />
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/watch">Watch</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/nonprofits">Non-Profits</a></li>
+        <li><a href="/businesses">Businesses</a></li>
+        <li><a href="/contact" class="nav-cta">+ Get Featured</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <nav class="drawer" id="drawer" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="/" tabindex="-1">Home</a>
+      <a href="/about" tabindex="-1">About</a>
+      <a href="/watch" tabindex="-1">Watch</a>
+      <a href="/events" tabindex="-1">Events</a>
+      <a href="/nonprofits" tabindex="-1">Non-Profits</a>
+      <a href="/businesses" tabindex="-1">Businesses</a>
+      <a href="/contact" tabindex="-1">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="page-hero">
+      <div class="page-hero-bg" aria-hidden="true"></div>
+      <div class="page-hero-line" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="page-eyebrow">Legal</p>
+        <h1 class="page-title">PRIVACY POLICY</h1>
+        <p class="page-date">Effective Date: January 1, 2025 &nbsp;·&nbsp; Last Updated: March 2025</p>
+      </div>
+    </div>
+
+    <div class="doc-wrap">
+
+      <div class="highlight-box">
+        <p><strong>The short version:</strong> We collect only what we need to run Good Morning Murfreesboro. We never sell your personal information. We use it to respond to you, improve our show, and send our newsletter if you opt in. That's it.</p>
+      </div>
+
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">Contents</p>
+        <ol>
+          <li><a href="#info-we-collect">Information We Collect</a></li>
+          <li><a href="#how-we-use">How We Use Your Information</a></li>
+          <li><a href="#sharing">Sharing Your Information</a></li>
+          <li><a href="#cookies">Cookies &amp; Analytics</a></li>
+          <li><a href="#third-party">Third-Party Services</a></li>
+          <li><a href="#your-rights">Your Rights &amp; Choices</a></li>
+          <li><a href="#children">Children's Privacy</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#changes">Changes to This Policy</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ol>
+      </nav>
+
+      <section class="doc-section" id="info-we-collect">
+        <h2><span class="sec-num" aria-hidden="true">1</span> Information We Collect</h2>
+        <p>We collect information you voluntarily provide to us when you interact with Good Morning Murfreesboro, including through our website, contact forms, and newsletter signup.</p>
+        <p><strong>Information you give us directly:</strong></p>
+        <ul>
+          <li>Name, email address, and phone number when you submit a contact or guest request form</li>
+          <li>Organization name, website, and social media handles when submitting a guest or non-profit request</li>
+          <li>Messages, shoutouts, or stories you submit through our contact forms</li>
+          <li>Email address when you subscribe to our newsletter</li>
+        </ul>
+        <p><strong>Information collected automatically:</strong></p>
+        <ul>
+          <li>Basic analytics data such as pages visited, time on site, and general geographic region (via GitHub Pages and any analytics tools we use)</li>
+          <li>Browser type and device type for technical compatibility purposes</li>
+        </ul>
+        <p>We do <strong>not</strong> collect payment information, Social Security numbers, or other sensitive personal data.</p>
+      </section>
+
+      <section class="doc-section" id="how-we-use">
+        <h2><span class="sec-num" aria-hidden="true">2</span> How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Respond to your guest spot, non-profit, shoutout, and general inquiries</li>
+          <li>Schedule and coordinate show appearances</li>
+          <li>Send our newsletter to subscribers who have opted in</li>
+          <li>Improve our website and show content based on how visitors use the site</li>
+          <li>Comply with legal obligations if required</li>
+        </ul>
+        <p>We will never use your information to send unsolicited marketing from third parties or sell your data to advertisers.</p>
+      </section>
+
+      <section class="doc-section" id="sharing">
+        <h2><span class="sec-num" aria-hidden="true">3</span> Sharing Your Information</h2>
+        <p>We do <strong>not sell, rent, or trade</strong> your personal information to anyone, ever.</p>
+        <p>We may share your information only in these limited circumstances:</p>
+        <ul>
+          <li><strong>Service providers:</strong> We use tools like Netlify (form processing) and email newsletter platforms to operate the site. These providers process data on our behalf and are bound by their own privacy policies.</li>
+          <li><strong>Legal requirements:</strong> We may disclose information if required by law or to protect the rights and safety of Good Morning Murfreesboro, our team, or the public.</li>
+          <li><strong>With your consent:</strong> We may share your story or name publicly on the show or social media only if you have explicitly agreed to appear or be featured.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="cookies">
+        <h2><span class="sec-num" aria-hidden="true">4</span> Cookies &amp; Analytics</h2>
+        <p>Our website may use cookies and similar technologies to improve your experience and understand how visitors use our site. This may include:</p>
+        <ul>
+          <li><strong>Essential cookies:</strong> Required for basic site functionality</li>
+          <li><strong>Analytics cookies:</strong> Help us understand traffic patterns and popular content (we use aggregated, anonymized data only)</li>
+        </ul>
+        <p>You can disable cookies in your browser settings at any time. Disabling cookies may affect some site functionality but will not prevent you from accessing our content.</p>
+      </section>
+
+      <section class="doc-section" id="third-party">
+        <h2><span class="sec-num" aria-hidden="true">5</span> Third-Party Services</h2>
+        <p>Our website links to and embeds content from third-party platforms. These services have their own privacy policies which we encourage you to review:</p>
+        <ul>
+          <li><strong>YouTube</strong> — for embedded video content (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>)</li>
+          <li><strong>Facebook</strong> — for social sharing and our Facebook page</li>
+          <li><strong>Instagram &amp; TikTok</strong> — for social content</li>
+          <li><strong>Netlify</strong> — for form submissions (<a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Netlify Privacy Policy</a>)</li>
+          <li><strong>GitHub Pages</strong> — for website hosting (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a>)</li>
+        </ul>
+        <p>We are not responsible for the privacy practices of third-party services.</p>
+      </section>
+
+      <section class="doc-section" id="your-rights">
+        <h2><span class="sec-num" aria-hidden="true">6</span> Your Rights &amp; Choices</h2>
+        <p>You have the following rights regarding your personal information:</p>
+        <ul>
+          <li><strong>Access:</strong> You may request a copy of the personal information we hold about you</li>
+          <li><strong>Correction:</strong> You may ask us to correct inaccurate information</li>
+          <li><strong>Deletion:</strong> You may request that we delete your personal information</li>
+          <li><strong>Unsubscribe:</strong> You may unsubscribe from our newsletter at any time using the link in any email we send</li>
+          <li><strong>Opt out of communications:</strong> You may ask us to stop contacting you at any time</li>
+        </ul>
+        <p>To exercise any of these rights, contact us at the address below. We will respond within 30 days.</p>
+      </section>
+
+      <section class="doc-section" id="children">
+        <h2><span class="sec-num" aria-hidden="true">7</span> Children's Privacy</h2>
+        <p>Good Morning Murfreesboro is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has submitted personal information to us, please contact us immediately and we will delete it.</p>
+      </section>
+
+      <section class="doc-section" id="security">
+        <h2><span class="sec-num" aria-hidden="true">8</span> Security</h2>
+        <p>We take reasonable measures to protect your personal information from unauthorized access, loss, or misuse. Our website is hosted on GitHub Pages with HTTPS encryption. Form data is processed through Netlify's secure infrastructure.</p>
+        <p>No method of internet transmission is 100% secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+      </section>
+
+      <section class="doc-section" id="changes">
+        <h2><span class="sec-num" aria-hidden="true">9</span> Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this page. We encourage you to review this policy periodically. Continued use of our website after changes are posted constitutes your acceptance of the updated policy.</p>
+      </section>
+
+      <section class="doc-section" id="contact">
+        <h2><span class="sec-num" aria-hidden="true">10</span> Contact Us</h2>
+        <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please reach out:</p>
+        <div class="contact-box">
+          <p><strong style="color:var(--white)">Good Morning Murfreesboro</strong></p>
+          <p>Murfreesboro, Tennessee</p>
+          <p>Contact us via our <a href="/contact">website contact form</a> or reach out on <a href="https://www.facebook.com/profile.php?id=61567305260107" target="_blank" rel="noopener noreferrer">Facebook</a> or <a href="https://www.instagram.com/goodmorningmurfreesboro/" target="_blank" rel="noopener noreferrer">Instagram</a>.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-brand-row">
+      <img src="/images/GMM_Logo.png" alt="Good Morning Murfreesboro" width="110" height="32" />
+      <nav class="f-soc" aria-label="Social media">
+        <a href="https://www.facebook.com/profile.php?id=61567305260107" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+        <a href="https://www.instagram.com/goodmorningmurfreesboro/" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a>
+        <a href="https://www.tiktok.com/@gmmboro" class="soc" aria-label="TikTok" target="_blank" rel="noopener noreferrer">tt</a>
+        <a href="https://www.youtube.com/channel/UCz5AtMQFFYqgzAeg8ye2Uvw" class="soc" aria-label="YouTube" target="_blank" rel="noopener noreferrer">yt</a>
+      </nav>
+    </div>
+    <div class="footer-bot">
+      <p>© <span id="yr"></span> Good Morning Murfreesboro. All rights reserved.</p>
+      <nav class="f-legal">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const burger = document.getElementById('burger'), drawer = document.getElementById('drawer');
+    const dlinks = drawer.querySelectorAll('a');
+    burger.addEventListener('click', () => {
+      const o = drawer.classList.toggle('open');
+      burger.classList.toggle('open', o);
+      burger.setAttribute('aria-expanded', o);
+      drawer.setAttribute('aria-hidden', !o);
+      document.body.style.overflow = o ? 'hidden' : '';
+      dlinks.forEach(a => a.tabIndex = o ? 0 : -1);
+      if (o) dlinks[0].focus();
+    });
+    dlinks.forEach(a => a.addEventListener('click', () => {
+      drawer.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = ''; dlinks.forEach(l => l.tabIndex = -1);
+    }));
+  </script>
+</body>
+</html>

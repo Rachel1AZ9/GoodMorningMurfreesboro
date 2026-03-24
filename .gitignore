@@ -1,0 +1,21 @@
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Node (if ever added)
+node_modules/

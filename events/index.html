@@ -555,6 +555,12 @@
     try { return new Date(str); } catch { return null; }
   }
 
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
   function formatDate(d) {
     if (!d) return '';
     return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
@@ -665,19 +671,19 @@
     const dow = d ? DAYS[d.getDay()] : '';
     const time = d ? formatTime(d) : '';
     const emoji = CAT_EMOJI[e.category] || '📅';
-    return `<div class="list-card" data-event-id="${e.id}" tabindex="0" role="button" aria-label="View details for ${e.title}">
+    return `<div class="list-card" data-event-id="${esc(e.id)}" tabindex="0" role="button" aria-label="View details for ${esc(e.title)}">
       <div class="list-card-date"><div class="lcd-month">${mon}</div><div class="lcd-day">${day}</div><div class="lcd-dow">${dow}</div></div>
-      <div class="list-card-img">${e.image ? `<img src="${e.image}" alt="" loading="lazy" />` : `<div class="list-card-img-placeholder">${emoji}</div>`}</div>
+      <div class="list-card-img">${e.image ? `<img src="${esc(e.image)}" alt="" loading="lazy" />` : `<div class="list-card-img-placeholder">${emoji}</div>`}</div>
       <div class="list-card-body">
-        <p class="lc-source">${e.source || ''}</p>
-        <h3 class="lc-title">${e.title}</h3>
+        <p class="lc-source">${esc(e.source)}</p>
+        <h3 class="lc-title">${esc(e.title)}</h3>
         <div class="lc-meta">
           ${time ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${time}</span>` : ''}
-          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${e.location}</span>` : ''}
+          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${esc(e.location)}</span>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:.5rem">
-          <span class="lc-cat ${catClass(e.category)}">${emoji} ${e.category || 'general'}</span>
-          ${e.price ? `<span class="lc-price ${e.isFree ? 'price-free' : 'price-paid'}">${e.price}</span>` : ''}
+          <span class="lc-cat ${catClass(e.category)}">${emoji} ${esc(e.category) || 'general'}</span>
+          ${e.price ? `<span class="lc-price ${e.isFree ? 'price-free' : 'price-paid'}">${esc(e.price)}</span>` : ''}
         </div>
       </div>
       <div class="list-card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -690,21 +696,21 @@
     const day = d ? d.getDate() : '';
     const time = d ? formatTime(d) : '';
     const emoji = CAT_EMOJI[e.category] || '📅';
-    return `<div class="grid-card" data-event-id="${e.id}" tabindex="0" role="button" aria-label="View details for ${e.title}">
+    return `<div class="grid-card" data-event-id="${esc(e.id)}" tabindex="0" role="button" aria-label="View details for ${esc(e.title)}">
       <div class="gc-img">
-        ${e.image ? `<img src="${e.image}" alt="" loading="lazy" />` : `<div class="gc-img-placeholder">${emoji}</div>`}
+        ${e.image ? `<img src="${esc(e.image)}" alt="" loading="lazy" />` : `<div class="gc-img-placeholder">${emoji}</div>`}
         ${mon ? `<div class="gc-date-badge"><div class="month">${mon}</div><div class="day">${day}</div></div>` : ''}
-        <span class="gc-cat-badge ${catClass(e.category)}">${e.category || 'general'}</span>
+        <span class="gc-cat-badge ${catClass(e.category)}">${esc(e.category) || 'general'}</span>
       </div>
       <div class="gc-body">
-        <p class="gc-source">${e.source || ''}</p>
-        <h3 class="gc-title">${e.title}</h3>
+        <p class="gc-source">${esc(e.source)}</p>
+        <h3 class="gc-title">${esc(e.title)}</h3>
         <div class="gc-meta">
           ${time ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${time}</span>` : ''}
-          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${e.location}</span>` : ''}
+          ${e.location ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${esc(e.location)}</span>` : ''}
         </div>
         <div class="gc-footer">
-          ${e.price ? `<span class="gc-price ${e.isFree ? 'price-free' : 'price-paid'}">${e.price}</span>` : '<span></span>'}
+          ${e.price ? `<span class="gc-price ${e.isFree ? 'price-free' : 'price-paid'}">${esc(e.price)}</span>` : '<span></span>'}
           <span class="gc-link">Details <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
         </div>
       </div>
@@ -835,7 +841,7 @@
     // Image
     const imgWrap = $('modal-img');
     if (e.image) {
-      imgWrap.innerHTML = `<img src="${e.image}" alt="" /><button class="modal-close" id="modal-close" aria-label="Close">✕</button>`;
+      imgWrap.innerHTML = `<img src="${esc(e.image)}" alt="" /><button class="modal-close" id="modal-close" aria-label="Close">✕</button>`;
     } else {
       imgWrap.innerHTML = `<div class="modal-img-placeholder">${emoji}</div><button class="modal-close" id="modal-close" aria-label="Close">✕</button>`;
     }
@@ -847,14 +853,14 @@
 
     let metaHTML = '';
     if (d) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${formatDate(d)}${formatTime(d) ? ' at ' + formatTime(d) : ''}${end ? ' – ' + formatTime(end) : ''}</span></div>`;
-    if (e.location) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${e.location}</span></div>`;
-    if (e.price) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="${e.isFree ? 'price-free' : 'price-paid'}" style="padding:.2rem .5rem;border-radius:3px;font-size:.8rem;font-weight:700">${e.price}</span></div>`;
-    if (e.source) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Source: ${e.source}</span></div>`;
+    if (e.location) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${esc(e.location)}</span></div>`;
+    if (e.price) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="${e.isFree ? 'price-free' : 'price-paid'}" style="padding:.2rem .5rem;border-radius:3px;font-size:.8rem;font-weight:700">${esc(e.price)}</span></div>`;
+    if (e.source) metaHTML += `<div class="modal-meta-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Source: ${esc(e.source)}</span></div>`;
     $('modal-meta').innerHTML = metaHTML;
 
     $('modal-desc').textContent = e.description || 'No description available.';
     $('modal-actions').innerHTML = e.link && e.link !== '#'
-      ? `<a href="${e.link}" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-gold">View Full Event →</a><button class="modal-btn modal-btn-outline" onclick="closeModal()">Close</button>`
+      ? `<a href="${esc(e.link)}" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-gold">View Full Event →</a><button class="modal-btn modal-btn-outline" onclick="closeModal()">Close</button>`
       : `<button class="modal-btn modal-btn-gold" onclick="closeModal()">Close</button>`;
 
     const overlay = $('modal');

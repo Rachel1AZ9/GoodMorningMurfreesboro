@@ -532,6 +532,12 @@
       return str && str.length > n ? str.slice(0, n).trimEnd() + '...' : str;
     }
 
+    function esc(s) {
+      const d = document.createElement('div');
+      d.textContent = s || '';
+      return d.innerHTML;
+    }
+
     // ─────────────────────────────────────────────────────────────────────
     // RENDER FEATURED
     // ─────────────────────────────────────────────────────────────────────
@@ -547,8 +553,8 @@
       if (ep.videoId) {
         // Thumbnail with click-to-play
         wrap.innerHTML = `
-          <div class="video-thumb" id="thumb-play" role="button" tabindex="0" aria-label="Play ${ep.title}">
-            <img src="${ytThumb(ep.videoId, 'hqdefault')}" alt="Thumbnail for ${ep.title}" />
+          <div class="video-thumb" id="thumb-play" role="button" tabindex="0" aria-label="Play ${esc(ep.title)}">
+            <img src="${ytThumb(ep.videoId, 'hqdefault')}" alt="Thumbnail for ${esc(ep.title)}" />
             <div class="play-btn" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
@@ -557,7 +563,7 @@
         const embed = () => {
           wrap.innerHTML = `<iframe
             src="https://www.youtube.com/embed/${ep.videoId}?autoplay=1&rel=0"
-            title="${ep.title}"
+            title="${esc(ep.title)}"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>`;
@@ -580,18 +586,18 @@
       const link = ytLink(ep.videoId);
       const hasThumb = !!ep.videoId;
       return `
-        <article class="ep-card" onclick="window.open('${link}','_blank')" tabindex="0" role="link" aria-label="Watch episode: ${ep.title}">
+        <article class="ep-card" onclick="window.open('${link}','_blank')" tabindex="0" role="link" aria-label="Watch episode: ${esc(ep.title)}">
           <div class="ep-thumb">
             ${hasThumb
-              ? `<img src="${ytThumb(ep.videoId)}" alt="Thumbnail for ${ep.title}" loading="lazy" />`
+              ? `<img src="${ytThumb(ep.videoId)}" alt="Thumbnail for ${esc(ep.title)}" loading="lazy" />`
               : `<div class="ep-thumb-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/></svg></div>`
             }
             <span class="ep-num">EP ${index + 2}</span>
           </div>
           <div class="ep-body">
             <p class="ep-date">${formatDate(ep.date)}</p>
-            <h3 class="ep-title">${ep.title}</h3>
-            <p class="ep-desc">${ep.description || ''}</p>
+            <h3 class="ep-title">${esc(ep.title)}</h3>
+            <p class="ep-desc">${esc(ep.description)}</p>
             <div class="ep-footer">
               <span class="ep-views">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>

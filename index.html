@@ -319,7 +319,7 @@
         <div class="reveal d2">
           <div class="intro-video">
             <p class="sec-label">This Week's Episode</p>
-            <div class="video-wrap">
+            <div class="video-wrap" id="home-video">
               <iframe src="https://www.youtube.com/embed/-2lrCI6_HU0?rel=0" title="Good Morning Murfreesboro — Latest Episode" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
@@ -561,6 +561,23 @@
       const b = e.currentTarget.querySelector('button');
       b.textContent = 'Subscribed ✓'; b.style.background = '#1a5c2a'; b.disabled = true;
     });
+
+    // Auto-fetch latest YouTube episode
+    (async function() {
+      try {
+        const API_KEY = 'AIzaSyCoGdjHpWUCL3z-jUBEf69Rdd-Wr_Rlmug';
+        const CHANNEL_ID = 'UCz5AtMQFFYqgzAeg8ye2Uvw';
+        const r = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=1&type=video`);
+        if (!r.ok) return;
+        const data = await r.json();
+        const vid = data.items?.[0];
+        if (!vid) return;
+        const videoId = vid.id.videoId;
+        const title = vid.snippet.title;
+        const wrap = document.getElementById('home-video');
+        wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0" title="${title.replace(/"/g, '&quot;')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      } catch(e) { /* keep fallback embed */ }
+    })();
   </script>
 </body>
 </html>

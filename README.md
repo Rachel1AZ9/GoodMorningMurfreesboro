@@ -27,8 +27,8 @@ python3 -m http.server 8000
 | About | `/about` | Team bios and social links |
 | Watch | `/watch` | YouTube episodes via API with fallbacks |
 | Events | `/events` | Event calendar (list/grid/month views) |
-| Non-Profits | `/nonprofits` | Non-profit partner directory |
-| Businesses | `/businesses` | Local business directory |
+| Non-Profits | `/nonprofits` | Non-profit partner cards + full directory (32 orgs) |
+| Businesses | `/businesses` | Business spotlight cards + full directory (37 businesses) |
 | Contact | `/contact` | Guest spot, non-profit, and general contact forms |
 
 ## Event Scraper

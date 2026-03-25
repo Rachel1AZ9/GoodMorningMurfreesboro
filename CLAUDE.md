@@ -70,6 +70,15 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 
 ## Placeholder Links
 
-Some `href="#"` links remain and need real URLs when available:
-- **Businesses page** — Blackbelt, Valley Growers, TMX Creative
-- **Nonprofits page** — Glenn Turkey Giveaway, Lifehouse Petfinder, 26 Community Partner logos (numbered image files)
+A few `href="#"` links remain and need real URLs when available:
+- **Nonprofits page** — Black Belt Bowling, Glenn Turkey Giveaway, Lifehouse Petfinder
+
+## Broken Images
+
+All images previously hosted on the old WordPress site (`i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/...`) are now returning 404. Affected cards have been converted to text placeholders or removed. New logos should be added to `/images/` and referenced with absolute paths.
+
+## Page Layout
+
+Both the nonprofits and businesses pages follow this structure:
+1. **Featured cards** (top) — spotlight/logo cards with details
+2. **Full directory list** (below cards) — alphabetical grid list of all featured organizations, with clickable links where available and plain text otherwise

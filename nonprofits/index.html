@@ -231,6 +231,24 @@
       padding:.35rem .8rem;border-radius:2px;margin-bottom:2rem;
     }
 
+    /* ── FULL DIRECTORY LIST ── */
+    .np-directory{padding:5rem 2rem;background:var(--off);text-align:center}
+    .np-dir-header{max-width:var(--max);margin:0 auto 2.5rem}
+    .np-dir-header h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.04em;margin:.5rem 0 .75rem}
+    .np-dir-header p{color:var(--muted);font-size:.95rem;max-width:540px;margin:0 auto}
+    .np-list{
+      max-width:var(--max);margin:0 auto;
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem 2rem;
+      text-align:left;list-style:none;padding:0;
+    }
+    .np-list li{
+      padding:.65rem 0;border-bottom:1px solid rgba(0,0,0,.06);
+      font-size:.9rem;font-weight:500;color:var(--charcoal);
+    }
+    .np-list li a{color:var(--charcoal);text-decoration:none;transition:color .2s}
+    .np-list li a:hover{color:var(--gold)}
+    .np-list li a::after{content:' →';font-size:.75rem;opacity:.4}
+
     /* ── CTA / SUBMIT ── */
     .submit-cta{
       background:var(--charcoal);
@@ -575,6 +593,49 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- FULL DIRECTORY -->
+    <section class="np-directory" aria-labelledby="np-dir-h">
+      <div class="np-dir-header reveal">
+        <p class="sec-label">Full Directory</p>
+        <h2 id="np-dir-h">ALL FEATURED NON-PROFITS</h2>
+        <p>Every organization below has been featured on Good Morning Murfreesboro.</p>
+      </div>
+      <ul class="np-list reveal" role="list">
+        <li>100 Men Who Care</li>
+        <li>100 Women Who Care</li>
+        <li>Alzheimer's Tennessee</li>
+        <li>American Red Cross — Murfreesboro</li>
+        <li><a href="#" aria-label="Black Belt Bowling">Black Belt Bowling</a></li>
+        <li><a href="https://www.borodash.org/" target="_blank" rel="noopener noreferrer">BoroDash</a></li>
+        <li><a href="https://dvsacenter.org/" target="_blank" rel="noopener noreferrer">DVSA</a></li>
+        <li><a href="https://www.feedamericafirst.com/" target="_blank" rel="noopener noreferrer">Feed America First</a></li>
+        <li>Glenn Turkey Giveaway</li>
+        <li><a href="https://greenhouse-ministries.com/" target="_blank" rel="noopener noreferrer">Greenhouse Ministries</a></li>
+        <li><a href="https://www.rchfh.org/" target="_blank" rel="noopener noreferrer">Habitat for Humanity — Rutherford County</a></li>
+        <li><a href="https://www.fidelishomestn.com/your-realtor-your-advocate/#homes-for-heroes" target="_blank" rel="noopener noreferrer">Homes for Heroes</a></li>
+        <li>Isaiah 117 House</li>
+        <li>Jonathan's Path</li>
+        <li><a href="https://nashville.ja.org/" target="_blank" rel="noopener noreferrer">Junior Achievement of Middle TN</a></li>
+        <li>Junior League of Murfreesboro</li>
+        <li>Kymari House</li>
+        <li><a href="https://www.libertysstationtn.org" target="_blank" rel="noopener noreferrer">Liberty's Station</a></li>
+        <li>Lifehouse Petfinder</li>
+        <li>Main Street Murfreesboro</li>
+        <li><a href="https://minuteswisely.org/" target="_blank" rel="noopener noreferrer">Minutes Wisely</a></li>
+        <li><a href="https://www.proverbs1210rescue.org/" target="_blank" rel="noopener noreferrer">Proverbs 12:10 Animal Rescue</a></li>
+        <li>PurplePaws</li>
+        <li>Read To Succeed</li>
+        <li>Rutherford Arts Alliance</li>
+        <li><a href="https://www.rutherfordchamber.org/" target="_blank" rel="noopener noreferrer">Rutherford Chamber of Commerce</a></li>
+        <li><a href="https://rutherfordcountycatrescue.org/" target="_blank" rel="noopener noreferrer">Rutherford County Cat Rescue</a></li>
+        <li><a href="https://visitrutherfordtn.com/" target="_blank" rel="noopener noreferrer">Rutherford County CVB</a></li>
+        <li>Special Kids</li>
+        <li>Spread the Positive</li>
+        <li>Tools for Schools</li>
+        <li>VFW — Murfreesboro</li>
+      </ul>
     </section>
 
     <!-- SUBMIT CTA -->

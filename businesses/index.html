@@ -331,6 +331,24 @@
       color:var(--muted);
     }
 
+    /* ── FULL DIRECTORY LIST ── */
+    .biz-directory{padding:5rem 2rem;background:var(--off);text-align:center}
+    .biz-dir-header{max-width:var(--max);margin:0 auto 2.5rem}
+    .biz-dir-header h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:.04em;margin:.5rem 0 .75rem}
+    .biz-dir-header p{color:var(--muted);font-size:.95rem;max-width:540px;margin:0 auto}
+    .biz-list{
+      max-width:var(--max);margin:0 auto;
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem 2rem;
+      text-align:left;list-style:none;padding:0;
+    }
+    .biz-list li{
+      padding:.65rem 0;border-bottom:1px solid rgba(0,0,0,.06);
+      font-size:.9rem;font-weight:500;color:var(--charcoal);
+    }
+    .biz-list li a{color:var(--charcoal);text-decoration:none;transition:color .2s}
+    .biz-list li a:hover{color:var(--gold)}
+    .biz-list li a::after{content:' →';font-size:.75rem;opacity:.4}
+
     /* ── BE FEATURED CTA ── */
     .biz-cta{
       background:var(--charcoal);
@@ -722,6 +740,54 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- FULL DIRECTORY LIST -->
+    <section class="biz-directory" aria-labelledby="biz-dir-h">
+      <div class="biz-dir-header reveal">
+        <p class="sec-label">Full Directory</p>
+        <h2 id="biz-dir-h">ALL FEATURED BUSINESSES</h2>
+        <p>Every business below has been featured on Good Morning Murfreesboro.</p>
+      </div>
+      <ul class="biz-list reveal" role="list">
+        <li><a href="https://www.615insured.com/" target="_blank" rel="noopener noreferrer">615 Insurance Agency</a></li>
+        <li>Abundant Travel</li>
+        <li>Advantage Home Realty</li>
+        <li>BankPlus</li>
+        <li>Bullseye Range</li>
+        <li>Chef's Deal</li>
+        <li>Cooper Schanie, LMT</li>
+        <li>Endure Athletics</li>
+        <li>Firebird</li>
+        <li>Hemispheres</li>
+        <li>Huff Media Productions</li>
+        <li><a href="https://www.inforulesm.com/" target="_blank" rel="noopener noreferrer">InfoRule Social Media</a></li>
+        <li>Interstate Dental</li>
+        <li>K Lee Luxury Wigs</li>
+        <li><a href="https://www.kdgistudios.com/" target="_blank" rel="noopener noreferrer">KDGI Architecture</a></li>
+        <li>Keller Williams</li>
+        <li>KK Fitness</li>
+        <li>Launchpoint</li>
+        <li><a href="https://mte.com/" target="_blank" rel="noopener noreferrer">MTE</a></li>
+        <li>Nurture Nook</li>
+        <li>Reed &amp; Associates</li>
+        <li>Reflect Wellness</li>
+        <li>Roto-Rooter Mid TN</li>
+        <li>Ruck Nutrition</li>
+        <li>Sensory Space</li>
+        <li>Shackletts</li>
+        <li>Single Tree BBQ</li>
+        <li>Sit Means Sit</li>
+        <li><a href="https://www.superiordoorsoftn.com/" target="_blank" rel="noopener noreferrer">Superior Overhead Doors</a></li>
+        <li>Symspire</li>
+        <li>The Sweet Addiction</li>
+        <li>The Very Idea / 615 Collective</li>
+        <li><a href="https://tmxcreative.com/" target="_blank" rel="noopener noreferrer">TMX Creative</a></li>
+        <li>TriStar Roofing &amp; Exteriors</li>
+        <li><a href="https://www.facebook.com/ValleyGrowersGardenCenter/" target="_blank" rel="noopener noreferrer">Valley Growers</a></li>
+        <li>VIP Magazine</li>
+        <li>Wild Goose Chase Events</li>
+      </ul>
     </section>
 
     <!-- BE FEATURED CTA -->

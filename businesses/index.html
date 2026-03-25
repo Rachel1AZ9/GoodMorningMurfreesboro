@@ -185,7 +185,7 @@
 
     .spotlight-logo{
       width:160px;flex-shrink:0;
-      background:var(--charcoal);
+      background:var(--gold);
       display:flex;align-items:center;justify-content:center;
       padding:1.5rem;
       position:relative;
@@ -193,12 +193,11 @@
     }
     .spotlight-logo::after{
       content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(201,168,76,.15),transparent);
+      background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
     }
     .spotlight-logo img{
       max-width:100%;max-height:80px;
       object-fit:contain;
-      filter:brightness(0) invert(1);
       position:relative;z-index:1;
       transition:transform .3s var(--ease);
     }

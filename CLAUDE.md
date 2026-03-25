@@ -10,7 +10,9 @@ Good Morning Murfreesboro (goodmorningmurfreesboro.com) — a community news and
 
 - **Static site** — plain HTML/CSS/JS with no build step or framework. Use a local server (`python3 -m http.server 8000`) to develop since pages use absolute paths.
 - **Single-page structure** — all CSS is inlined in `<style>` within each page's HTML; all JS is inlined in a `<script>` block at the end of `<body>`. No external CSS/JS files.
-- **Hosting** — designed for Netlify (forms use `data-netlify="true"` attributes and honeypot spam protection).
+- **Hosting** — Netlify with auto-deploy from GitHub `main` branch. DNS managed by Netlify DNS.
+- **Domain** — goodmorningmurfreesboro.com (HTTPS enforced, www redirects to non-www).
+- **Forms** — Netlify Forms with `data-netlify="true"` attributes and honeypot spam protection. Submissions email to hello@goodmorningmurfreesboro.com.
 - **Fonts** — Google Fonts loaded externally: Bebas Neue (headings), Montserrat (body), Lora (serif accents). Referenced via CSS custom properties `--fh`, `--fb`, `--fs`.
 - **Design system** — CSS custom properties in `:root` define the color palette (gold `#C9A84C`, charcoal `#1C1C1C`), fonts, spacing, and transitions.
 - **Images** — all images go in the `/images/` folder. Reference them with absolute paths (e.g., `/images/GMM_Logo.png`).
@@ -18,16 +20,30 @@ Good Morning Murfreesboro (goodmorningmurfreesboro.com) — a community news and
 ## Page Structure
 
 Pages live in subdirectories as `index.html` files for clean URLs:
-- `/index.html` — homepage (hero, intro with YouTube embed, stats, content tiles, features, newsletter)
-- `/about/index.html` — about & team bios
-- `/watch/index.html` — watch episodes (YouTube API integration with fallback episodes)
+- `/index.html` — homepage (hero, intro with auto-fetched YouTube embed, stats, content tiles, features, newsletter)
+- `/about/index.html` — about & team bios with social media links
+- `/watch/index.html` — watch episodes (YouTube Data API v3 integration with fallback episodes)
 - `/events/index.html` — events calendar (list/grid/month views, loads from `events/events.json`)
 - `/nonprofits/index.html` — non-profit partners (alphabetical card grid)
 - `/businesses/index.html` — local business directory (MTE headline sponsor, featured spotlights, directory grid)
-- `/contact/index.html` — contact forms (guest spot, non-profit, shoutout)
+- `/contact/index.html` — contact forms (guest spot, non-profit, general contact)
 - `/privacy-policy/index.html` — privacy policy
 - `/terms-of-use/index.html` — terms of use
 - `/accessibility/index.html` — accessibility statement
+
+## Security
+
+- **Headers** — configured in both `_headers` and `netlify.toml`: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, X-XSS-Protection, HSTS (with preload), and full Content-Security-Policy.
+- **XSS protection** — all external data (scraped events, YouTube API responses) is HTML-escaped via `esc()` helper before innerHTML insertion.
+- **YouTube API key** — restricted by HTTP referrer to goodmorningmurfreesboro.com in Google Cloud Console, and restricted to YouTube Data API v3 only.
+- **External links** — all use `target="_blank" rel="noopener noreferrer"`.
+
+## YouTube Integration
+
+- **API key** — hardcoded in `watch/index.html` and `index.html` (client-side, referrer-restricted).
+- **Channel ID** — `UCz5AtMQFFYqgzAeg8ye2Uvw`
+- **Homepage** — auto-fetches latest video via API, falls back to hardcoded embed if API fails.
+- **Watch page** — fetches latest 5 videos, displays 1 featured + 4 cards. Falls back to `FALLBACK_EPISODES` array.
 
 ## Scraper
 
@@ -42,5 +58,18 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 - **Nav** — always white background with dark text. `aria-current="page"` marks the active page link. All pages include: Home, About, Watch, Events, Non-Profits, Businesses, + Get Featured.
 - **Footer** — consistent across all pages: newsletter signup, site links, social links (Facebook, Instagram, TikTok, YouTube). Heading: "START YOUR DAY WITH GOOD MORNING MURFREESBORO."
 - **MTE sponsor** — headline sponsor with blue gradient glow effect, uses `/images/Logo_MTE_Tagline_Horizontal_Blues_16x9.avif`.
+- **615 Insurance Agency** — always refer to the full name "615 Insurance Agency" (not "615 Insurance").
 - **Accessibility** — skip-to-content link, `aria-label`/`aria-hidden`/`aria-expanded` attributes throughout, `prefers-reduced-motion` and `prefers-contrast` media queries.
 - **SEO** — structured data (JSON-LD), Open Graph meta tags, canonical URLs.
+
+## Deployment
+
+- Push to `main` branch on GitHub → Netlify auto-deploys.
+- Repository: https://github.com/Rachel1AZ9/GoodMorningMurfreesboro.git
+- DNS: Netlify DNS with Google Workspace MX records for email.
+
+## Placeholder Links
+
+Some `href="#"` links remain and need real URLs when available:
+- **Businesses page** — Blackbelt, Valley Growers, TMX Creative
+- **Nonprofits page** — Glenn Turkey Giveaway, Lifehouse Petfinder, 26 Community Partner logos (numbered image files)

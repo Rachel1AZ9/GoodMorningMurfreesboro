@@ -148,16 +148,19 @@
     .field textarea{resize:vertical;min-height:130px;line-height:1.6}
 
     /* Radio group */
-    .radio-group{display:flex;gap:.75rem;flex-wrap:wrap}
+    .radio-group{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
     .radio-label{
-      display:flex;align-items:center;gap:.5rem;
-      padding:.6rem 1rem;
+      display:flex;align-items:center;gap:.6rem;
+      padding:.85rem 1rem;
+      min-height:52px;
       border:1.5px solid var(--gray);
       border-radius:2px;
       cursor:pointer;
-      font-size:.78rem;font-weight:600;
+      font-size:.78rem;font-weight:600;line-height:1.3;
       transition:border-color .2s,background .2s;
     }
+    .radio-label input[type="radio"]{flex-shrink:0}
+    @media(max-width:560px){.radio-group{grid-template-columns:1fr}}
     .radio-label:hover{border-color:var(--gold)}
     .radio-label input[type="radio"]{accent-color:var(--gold)}
     .radio-label:has(input:checked){border-color:var(--gold);background:rgba(201,168,76,.06);color:var(--charcoal)}
@@ -619,7 +622,7 @@
             </div>
             <div class="side-info-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              <span>Airing every Friday at 9am</span>
+              <span>Airing every Friday at 7am CT</span>
             </div>
             <div class="side-info-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -656,7 +659,7 @@
             </div>
             <div class="expect-item">
               <div class="expect-num">3</div>
-              <p class="expect-text"><b>You join the show</b> — live every Friday at 9am on YouTube and social.</p>
+              <p class="expect-text"><b>You join the show</b> — live every Friday at 7am CT on YouTube and social.</p>
             </div>
             <div class="expect-item">
               <div class="expect-num">4</div>

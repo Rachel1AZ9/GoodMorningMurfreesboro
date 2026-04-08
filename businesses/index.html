@@ -184,8 +184,9 @@
     .spotlight:focus-within{outline:3px solid var(--gold);outline-offset:2px}
 
     .spotlight-logo{
-      width:160px;flex-shrink:0;
-      background:var(--gold);
+      width:200px;flex-shrink:0;
+      background:var(--white);
+      border-right:1.5px solid var(--gray);
       display:flex;align-items:center;justify-content:center;
       padding:1.5rem;
       position:relative;
@@ -193,13 +194,20 @@
     }
     .spotlight-logo::after{
       content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+      background:linear-gradient(135deg,rgba(201,168,76,.04),transparent);
+      pointer-events:none;
     }
     .spotlight-logo img{
-      max-width:100%;max-height:80px;
+      max-width:90%;max-height:130px;
+      width:auto;height:auto;
       object-fit:contain;
       position:relative;z-index:1;
       transition:transform .3s var(--ease);
+    }
+    .spotlight-logo .logo-placeholder{
+      font-family:var(--fh);font-size:1.6rem;letter-spacing:.05em;
+      color:var(--charcoal);text-align:center;line-height:1.1;
+      position:relative;z-index:1;
     }
     .spotlight:hover .spotlight-logo img{transform:scale(1.06)}
 
@@ -292,10 +300,14 @@
       border-bottom:1px solid var(--gray);
     }
     .dir-logo-wrap img{
-      max-height:70px;width:auto;max-width:100%;
+      max-height:88px;width:auto;max-width:92%;
       object-fit:contain;
       transition:transform .3s var(--ease);
       filter:grayscale(15%);
+    }
+    .dir-logo-wrap .logo-placeholder{
+      font-family:var(--fh);font-size:1.05rem;letter-spacing:.05em;
+      color:var(--charcoal);text-align:center;line-height:1.1;
     }
     .dir-card:hover .dir-logo-wrap img{transform:scale(1.05);filter:grayscale(0%)}
 
@@ -517,7 +529,7 @@
         <!-- Superior Overhead Doors -->
         <article class="spotlight reveal d2" data-cat="home" aria-label="Superior Overhead Doors — Home and Services">
           <div class="spotlight-logo" aria-hidden="true">
-            <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/12/Untitled-80-%C3%97-40-px-500-x-90-px-500-x-400-px-e1733866559881.png?w=1080&ssl=1" alt="Superior Overhead Doors" loading="lazy" />
+            <img src="/images/SuperiorOverheadDoors.png" alt="Superior Overhead Doors" loading="lazy" />
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Home &amp; Services</p>
@@ -532,7 +544,7 @@
         <!-- Valley Growers -->
         <article class="spotlight reveal d1" data-cat="food" aria-label="Valley Growers">
           <div class="spotlight-logo" aria-hidden="true">
-            <span style="font-family:var(--fh);font-size:1.8rem;color:rgba(255,255,255,.5);letter-spacing:.05em;position:relative;z-index:1;text-align:center;line-height:1.1">VALLEY<br>GROWERS</span>
+            <span class="logo-placeholder">VALLEY<br>GROWERS</span>
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Food &amp; Drink</p>
@@ -547,7 +559,7 @@
         <!-- KDGI Architecture -->
         <article class="spotlight reveal d2" data-cat="creative" aria-label="KDGI Architecture">
           <div class="spotlight-logo" aria-hidden="true">
-            <span style="font-family:var(--fh);font-size:2rem;color:rgba(255,255,255,.5);letter-spacing:.05em;position:relative;z-index:1">KDGI</span>
+            <img src="/images/KDGI.png" alt="KDGi Architecture" loading="lazy" />
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Architecture</p>
@@ -562,7 +574,7 @@
         <!-- TMX Creative -->
         <article class="spotlight reveal d1" data-cat="creative" aria-label="TMX Creative">
           <div class="spotlight-logo" aria-hidden="true">
-            <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2025/05/tmx.png?resize=1050%2C600&ssl=1" alt="TMX Creative" loading="lazy" />
+            <span class="logo-placeholder">TMX<br>CREATIVE</span>
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Creative Services</p>
@@ -577,7 +589,7 @@
         <!-- 615 Insurance -->
         <article class="spotlight reveal d2" data-cat="insurance" aria-label="615 Insurance Agency">
           <div class="spotlight-logo" aria-hidden="true">
-            <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/11/615-INSURANCE-Agency-3-2-e1730996391758.png?resize=153%2C146&ssl=1" alt="615 Insurance Agency" loading="lazy" />
+            <span class="logo-placeholder">615<br>INSURANCE</span>
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Insurance</p>
@@ -592,7 +604,7 @@
         <!-- InfoRule Social Media -->
         <article class="spotlight reveal d1" data-cat="marketing" aria-label="InfoRule Social Media — Marketing">
           <div class="spotlight-logo" aria-hidden="true">
-            <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/11/Screenshot-2024-11-02-at-7.55.59%E2%80%AFAM.png?w=1080&ssl=1" alt="InfoRule Social Media" loading="lazy" />
+            <img src="/images/InfoRule.png" alt="InfoRule Social Media" loading="lazy" />
           </div>
           <div class="spotlight-body">
             <p class="spotlight-cat">Marketing &amp; Media</p>
@@ -621,7 +633,7 @@
         <div class="dir-card reveal d1" data-cat="insurance" data-name="615 insurance">
           <a href="https://www.615insured.com/" target="_blank" rel="noopener noreferrer" aria-label="615 Insurance Agency">
             <div class="dir-logo-wrap">
-              <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/11/615-INSURANCE-Agency-3-2-e1730996391758.png?resize=153%2C146&ssl=1" alt="615 Insurance Agency" loading="lazy" />
+              <span class="logo-placeholder">615<br>INSURANCE</span>
             </div>
             <div class="dir-card-body">
               <p class="dir-cat">Insurance</p>
@@ -636,7 +648,7 @@
         <div class="dir-card reveal d2" data-cat="marketing" data-name="inforule social media">
           <a href="https://www.inforulesm.com/" target="_blank" rel="noopener noreferrer" aria-label="InfoRule Social Media — Marketing">
             <div class="dir-logo-wrap">
-              <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/11/Screenshot-2024-11-02-at-7.55.59%E2%80%AFAM.png?w=1080&ssl=1" alt="InfoRule Social Media" loading="lazy" />
+              <img src="/images/InfoRule.png" alt="InfoRule Social Media" loading="lazy" />
             </div>
             <div class="dir-card-body">
               <p class="dir-cat">Marketing &amp; Media</p>
@@ -681,7 +693,7 @@
         <div class="dir-card reveal d1" data-cat="home" data-name="superior overhead doors">
           <a href="https://www.superiordoorsoftn.com/" target="_blank" rel="noopener noreferrer" aria-label="Superior Overhead Doors — Home and Services">
             <div class="dir-logo-wrap">
-              <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2024/12/Untitled-80-%C3%97-40-px-500-x-90-px-500-x-400-px-e1733866559881.png?w=1080&ssl=1" alt="Superior Overhead Doors" loading="lazy" />
+              <img src="/images/SuperiorOverheadDoors.png" alt="Superior Overhead Doors" loading="lazy" />
             </div>
             <div class="dir-card-body">
               <p class="dir-cat">Home &amp; Services</p>
@@ -696,7 +708,7 @@
         <div class="dir-card reveal d2" data-cat="creative" data-name="tmx creative">
           <a href="https://tmxcreative.com/" aria-label="TMX Creative" target="_blank" rel="noopener noreferrer">
             <div class="dir-logo-wrap">
-              <img src="https://i0.wp.com/goodmorningmurfreesboro.com/wp-content/uploads/2025/05/tmx.png?resize=1050%2C600&ssl=1" alt="TMX Creative" loading="lazy" />
+              <span class="logo-placeholder">TMX<br>CREATIVE</span>
             </div>
             <div class="dir-card-body">
               <p class="dir-cat">Creative Services</p>
@@ -869,6 +881,7 @@
         <a href="/privacy-policy">Privacy Policy</a>
         <a href="/terms-of-use">Terms of Use</a>
         <a href="/accessibility">Accessibility</a>
+        <a href="/media-kit">Media Kit</a>
       </nav>
     </div>
   </footer>

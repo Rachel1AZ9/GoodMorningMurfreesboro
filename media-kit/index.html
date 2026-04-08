@@ -74,8 +74,8 @@
     .intro{font-family:var(--fs);font-size:1.05rem;line-height:1.85;color:#444;margin-bottom:2.5rem;text-align:center;max-width:720px;margin-left:auto;margin-right:auto}
 
     /* Video */
-    .video-wrap{position:relative;border-radius:4px;overflow:hidden;background:var(--charcoal);margin-bottom:3rem;box-shadow:0 20px 50px -20px rgba(0,0,0,.3)}
-    .video-wrap video{display:block;width:100%;height:auto}
+    .video-wrap{position:relative;border-radius:4px;overflow:hidden;background:var(--charcoal);margin-bottom:3rem;box-shadow:0 20px 50px -20px rgba(0,0,0,.3);aspect-ratio:16/9}
+    .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
     /* Asset cards */
     .assets-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:3rem}
@@ -181,10 +181,7 @@
 
       <!-- Promo video -->
       <div class="video-wrap">
-        <video controls preload="metadata" poster="/images/GMM_VideoThumb.png" aria-label="Good Morning Murfreesboro sponsorship promo video">
-          <source src="/media-kit/GMM-Sponsorship-Promo.mp4" type="video/mp4" />
-          Your browser does not support embedded video. <a href="/media-kit/GMM-Sponsorship-Promo.mp4">Download the promo video</a>.
-        </video>
+        <iframe src="https://www.youtube.com/embed/lvgdSySTUTU" title="Good Morning Murfreesboro sponsorship promo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
 
       <!-- Downloadable assets -->
@@ -206,9 +203,9 @@
           </div>
           <h3>Promo Video</h3>
           <p>A short promo introducing the show, our community focus, and what sponsorship looks like in action.</p>
-          <a href="/media-kit/GMM-Sponsorship-Promo.mp4" class="asset-btn" target="_blank" rel="noopener" download>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Video
+          <a href="https://youtu.be/lvgdSySTUTU" class="asset-btn" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch on YouTube
           </a>
         </div>
       </div>

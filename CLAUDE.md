@@ -30,6 +30,7 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 - `/privacy-policy/index.html` — privacy policy
 - `/terms-of-use/index.html` — terms of use
 - `/accessibility/index.html` — accessibility statement
+- `/media-kit/index.html` — media kit with sponsorship deck PDF and promo video for prospective sponsors
 
 ## Security
 
@@ -56,7 +57,7 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 - **Scroll-reveal animations** — elements with class `reveal` are observed via `IntersectionObserver` and get class `visible` added when in viewport. Delay classes `d1`–`d5` stagger animations.
 - **Mobile nav** — hamburger button toggles a full-screen `.drawer` overlay. Escape key closes it. Focus is managed for accessibility.
 - **Nav** — always white background with dark text. `aria-current="page"` marks the active page link. All pages include: Home, About, Watch, Events, Non-Profits, Businesses, + Get Featured.
-- **Footer** — consistent across all pages: newsletter signup, site links, social links (Facebook, Instagram, TikTok, YouTube). Heading: "START YOUR DAY WITH GOOD MORNING MURFREESBORO."
+- **Footer** — consistent across all pages: newsletter signup, site links, social links (Facebook, Instagram, TikTok, YouTube). Heading: "START YOUR DAY WITH GOOD MORNING MURFREESBORO." Legal row includes Privacy Policy, Terms of Use, Accessibility, Media Kit, and (on some pages) Contact. Copyright line credits "Website design and creation by I Got A Guy, LLC".
 - **MTE sponsor** — headline sponsor with blue gradient glow effect, uses `/images/Logo_MTE_Tagline_Horizontal_Blues_16x9.avif`.
 - **615 Insurance Agency** — always refer to the full name "615 Insurance Agency" (not "615 Insurance").
 - **Accessibility** — skip-to-content link, `aria-label`/`aria-hidden`/`aria-expanded` attributes throughout, `prefers-reduced-motion` and `prefers-contrast` media queries.

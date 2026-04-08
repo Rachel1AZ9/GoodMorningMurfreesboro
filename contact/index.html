@@ -126,7 +126,7 @@
     .field{display:flex;flex-direction:column;gap:.4rem}
     .field > label{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--charcoal)}
     .field > label .req{color:var(--gold);margin-left:.2rem}
-    .field input,.field select,.field textarea{
+    .field > input,.field > select,.field > textarea{
       padding:.85rem 1rem;
       border:1.5px solid var(--gray);
       border-radius:2px;
@@ -138,14 +138,14 @@
       transition:border-color .2s,background .2s,box-shadow .2s;
       width:100%;
     }
-    .field input:focus,.field select:focus,.field textarea:focus{
+    .field > input:focus,.field > select:focus,.field > textarea:focus{
       border-color:var(--gold);
       background:var(--white);
       box-shadow:0 0 0 3px rgba(201,168,76,.12);
     }
-    .field input::placeholder,.field textarea::placeholder{color:#bbb}
-    .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer}
-    .field textarea{resize:vertical;min-height:130px;line-height:1.6}
+    .field > input::placeholder,.field > textarea::placeholder{color:#bbb}
+    .field > select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;cursor:pointer}
+    .field > textarea{resize:vertical;min-height:130px;line-height:1.6}
 
     /* Radio group */
     .radio-group{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}

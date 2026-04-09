@@ -10,9 +10,9 @@ Good Morning Murfreesboro (goodmorningmurfreesboro.com) — a community news and
 
 - **Static site** — plain HTML/CSS/JS with no build step or framework. Use a local server (`python3 -m http.server 8000`) to develop since pages use absolute paths.
 - **Single-page structure** — all CSS is inlined in `<style>` within each page's HTML; all JS is inlined in a `<script>` block at the end of `<body>`. No external CSS/JS files.
-- **Hosting** — Netlify with auto-deploy from GitHub `main` branch. DNS managed by Netlify DNS.
-- **Domain** — goodmorningmurfreesboro.com (HTTPS enforced, www redirects to non-www).
-- **Forms** — Netlify Forms with `data-netlify="true"` attributes and honeypot spam protection. Submissions email to hello@goodmorningmurfreesboro.com.
+- **Hosting stack** — Domain registered at GoDaddy. DNS / SSL / CDN / cache at Cloudflare. Site is hosted on Vercel (auto-deploys from GitHub `main` branch). After pushing changes, Cloudflare's edge cache typically needs to be purged (Caching → Configuration → Purge Everything) before updates are visible.
+- **Domain** — goodmorningmurfreesboro.com (HTTPS enforced, non-www redirects to www).
+- **Forms** — `data-netlify="true"` attributes and honeypot spam protection remain in the markup, but the site is no longer on Netlify, so form submissions are not actively wired up. Revisit when reconnecting forms.
 - **Fonts** — Google Fonts loaded externally: Bebas Neue (headings), Montserrat (body), Lora (serif accents). Referenced via CSS custom properties `--fh`, `--fb`, `--fs`.
 - **Design system** — CSS custom properties in `:root` define the color palette (gold `#C9A84C`, charcoal `#1C1C1C`), fonts, spacing, and transitions.
 - **Images** — all images go in the `/images/` folder. Reference them with absolute paths (e.g., `/images/GMM_Logo.png`).
@@ -57,7 +57,7 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 - **Scroll-reveal animations** — elements with class `reveal` are observed via `IntersectionObserver` and get class `visible` added when in viewport. Delay classes `d1`–`d5` stagger animations.
 - **Mobile nav** — hamburger button toggles a full-screen `.drawer` overlay. Escape key closes it. Focus is managed for accessibility.
 - **Nav** — always white background with dark text. `aria-current="page"` marks the active page link. All pages include: Home, About, Watch, Events, Non-Profits, Businesses, + Get Featured.
-- **Footer** — consistent across all pages: newsletter signup, site links, social links (Facebook, Instagram, TikTok, YouTube). Heading: "START YOUR DAY WITH GOOD MORNING MURFREESBORO." Legal row includes Privacy Policy, Terms of Use, Accessibility, Media Kit, and (on some pages) Contact. Copyright line credits "Website design and creation by I Got A Guy, LLC".
+- **Footer** — consistent across all pages: newsletter signup, site links, social links (Facebook, Instagram, TikTok, YouTube). Heading: "START YOUR DAY WITH GOOD MORNING MURFREESBORO." Legal row includes Privacy Policy, Terms of Use, Accessibility, and (on some pages) Contact. Media Kit lives in the Get Featured footer column on pages that have one (index, about, contact, watch, events, nonprofits, businesses); on pages without a Get Featured column (media-kit, privacy-policy, terms-of-use, accessibility) the Media Kit link is omitted. Copyright line credits "Website design and creation by I Got A Guy, LLC".
 - **MTE sponsor** — headline sponsor with blue gradient glow effect, uses `/images/Logo_MTE_Tagline_Horizontal_Blues_16x9.avif`.
 - **615 Insurance Agency** — always refer to the full name "615 Insurance Agency" (not "615 Insurance").
 - **Accessibility** — skip-to-content link, `aria-label`/`aria-hidden`/`aria-expanded` attributes throughout, `prefers-reduced-motion` and `prefers-contrast` media queries.
@@ -65,14 +65,14 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 
 ## Deployment
 
-- Push to `main` branch on GitHub → Netlify auto-deploys.
+- Push to `main` branch on GitHub → Vercel auto-deploys (no GitHub webhook in repo settings; Vercel uses its own GitHub App integration).
+- After Vercel deploy completes, purge Cloudflare cache (Caching → Configuration → Purge Everything) so the edge serves the new HTML.
 - Repository: https://github.com/Rachel1AZ9/GoodMorningMurfreesboro.git
-- DNS: Netlify DNS with Google Workspace MX records for email.
+- DNS: Cloudflare DNS. Domain registered at GoDaddy.
 
 ## Placeholder Links
 
-A few `href="#"` links remain and need real URLs when available:
-- **Nonprofits page** — Black Belt Bowling, Glenn Turkey Giveaway, Lifehouse Petfinder
+- **Nonprofits page** — Tools for Schools is unlinked (no specific Rutherford County organization identified by that exact name).
 
 ## Broken Images
 

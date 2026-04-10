@@ -568,7 +568,7 @@
       try {
         const API_KEY = 'AIzaSyCoGdjHpWUCL3z-jUBEf69Rdd-Wr_Rlmug';
         const CHANNEL_ID = 'UCz5AtMQFFYqgzAeg8ye2Uvw';
-        const r = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=1&type=video`);
+        const r = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=1&type=video&videoDuration=long`);
         if (!r.ok) return;
         const data = await r.json();
         const vid = data.items?.[0];

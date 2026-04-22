@@ -12,7 +12,7 @@ Good Morning Murfreesboro (goodmorningmurfreesboro.com) — a community news and
 - **Single-page structure** — all CSS is inlined in `<style>` within each page's HTML; all JS is inlined in a `<script>` block at the end of `<body>`. No external CSS/JS files.
 - **Hosting stack** — Domain registered at GoDaddy. DNS / SSL / CDN / cache at Cloudflare. Site is hosted on Vercel (auto-deploys from GitHub `main` branch). After pushing changes, Cloudflare's edge cache typically needs to be purged (Caching → Configuration → Purge Everything) before updates are visible.
 - **Domain** — goodmorningmurfreesboro.com (HTTPS enforced, non-www redirects to www).
-- **Forms** — `data-netlify="true"` attributes and honeypot spam protection remain in the markup, but the site is no longer on Netlify, so form submissions are not actively wired up. Revisit when reconnecting forms.
+- **Forms** — Contact forms (guest-spot, nonprofit-request, general-contact) POST to a Google Apps Script web app (`apps-script/Code.gs` is the source of truth) which verifies a Cloudflare Turnstile token and emails `hello@goodmorningmurfreesboro.com`. The newsletter form in the footer still has `data-netlify="true"` and is not yet wired up — follow-up needed (requires updating every page's footer).
 - **Fonts** — Google Fonts loaded externally: Bebas Neue (headings), Montserrat (body), Lora (serif accents). Referenced via CSS custom properties `--fh`, `--fb`, `--fs`.
 - **Design system** — CSS custom properties in `:root` define the color palette (gold `#C9A84C`, charcoal `#1C1C1C`), fonts, spacing, and transitions.
 - **Images** — all images go in the `/images/` folder. Reference them with absolute paths (e.g., `/images/GMM_Logo.png`).

@@ -727,13 +727,15 @@
       <p class="fl">Stay Connected</p>
       <h2>START YOUR DAY WITH<br/>GOOD MORNING MURFREESBORO.</h2>
       <p>Local news, events, and community stories — delivered free to your inbox every morning.</p>
-      <form class="nl-form" id="form-newsletter" name="newsletter" method="POST" aria-label="Newsletter signup form">
+      <form id="form-newsletter" name="newsletter" method="POST" aria-label="Newsletter signup form">
         <input type="hidden" name="form-name" value="newsletter" />
         <input type="hidden" name="bot-field" aria-hidden="true" />
-        <label for="nl-email" class="sr">Email address</label>
-        <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" aria-required="true" />
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADBLWIOzWtGYDzUy" style="margin:.5rem 0"></div>
-        <button type="submit">Subscribe</button>
+        <div class="nl-form">
+          <label for="nl-email" class="sr">Email address</label>
+          <input type="email" id="nl-email" name="email" placeholder="your@email.com" required autocomplete="email" aria-required="true" />
+          <button type="submit">Subscribe</button>
+        </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADBLWIOzWtGYDzUy" style="display:flex;justify-content:center;margin:.75rem auto 0"></div>
       </form>
       <script>
         (function () {
@@ -844,11 +846,6 @@
     }), {threshold:.12});
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // Newsletter
-    document.querySelector('.nl-form')?.addEventListener('submit', e => {
-      const b = e.currentTarget.querySelector('button');
-      b.textContent = 'Subscribed ✓'; b.style.background = '#1a5c2a'; b.disabled = true;
-    });
   </script>
 </body>
 </html>

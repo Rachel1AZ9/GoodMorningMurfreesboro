@@ -22,6 +22,8 @@
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#C9A84C" />
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -366,7 +368,7 @@
             <p>Thanks for reaching out! Our team will review your request and get back to you within 2–3 business days.</p>
           </div>
 
-          <form class="form" id="form-guest" name="guest-spot" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <form class="form" id="form-guest" name="guest-spot" method="POST" novalidate>
             <input type="hidden" name="form-name" value="guest-spot" />
             <input type="hidden" name="bot-field" aria-hidden="true" />
 
@@ -428,6 +430,10 @@
               </select>
             </div>
 
+            <div class="field">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAADBLWIOzWtGYDzUy"></div>
+            </div>
+
             <button type="submit" class="submit-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Submit Guest Spot Request
@@ -450,7 +456,7 @@
             <p>We love supporting the Murfreesboro community. Our team will review your submission and reach out within 2–3 business days.</p>
           </div>
 
-          <form class="form" id="form-nonprofit" name="nonprofit-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <form class="form" id="form-nonprofit" name="nonprofit-request" method="POST" novalidate>
             <input type="hidden" name="form-name" value="nonprofit-request" />
             <input type="hidden" name="bot-field" aria-hidden="true" />
 
@@ -516,6 +522,10 @@
               </select>
             </div>
 
+            <div class="field">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAADBLWIOzWtGYDzUy"></div>
+            </div>
+
             <button type="submit" class="submit-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
               Submit Non-Profit Request
@@ -538,7 +548,7 @@
             <p>We got it! Our team will be in touch soon. Thank you for being part of the Good Morning Murfreesboro community.</p>
           </div>
 
-          <form class="form" id="form-general" name="general-contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <form class="form" id="form-general" name="general-contact" method="POST" novalidate>
             <input type="hidden" name="form-name" value="general-contact" />
             <input type="hidden" name="bot-field" aria-hidden="true" />
 
@@ -597,6 +607,10 @@
                 <option>Local event</option>
                 <option>Other</option>
               </select>
+            </div>
+
+            <div class="field">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAADBLWIOzWtGYDzUy"></div>
             </div>
 
             <button type="submit" class="submit-btn">
@@ -754,6 +768,8 @@
     window.addEventListener('hashchange', checkHash);
 
     // ── Form submissions ───────────────────────────────────────────────────
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5JXKA_ETozUoVoTAnWDyxlKdBPrJSukR14mpcaN_JYuq-yq8veeicQroasyDt5M4/exec';
+
     function handleSubmit(formId, successId) {
       const form = document.getElementById(formId);
       const success = document.getElementById(successId);
@@ -782,16 +798,26 @@
         btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg> Sending...';
         btn.disabled = true;
 
+        const data = new FormData(form);
+        if (!data.get('cf-turnstile-response')) {
+          btn.innerHTML = origText;
+          btn.disabled = false;
+          alert('Please complete the captcha before submitting.');
+          return;
+        }
+
         try {
-          const data = new FormData(form);
-          await fetch('/', { method: 'POST', body: data });
+          const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: data });
+          const result = await res.json().catch(() => ({ ok: false }));
+          if (!result.ok) throw new Error(result.error || 'submission-failed');
           form.style.display = 'none';
           success.classList.add('show');
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } catch {
-          // Still show success (Netlify handles the actual submission)
-          form.style.display = 'none';
-          success.classList.add('show');
+        } catch (err) {
+          btn.innerHTML = origText;
+          btn.disabled = false;
+          if (window.turnstile) window.turnstile.reset();
+          alert("Sorry, we couldn't send your message. Please try again or email hello@goodmorningmurfreesboro.com directly.");
         }
       });
     }

@@ -7,9 +7,9 @@ Community news and events website for Murfreesboro, Tennessee. Live every Friday
 ## Tech Stack
 
 - Static HTML/CSS/JS (no framework or build step)
-- Hosted on [Netlify](https://www.netlify.com) with auto-deploy from `main`
+- Hosted on [Vercel](https://vercel.com) with auto-deploy from `main`, fronted by Cloudflare (DNS/CDN)
 - YouTube Data API v3 for episode integration
-- Netlify Forms for contact submissions
+- Google Apps Script + Cloudflare Turnstile for contact form submissions
 - Google Workspace for email (hello@goodmorningmurfreesboro.com)
 
 ## Local Development
@@ -44,12 +44,12 @@ Output: `events/events.json`
 
 ## Deployment
 
-Push to `main` → Netlify auto-deploys. No build command needed.
+Push to `main` → Vercel auto-deploys. No build command needed. After the deploy completes, purge the Cloudflare cache (Caching → Configuration → Purge Everything) so the edge serves the new HTML.
 
 ## Security
 
 - HTTPS enforced with HSTS preload
-- Full Content-Security-Policy
+- Full Content-Security-Policy and security headers served via `vercel.json`
 - XSS protection on all dynamic content
 - YouTube API key restricted by referrer and API scope
-- Netlify form honeypot spam protection
+- Honeypot field + Cloudflare Turnstile spam protection on forms

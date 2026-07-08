@@ -34,7 +34,7 @@ Pages live in subdirectories as `index.html` files for clean URLs:
 
 ## Security
 
-- **Headers** — configured in both `_headers` and `netlify.toml`: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, X-XSS-Protection, HSTS (with preload), and full Content-Security-Policy.
+- **Headers** — configured in `vercel.json` (the host is Vercel, which ignores the old `_headers`/`netlify.toml` — those were removed): X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, HSTS (with preload), and full Content-Security-Policy. The CSP allowlists Google Fonts/APIs, YouTube, Cloudflare Turnstile, Google Apps Script, and Metricool. (Deprecated X-XSS-Protection was dropped.)
 - **XSS protection** — all external data (scraped events, YouTube API responses) is HTML-escaped via `esc()` helper before innerHTML insertion.
 - **YouTube API key** — restricted by HTTP referrer to goodmorningmurfreesboro.com in Google Cloud Console, and restricted to YouTube Data API v3 only.
 - **External links** — all use `target="_blank" rel="noopener noreferrer"`.

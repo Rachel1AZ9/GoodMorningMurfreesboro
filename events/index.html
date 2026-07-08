@@ -592,6 +592,11 @@
     return d.innerHTML;
   }
 
+  // Only allow http(s) URLs; blocks javascript:/data: and other schemes.
+  function safeUrl(u) {
+    return /^https?:\/\//i.test(String(u || '')) ? String(u) : '';
+  }
+
   function formatDate(d) {
     if (!d) return '';
     return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
@@ -693,7 +698,12 @@
     });
   }
 
-  function catClass(cat) { return `cat-${cat || 'general'}`; }
+  // Sanitize into a safe CSS class token so untrusted category values can't
+  // break out of the class="" attribute.
+  function catClass(cat) {
+    const slug = String(cat || 'general').toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    return 'cat-' + (slug || 'general');
+  }
 
   function renderListCard(e) {
     const d = parseDate(e.date);
@@ -890,8 +900,9 @@
     $('modal-meta').innerHTML = metaHTML;
 
     $('modal-desc').textContent = e.description || 'No description available.';
-    $('modal-actions').innerHTML = e.link && e.link !== '#'
-      ? `<a href="${esc(e.link)}" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-gold">View Full Event →</a><button class="modal-btn modal-btn-outline" onclick="closeModal()">Close</button>`
+    const eventLink = safeUrl(e.link);
+    $('modal-actions').innerHTML = eventLink
+      ? `<a href="${esc(eventLink)}" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-gold">View Full Event →</a><button class="modal-btn modal-btn-outline" onclick="closeModal()">Close</button>`
       : `<button class="modal-btn modal-btn-gold" onclick="closeModal()">Close</button>`;
 
     const overlay = $('modal');
